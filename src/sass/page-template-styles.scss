@@ -1,124 +1,316 @@
 // The most broadly used CSS Custom Properties for quick theming.
 // Uncomment to use and reference engrid-scrips SASS files for more CSS Custom Properties.
 // All CSS Custom Properties should be scoped to the theme using CSS Data Attributes.
-[data-engrid-theme="organizational-name"]{
-    // TYPOGRAPHY DEFAULT
-    // --default_font-family: var(--native-fonts__sans-serif);
-    // --default_color: initial;
-    // --default_font-size: var(--root_font-size);
-    // --default_font-weight: initial;
-    // --default_line-height: initial;
+[data-engrid-theme="shatterproof"] {
+  --color_primary: #f26722;
+  --error__colorr: #f22222;
+  --error__color_faded: #fef4f5;
+  // TYPOGRAPHY DEFAULT
+  // --default_font-family: var(--native-fonts__sans-serif);
+  // --default_color: initial;
+  // --default_font-size: var(--root_font-size);
+  // --default_font-weight: initial;
+  // --default_line-height: initial;
 
-    // TYPOGRAPHY H1
-    // --h1_font-family: var(--default_font-family);
-    // --h1_color: initial;
-    // --h1_font-size: calc(var(--root_font-size) * var(--scale-up_160pct));
-    // --h1_font-weight: initial;
-    // --h1_line-height: initial;
-        
-    // TYPOGRAPHY P
-    // --p_font-family: var(--default_font-family);
-    // --p_color: initial;
-    // --p_font-size: var(--root_font-size);
-    // --p_font-weight: initial;
-    // --p_line-height: initial;
+  // TYPOGRAPHY H1
+  // --h1_font-family: var(--default_font-family);
+  --h1_color: var(--color_primary);
+  // --h1_font-size: calc(var(--root_font-size) * var(--scale-up_160pct));
+  // --h1_font-weight: initial;
+  --h1_line-height: calc(var(--default_font-size) * var(--scale-up_160pct));
 
-    // TYPOGRAPHY A
-    // --a_font-family: var(--default_font-family);
-    // --a_color: initial;
-    // --a_text-decoration: underline;
+  // TYPOGRAPHY P
+  // --p_font-family: var(--default_font-family);
+  // --p_color: initial;
+  // --p_font-size: var(--root_font-size);
+  // --p_font-weight: initial;
+  // --p_line-height: initial;
 
-    // TYPOGRAPHY A:FOCUS
-    // TYPOGRAPHY A:HOVER
-    // --a_color_hover: var(--a_color);
-    // --a_text-decoration_hover: initial;
+  // TYPOGRAPHY A
+  // --a_font-family: var(--default_font-family);
+  // --a_color: initial;
+  // --a_text-decoration: underline;
 
-    // TYPOGRAPHY INPUT
-    // --input_font-family: var(--default_font-family);
-    // --input_color: #000000;
-    // --input_font-size: var(--root_font-size);
-    // --input_font-weight: initial;
-    // --input_line-height: initial;
-    // --input_background-color: #fafafa;
-    // --input_border-width: 1px;
-    // --input_border-color: #dfdfe1;
-    // --input_border-radius: 6px;
-    // --input_placeholder-color: var(--color_light-gray);
-    // --input_box-shadow: inset 0 2px 2px -1px rgba(74, 74, 104, 0.1);
-        
-    // TYPOGRAPHY INPUT:FOCUS
-    // TYPOGRAPHY INPUT:HOVER
-    // --input_color_hover: var(--input_color);
-    // --input_background-color_hover: var(--input_background-color);
-    // --input_border-color_hover: #767677;
-    // --input_border-bottom-color_hover: var(--input_border-color_hover);
-    // --input_box-shadow_hover: --input_box-shadow;
+  // TYPOGRAPHY A:FOCUS
+  // TYPOGRAPHY A:HOVER
+  // --a_color_hover: var(--a_color);
+  // --a_text-decoration_hover: initial;
 
-    // TYPOGRAPHY BUTTON
-    // --button_font-family: var(--default_font-family);
-    // --button_color: var(--color_white);
-    // --button_font-size: var(--root_font-size);
-    // --button_font-weight: initial;
-    // --button_line-height: initial;
-    // --button_background-color: #535b61;
-    // --button_border-width: 1px;
-    // --button_border-color: var(--color_black);
-    // --button_border-radius: 6px;
+  // TYPOGRAPHY INPUT
+  // --input_font-family: var(--default_font-family);
+  // --input_color: #000000;
+  // --input_font-size: var(--root_font-size);
+  // --input_font-weight: initial;
+  // --input_line-height: initial;
+  // --input_background-color: #fafafa;
+  // --input_border-width: 1px;
+  // --input_border-color: #dfdfe1;
+  // --input_border-radius: 6px;
+  // --input_placeholder-color: var(--color_light-gray);
+  // --input_box-shadow: inset 0 2px 2px -1px rgba(74, 74, 104, 0.1);
 
-    // TYPOGRAPHY BUTTON:HOVER
-    // --button_color_hover: var(--button_color);
-    // --button_background-color_hover: var(--color_black);
-    // --button_border-color_hover: var(--button_background-color_hover);
+  // TYPOGRAPHY INPUT:FOCUS
+  // TYPOGRAPHY INPUT:HOVER
+  // --input_color_hover: var(--input_color);
+  // --input_background-color_hover: var(--input_background-color);
+  // --input_border-color_hover: #767677;
+  // --input_border-bottom-color_hover: var(--input_border-color_hover);
+  // --input_box-shadow_hover: --input_box-shadow;
 
-    // TYPOGRAPHY BUTTON:SELECTED
-    // --button_color_checked: var(--button_color_hover);
-    // --button_background-color_checked: var(--button_background-color_hover);
-    // --button_border-color_checked: var(--button_border-color_hover);
+  // TYPOGRAPHY BUTTON
+  // --button_font-family: var(--default_font-family);
+  --button_color: var(--color_black);
+  // --button_font-size: var(--root_font-size);
+  --button_font-weight: 500;
+  // --button_line-height: initial;
+  --button_background-color: #ffffff;
+  // --button_border-width: 1px;
+  --button_border-color: var(--input_border-color);
+  --button_border-radius: 3px;
 
-    // DONATION PAGE
-    // --give-monthly-donation-amount-appended-label: "/mo";
-    // --give-annual-donation-amount-appended-label: "/yr";  
-    // --recurring-frequency__button_count: 4;
-    // --donation-amount__button_count: 4;
-    // --give-by-select__button_count: 4;
+  // TYPOGRAPHY BUTTON:HOVER
+  --button_color_hover: #ffffff;
+  --button_background-color_hover: var(--color_primary);
+  // --button_border-color_hover: var(--button_background-color_hover);
+
+  // TYPOGRAPHY BUTTON:SELECTED
+  //   --button_color_checked: var(--button_color_hover);
+  //   --button_background-color_checked: var(--color_primary);
+  // --button_border-color_checked: var(--button_border-color_hover);
+
+  --submit__button_border-color: var(--button_background-color_checked);
+  --submit__button_background-color: var(--button_background-color_checked);
+  --submit__button_color: var(--button_color_checked);
+
+  --submit__button_font-size: 125%;
+
+  --submit__button_border-color_hover: #d54f0d;
+  --submit__button_background-color_hover: #d54f0d;
+  --submit__button_color_hover: #ffffff;
+
+  // DONATION PAGE
+  // --give-monthly-donation-amount-appended-label: "/mo";
+  // --give-annual-donation-amount-appended-label: "/yr";
+  // --recurring-frequency__button_count: 4;
+  // --donation-amount__button_count: 4;
+  // --give-by-select__button_count: 4;
+
+  //   --engrid__body_margin: 0 1rem;
+  --engrid__body_border-radius: 7px;
+  --engrid__body_padding: 0px min(var(--spacing_lg), 5vw);
+
+  --label_font-size: 15px;
+  --label_font-weight: 300;
+  --select_font-weight: 300;
+  --input_font-weight: 300;
+  --textarea_font-weight: 300;
+  --input_border-radius: 3px;
+
+  --checkbox_background-color_checked: var(--color_primary);
+  --checkbox_border-color_checked: var(--color_primary);
+  --checkbox_color_checked: var(--color_white);
 }
 
 /* Add your custom theme styles here */
-[data-engrid-theme="organizational-name"]{
-    @mixin until-mobile-l {
-        // STYLES
+[data-engrid-theme="shatterproof"] {
+  &#en__pagebuilder {
+    .page-alert,
+    .body-headerOutside,
+    .body-bannerOverlay,
+    .body-footerOutside,
+    .content-footerSpacer,
+    .content-preFooter,
+    .content-footer {
+      display: none;
+    }
+  }
+
+  @mixin until-mobile-l {
+    // Let the radio buttons expand to take up their full row
+    .en__field--recurrfreq .en__field__element--radio,
+    .give-by-select .en__field__element--radio {
+      flex-direction: column;
+      flex-wrap: nowrap;
+
+      > * {
+        width: 100%;
+      }
+    }
+  }
+
+  @mixin from-mobile-l {
+    // STYLES
+  }
+
+  @mixin simplified-content-header {
+    // STYLES
+    .content-header {
+      --engrid__content-header_margin: 0;
+    }
+  }
+
+  @mixin simplified-content-footer {
+    // STYLES
+  }
+
+  @mixin simplified-page-backgroundImage {
+    // STYLES
+  }
+
+  // Example Breakpoints Stylings (See engrid-scripts > _engrid-breakpoints.scss for more breakpoints)
+  &[data-engrid-layout] {
+    @include mq($until: mobile-l) {
+      @include until-mobile-l;
     }
 
-    @mixin from-mobile-l {
-        // STYLES
+    @include mq($from: mobile-l) {
+      @include from-mobile-l;
     }
+  }
 
-    @mixin simplified-header {
-        // STLES
+  &[data-engrid-layout="centerleft1col"] {
+    @media screen and (max-width: $centerleft1col_content-column_min-width) {
+      @include simplified-content-header;
+      @include simplified-content-footer;
+      @include simplified-page-backgroundImage;
     }
+  }
 
-    // Example Breakpoints Stylings (See engrid-scripts > _engrid-breakpoints.scss for more breakpoints)
-    &[data-engrid-layout] {
-        @include mq($until: mobile-l){
-            @include until-mobile-l;
-        }
-
-        @include mq($from: mobile-l){
-            @include from-mobile-l;
-        }
+  &[data-engrid-layout="centercenter1col"] {
+    @media screen and (max-width: $centercenter1col_content-column_min-width) {
+      @include simplified-content-header;
+      @include simplified-content-footer;
+      @include simplified-page-backgroundImage;
     }
-    
-    // Example of Shared Layout Stylings
-    &[data-engrid-layout="centerleft1col"]{
-        @media screen and (max-width: $centerleft1col_content-column_min-width) {
-            @include simplified-header;
-        }
-    }
+  }
 
-    &[data-engrid-layout="centerright1col"]{
-        @media screen and (max-width: $centerright1col_content-column_min-width) {
-            @include simplified-header;
-        }
+  &[data-engrid-layout="centerright1col"] {
+    @media screen and (max-width: $centerright1col_content-column_min-width) {
+      @include simplified-content-header;
+      @include simplified-content-footer;
+      @include simplified-page-backgroundImage;
     }
+  }
 
+  &[data-engrid-layout="leftleft1col"] {
+    @media screen and (max-width: $leftleft1col_content-column_min-width) {
+      @include simplified-content-header;
+      @include simplified-content-footer;
+      @include simplified-page-backgroundImage;
+    }
+  }
+
+  &[data-engrid-layout="rightright1col"] {
+    @media screen and (max-width: $rightright1col_content-column_min-width) {
+      @include simplified-content-header;
+      @include simplified-content-footer;
+      @include simplified-page-backgroundImage;
+    }
+  }
+
+  &[data-engrid-layout="centercenter2col"] {
+    @media screen and (max-width: $centercenter2col_content-column_min-width) {
+      @include simplified-content-header;
+      @include simplified-content-footer;
+      @include simplified-page-backgroundImage;
+    }
+  }
+
+  .content-header {
+    --engrid__content-header_background-color: #ffffff;
+    --engrid__content-header_padding: 1.5rem 0;
+    --engrid__content-header_margin: 0 0 min(2rem, 10vh, 10vw) 0;
+    img {
+      padding: 0 min(1rem, max(3vw, 10px));
+      margin: 0;
+    }
+  }
+
+  .body-header,
+  .body-footer {
+    min-height: min(var(--spacing_lg), 5vw);
+  }
+
+  // Strip the top margin from the first child on body top/title/main, and any of its first child children
+  .body-top,
+  .body-top > *:first-child,
+  .body-top > *:first-child > *:first-child,
+  .body-top > *:first-child > *:first-child > *:first-child,
+  .body-top > *:first-child > *:first-child > *:first-child > *:first-child,
+  .body-title,
+  .body-title > *:nth-child(2),
+  .body-title > *:nth-child(2) > *:first-child,
+  .body-title > *:nth-child(2) > *:first-child > *:first-child,
+  .body-title > *:nth-child(2) > *:first-child > *:first-child > *:first-child,
+  .body-main,
+  .body-main > *:first-child,
+  .body-main > *:first-child > *:first-child,
+  .body-main > *:first-child > *:first-child > *:first-child,
+  .body-main > *:first-child > *:first-child > *:first-child > *:first-child {
+    margin-top: 0;
+  }
+
+  // Strip the bottom margin from the first child on body top/title/main, and any of its first child children
+  .body-top,
+  .body-top > *:last-child,
+  .body-top > *:last-child > *:last-child,
+  .body-top > *:last-child > *:last-child > *:last-child,
+  .body-top > *:last-child > *:last-child > *:last-child > *:last-child,
+  .body-title,
+  .body-title > *:last-child,
+  .body-title > *:last-child > *:last-child,
+  .body-title > *:last-child > *:last-child > *:last-child,
+  .body-title > *:last-child > *:last-child > *:last-child > *:last-child,
+  .body-main,
+  .body-main > *:last-child,
+  .body-main > *:last-child > *:last-child,
+  .body-main > *:last-child > *:last-child > *:last-child,
+  .body-main > *:last-child > *:last-child > *:last-child > *:last-child {
+    margin-bottom: 0;
+  }
+
+  .body-title {
+    padding-bottom: 0.75rem;
+  }
+
+  .body-top {
+    padding-top: 0.75rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .en__field--recurrfreq {
+    --recurring-frequency__flex-grow: 1;
+  }
+
+  .en__field--donationAmt {
+    .en__field__item--other {
+      --donation-amount__flex-grow: 1;
+      position: relative;
+
+      input {
+        line-height: var(--donation-amount__button_line-height);
+        padding-left: 2.75ch;
+      }
+
+      &::before {
+        display: block;
+        content: "$";
+        position: absolute;
+        // font-family: inherit;
+        // font-size: 1rem;
+        font-weight: 600;
+        line-height: 0;
+        height: 0;
+        left: 2.25ch;
+        top: calc(50% - 2px);
+      }
+    }
+    &.en__field--withOther--active .en__field__item--other::before {
+      color: #ffffff;
+    }
+  }
+
+  .body-footer {
+    margin-bottom: min(2rem, max(6vw, 20px));
+  }
 }
