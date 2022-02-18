@@ -62,17 +62,21 @@
         body[data-engrid-embedded] {
             background-color: transparent !important;
         }
+
+        body:not(#en__pagebuilder) .page-backgroundImage {
+            background-color: #f7f7f7;
+        }
     </style>
 
     <!-- Placed here so that downloading begins before Engaging Network's CSS and JS files -->
     <link rel="preload"
-        href="https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10089/engrid.min.css?3"
+        href="https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10089/engrid.min.css?4"
         as="style">
 
 </head>
 
 <body data-engrid-theme="shatterproof" data-engrid-layout="centerleft1col" data-engrid-add-input-placeholders
-    data-replace-banner-with-background="if-banner-empty-or-background-video">
+    data-engrid-errors="fancy" data-replace-banner-with-background="if-banner-empty-or-background-video">
     <noscript>With Javascript disabled this page may not function as expected.</noscript>
 
     <!-- Quickly check to see if the page is in an iFrame and if so set the corresponding Custom Attribute so it can also set the background-color. Must be after <body> otherwise there will be a flash of color -->
@@ -84,7 +88,7 @@
 
     <!-- Load ENGrid's CSS here so that it always comes after Engaging Networks CSS which gets injected into <head> -->
     <link
-        href="https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10089/engrid.min.css?3"
+        href="https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10089/engrid.min.css?4"
         rel="stylesheet" type="text/css">
 
     <!-- Start preloading the Header Font, Body Font, and Label Fonts while the CSS files are still being downloaded -->
