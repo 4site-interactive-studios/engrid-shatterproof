@@ -97,6 +97,9 @@
   --submit__button_background-color_hover: #d54f0d;
   --submit__button_color_hover: #ffffff;
 
+  --radio_border-color_selected: var(--color_primary);
+  --radio_box-shadow_selected: inset 0 0 0 6px var(--color_primary);
+
   // DONATION PAGE
   // --give-monthly-donation-amount-appended-label: "/mo";
   // --give-annual-donation-amount-appended-label: "/yr";
@@ -335,6 +338,12 @@
   // Should be moved up to engrid with consideration for downstream client themes that will be impacted
   .en__component--socialshareblock .en__socialShares a img {
     border-radius: 0;
+  }
+
+  // Style the "Would you like to notify someone about your gift?" gift field to be in a column
+  .en__field--NOT_TAGGED_24 .en__field__element--radio {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   #dd-container,

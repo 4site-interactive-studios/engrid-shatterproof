@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Sunday, February 20, 2022 @ 13:49:55 ET
+ *  Date: Sunday, February 20, 2022 @ 14:08:44 ET
  *  By: bryancasler
  *  ENGrid styles: v0.9.6
  *  ENGrid scripts: v0.9.5
@@ -6606,6 +6606,8 @@ body:not([data-engrid-debug]) #debug-bar{
   --submit__button_border-color_hover:#d54f0d;
   --submit__button_background-color_hover:#d54f0d;
   --submit__button_color_hover:#fff;
+  --radio_border-color_selected:var(--color_primary);
+  --radio_box-shadow_selected:inset 0 0 0 6px var(--color_primary);
   --engrid__body_border-radius:7px;
   --engrid__body_padding:0px min(var(--spacing_lg), 5vw);
   --label_font-size:15px;
@@ -6699,6 +6701,10 @@ body:not([data-engrid-debug]) #debug-bar{
 }
 [data-engrid-theme=shatterproof] .en__component--socialshareblock .en__socialShares a img{
   border-radius:0;
+}
+[data-engrid-theme=shatterproof] .en__field--NOT_TAGGED_24 .en__field__element--radio{
+  align-items:flex-start;
+  flex-direction:column;
 }
 [data-engrid-theme=shatterproof] #dd-container .dtd-callout,[data-engrid-theme=shatterproof] .dtd-plugin .dtd-callout{
   background-color:initial;
