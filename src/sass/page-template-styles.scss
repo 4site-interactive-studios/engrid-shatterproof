@@ -346,6 +346,42 @@
     align-items: flex-start;
   }
 
+  // Double the donation theming
+  @mixin dtd-search-input {
+    .dtd-search-input {
+      font-family: var(--input_font-family) !important;
+      color: var(--input_color) !important;
+      font-size: var(--input_font-size) !important;
+      font-weight: var(--input_font-weight) !important;
+      line-height: var(--input_line-height) !important;
+      background-color: var(--input_background-color) !important;
+      border-width: var(--input_border-width) !important;
+      border-color: var(--input_border-color) !important;
+      border-radius: var(--input_border-radius) !important;
+      height: auto !important; // Shared between input, textarea, and select
+      max-width: 100% !important; // Shared between input, textarea, and select
+      width: 100% !important; // Shared between input, textarea, and select
+      min-width: initial !important; // Shared between input, textarea, and select
+      display: block !important; // Shared between input, textarea, and select
+      // -webkit-box-sizing: border-box; // Shared between input, textarea, and select
+      box-sizing: border-box; // Shared between input, textarea, and select
+      margin: 0rem !important; // Shared between input, textarea, and select
+      padding: var(--input_padding) !important;
+      transition: box-shadow 0.25s, border-color 0.25s ease-in-out !important; // Shared between input, textarea, and select
+      border-style: solid !important; // Shared between input, textarea, and select
+
+      &:focus,
+      &:hover {
+        color: var(--input_color_hover) !important;
+        background-color: var(--input_background-color_hover) !important;
+        border-color: var(--input_border-color_hover) !important;
+        border-bottom-color: var(--input_border-bottom-color_hover) !important;
+        // outline: none; // Shared between input:focus, textarea:focus, and select:focus
+        // --input_placeholder-color: hsl(0, 0%, 67%);
+      }
+    }
+  }
+
   #dd-container,
   .dtd-plugin {
     .dtd-callout {
@@ -417,44 +453,33 @@
       box-shadow: none;
     }
 
-    .dtd-search-input {
-      font-family: var(--input_font-family) !important;
-      color: var(--input_color) !important;
-      font-size: var(--input_font-size) !important;
-      font-weight: var(--input_font-weight) !important;
-      line-height: var(--input_line-height) !important;
-      background-color: var(--input_background-color) !important;
-      border-width: var(--input_border-width) !important;
-      border-color: var(--input_border-color) !important;
-      border-radius: var(--input_border-radius) !important;
-      height: auto !important; // Shared between input, textarea, and select
-      max-width: 100% !important; // Shared between input, textarea, and select
-      width: 100% !important; // Shared between input, textarea, and select
-      min-width: initial !important; // Shared between input, textarea, and select
-      display: block !important; // Shared between input, textarea, and select
-      // -webkit-box-sizing: border-box; // Shared between input, textarea, and select
-      box-sizing: border-box; // Shared between input, textarea, and select
-      margin: 0rem !important; // Shared between input, textarea, and select
-      padding: var(--input_padding) !important;
-      padding-left: 40px !important;
-      transition: box-shadow 0.25s, border-color 0.25s ease-in-out !important; // Shared between input, textarea, and select
-      border-style: solid !important; // Shared between input, textarea, and select
+    @include dtd-search-input;
 
-      &:focus,
-      &:hover {
-        color: var(--input_color_hover) !important;
-        background-color: var(--input_background-color_hover) !important;
-        border-color: var(--input_border-color_hover) !important;
-        border-bottom-color: var(--input_border-bottom-color_hover) !important;
-        // outline: none; // Shared between input:focus, textarea:focus, and select:focus
-        // --input_placeholder-color: hsl(0, 0%, 67%);
-      }
+    .dtd-search-input {
+      padding-left: 40px !important;
     }
 
     button,
     .button,
     a[class*="mg-"][class*="-button"] {
       // Styles their a link buttons like the theme buttons
+      font-family: var(--button_font-family);
+      font-size: var(--button_font-size);
+      font-weight: var(--button_font-weight);
+      line-height: var(--button_line-height);
+      border-width: var(--button_border-width);
+      border-color: var(--button_border-color);
+      border-radius: var(--button_border-radius);
+      cursor: pointer;
+      border-style: solid;
+      padding: var(--button_padding);
+      text-transform: var(--button_text-transform);
+      -webkit-appearance: none;
+      -webkit-transition: background-color 0.2s ease-out, color 0.2s ease-out,
+        border-color 0.2s ease-out;
+      transition: background-color 0.2s ease-out, color 0.2s ease-out,
+        border-color 0.2s ease-out;
+      text-align: center;
       background-color: var(--submit__button_background-color);
       color: var(--submit__button_color);
       border-color: var(--submit__button_border-color);
@@ -477,5 +502,10 @@
         border-color: var(--submit__button_border-color_hover);
       }
     }
+  }
+
+  #dd-company-name-input,
+  .dtd-streamlined-plugin {
+    @include dtd-search-input;
   }
 }
