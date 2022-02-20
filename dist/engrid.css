@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, February 18, 2022 @ 16:43:18 ET
+ *  Date: Sunday, February 20, 2022 @ 13:49:55 ET
  *  By: bryancasler
  *  ENGrid styles: v0.9.6
  *  ENGrid scripts: v0.9.5
@@ -6584,10 +6584,16 @@ body:not([data-engrid-debug]) #debug-bar{
   --color_primary:#f26722;
   --error__colorr:#f22222;
   --error__color_faded:#fef4f5;
-  --h1_color:var(--color_primary);
+  --h1_color:#5c5d5f;
+  --h1_font-weight:600;
   --h1_line-height:calc(var(--default_font-size)*var(--scale-up_160pct));
+  --h2_font-weight:500;
+  --h2_color:var(--color_primary);
+  --h3_color:var(--color_primary);
+  --h4_color:var(--color_primary);
+  --h5_color:var(--color_primary);
+  --h6_color:var(--color_primary);
   --button_color:var(--color_black);
-  --button_font-weight:500;
   --button_background-color:#fff;
   --button_border-color:var(--input_border-color);
   --button_border-radius:3px;
@@ -6623,6 +6629,9 @@ body:not([data-engrid-debug]) #debug-bar{
   [data-engrid-theme=shatterproof][data-engrid-layout] .en__field--recurrfreq .en__field__element--radio>*,[data-engrid-theme=shatterproof][data-engrid-layout] .give-by-select .en__field__element--radio>*{
     width:100%;
   }
+  [data-engrid-theme=shatterproof][data-engrid-layout] .body-header{
+    display:none;
+  }
 }
 @media screen and (max-width:500px){
   [data-engrid-theme=shatterproof][data-engrid-layout=centercenter1col] .content-header,[data-engrid-theme=shatterproof][data-engrid-layout=centerleft1col] .content-header,[data-engrid-theme=shatterproof][data-engrid-layout=centerright1col] .content-header,[data-engrid-theme=shatterproof][data-engrid-layout=leftleft1col] .content-header,[data-engrid-theme=shatterproof][data-engrid-layout=rightright1col] .content-header{
@@ -6640,8 +6649,7 @@ body:not([data-engrid-debug]) #debug-bar{
   --engrid__content-header_margin:0 0 min(2rem, 10vh, 10vw) 0;
 }
 [data-engrid-theme=shatterproof] .content-header img{
-  margin:0;
-  padding:0 min(1rem, max(3vw, 10px));
+  margin:var(--engrid__body-title_padding);
 }
 [data-engrid-theme=shatterproof] .body-footer,[data-engrid-theme=shatterproof] .body-header{
   min-height:min(var(--spacing_lg), 5vw);
@@ -6685,6 +6693,106 @@ body:not([data-engrid-debug]) #debug-bar{
 }
 [data-engrid-theme=shatterproof] .body-footer{
   margin-bottom:min(2rem, max(6vw, 20px));
+}
+[data-engrid-theme=shatterproof] .en__component--socialshareblock:before{
+  display:none;
+}
+[data-engrid-theme=shatterproof] .en__component--socialshareblock .en__socialShares a img{
+  border-radius:0;
+}
+[data-engrid-theme=shatterproof] #dd-container .dtd-callout,[data-engrid-theme=shatterproof] .dtd-plugin .dtd-callout{
+  background-color:initial;
+  border:none;
+  box-shadow:none;
+  color:var(--default_color);
+  font-family:var(--default_font-family);
+  font-size:var(--default_font-size);
+  font-weight:var(--default_font-weight);
+  line-height:var(--default_line-height);
+  padding:0;
+}
+[data-engrid-theme=shatterproof] #dd-container .heading[aria-level="1"],[data-engrid-theme=shatterproof] .dtd-plugin .heading[aria-level="1"]{
+  color:var(--h1_color);
+  font-family:var(--h1_font-family);
+  font-size:var(--h1_font-size);
+  font-weight:var(--h1_font-weight);
+  line-height:var(--h1_line-height);
+  margin-bottom:1rem;
+  margin-top:2rem;
+  text-transform:var(--h1_text-transform);
+}
+[data-engrid-theme=shatterproof] #dd-container .heading[aria-level="2"],[data-engrid-theme=shatterproof] .dtd-plugin .heading[aria-level="2"]{
+  color:var(--h2_color);
+  font-family:var(--h2_font-family);
+  font-size:var(--h2_font-size);
+  font-weight:var(--h2_font-weight);
+  line-height:var(--h2_line-height);
+  margin-bottom:calc(1rem*var(--scale-down_20pct));
+  margin-top:calc(2rem*var(--scale-down_20pct));
+  text-transform:var(--h2_text-transform);
+}
+[data-engrid-theme=shatterproof] #dd-container .heading[aria-level="3"],[data-engrid-theme=shatterproof] .dtd-plugin .heading[aria-level="3"]{
+  color:var(--h3_color);
+  font-family:var(--h3_font-family);
+  font-size:var(--h3_font-size);
+  font-weight:var(--h3_font-weight);
+  line-height:var(--h3_line-height);
+  margin-bottom:calc(1rem*var(--scale-down_40pct));
+  margin-top:calc(2rem*var(--scale-down_40pct));
+  text-transform:var(--h3_text-transform);
+}
+[data-engrid-theme=shatterproof] #dd-container .heading[aria-level="4"],[data-engrid-theme=shatterproof] #dd-container .heading[aria-level="5"],[data-engrid-theme=shatterproof] #dd-container .heading[aria-level="6"],[data-engrid-theme=shatterproof] .dtd-plugin .heading[aria-level="4"],[data-engrid-theme=shatterproof] .dtd-plugin .heading[aria-level="5"],[data-engrid-theme=shatterproof] .dtd-plugin .heading[aria-level="6"]{
+  color:var(--h3_color);
+  font-family:var(--h3_font-family);
+  font-size:calc(var(--h3_font-size)*var(--scale-down_20pct));
+  font-weight:var(--h3_font-weight);
+  line-height:var(--h3_line-height);
+  margin-bottom:calc(1rem*var(--scale-down_80pct));
+  margin-top:calc(2rem*var(--scale-down_80pct));
+  text-transform:var(--h4_text-transform);
+}
+[data-engrid-theme=shatterproof] #dd-container .eligibility-status,[data-engrid-theme=shatterproof] .dtd-plugin .eligibility-status{
+  font-size:var(--default_font-size);
+}
+[data-engrid-theme=shatterproof] #dd-container .dtd-search-box,[data-engrid-theme=shatterproof] .dtd-plugin .dtd-search-box{
+  border:none;
+  box-shadow:none;
+}
+[data-engrid-theme=shatterproof] #dd-container .dtd-search-input,[data-engrid-theme=shatterproof] .dtd-plugin .dtd-search-input{
+  background-color:var(--input_background-color) !important;
+  border:var(--input_border-width) solid var(--input_border-color) !important;
+  border-radius:var(--input_border-radius) !important;
+  box-sizing:border-box;
+  color:var(--input_color) !important;
+  display:block !important;
+  font-family:var(--input_font-family) !important;
+  font-size:var(--input_font-size) !important;
+  font-weight:var(--input_font-weight) !important;
+  height:auto !important;
+  line-height:var(--input_line-height) !important;
+  margin:0 !important;
+  max-width:100% !important;
+  min-width:auto !important;
+  padding:var(--input_padding) !important;
+  padding-left:40px !important;
+  transition:box-shadow .25s,border-color .25s ease-in-out !important;
+  width:100% !important;
+}
+[data-engrid-theme=shatterproof] #dd-container .dtd-search-input:focus,[data-engrid-theme=shatterproof] #dd-container .dtd-search-input:hover,[data-engrid-theme=shatterproof] .dtd-plugin .dtd-search-input:focus,[data-engrid-theme=shatterproof] .dtd-plugin .dtd-search-input:hover{
+  background-color:var(--input_background-color_hover) !important;
+  border-bottom-color:var(--input_border-color_hover) !important;
+  border-color:var(--input_border-color_hover) var(--input_border-color_hover) var(--input_border-bottom-color_hover) !important;
+  color:var(--input_color_hover) !important;
+}
+[data-engrid-theme=shatterproof] #dd-container .button,[data-engrid-theme=shatterproof] #dd-container .button.disabled,[data-engrid-theme=shatterproof] #dd-container .button.disabled:focus,[data-engrid-theme=shatterproof] #dd-container .button.disabled:hover,[data-engrid-theme=shatterproof] #dd-container .button[disabled],[data-engrid-theme=shatterproof] #dd-container .button[disabled]:focus,[data-engrid-theme=shatterproof] #dd-container .button[disabled]:hover,[data-engrid-theme=shatterproof] #dd-container a[class*=mg-][class*=-button],[data-engrid-theme=shatterproof] #dd-container a[class*=mg-][class*=-button].disabled,[data-engrid-theme=shatterproof] #dd-container a[class*=mg-][class*=-button].disabled:focus,[data-engrid-theme=shatterproof] #dd-container a[class*=mg-][class*=-button].disabled:hover,[data-engrid-theme=shatterproof] #dd-container a[class*=mg-][class*=-button][disabled],[data-engrid-theme=shatterproof] #dd-container a[class*=mg-][class*=-button][disabled]:focus,[data-engrid-theme=shatterproof] #dd-container a[class*=mg-][class*=-button][disabled]:hover,[data-engrid-theme=shatterproof] #dd-container button,[data-engrid-theme=shatterproof] #dd-container button.disabled,[data-engrid-theme=shatterproof] #dd-container button.disabled:focus,[data-engrid-theme=shatterproof] #dd-container button.disabled:hover,[data-engrid-theme=shatterproof] #dd-container button[disabled],[data-engrid-theme=shatterproof] #dd-container button[disabled]:focus,[data-engrid-theme=shatterproof] #dd-container button[disabled]:hover,[data-engrid-theme=shatterproof] .dtd-plugin .button,[data-engrid-theme=shatterproof] .dtd-plugin .button.disabled,[data-engrid-theme=shatterproof] .dtd-plugin .button.disabled:focus,[data-engrid-theme=shatterproof] .dtd-plugin .button.disabled:hover,[data-engrid-theme=shatterproof] .dtd-plugin .button[disabled],[data-engrid-theme=shatterproof] .dtd-plugin .button[disabled]:focus,[data-engrid-theme=shatterproof] .dtd-plugin .button[disabled]:hover,[data-engrid-theme=shatterproof] .dtd-plugin a[class*=mg-][class*=-button],[data-engrid-theme=shatterproof] .dtd-plugin a[class*=mg-][class*=-button].disabled,[data-engrid-theme=shatterproof] .dtd-plugin a[class*=mg-][class*=-button].disabled:focus,[data-engrid-theme=shatterproof] .dtd-plugin a[class*=mg-][class*=-button].disabled:hover,[data-engrid-theme=shatterproof] .dtd-plugin a[class*=mg-][class*=-button][disabled],[data-engrid-theme=shatterproof] .dtd-plugin a[class*=mg-][class*=-button][disabled]:focus,[data-engrid-theme=shatterproof] .dtd-plugin a[class*=mg-][class*=-button][disabled]:hover,[data-engrid-theme=shatterproof] .dtd-plugin button,[data-engrid-theme=shatterproof] .dtd-plugin button.disabled,[data-engrid-theme=shatterproof] .dtd-plugin button.disabled:focus,[data-engrid-theme=shatterproof] .dtd-plugin button.disabled:hover,[data-engrid-theme=shatterproof] .dtd-plugin button[disabled],[data-engrid-theme=shatterproof] .dtd-plugin button[disabled]:focus,[data-engrid-theme=shatterproof] .dtd-plugin button[disabled]:hover{
+  background-color:var(--submit__button_background-color);
+  border-color:var(--submit__button_border-color);
+  color:var(--submit__button_color);
+}
+[data-engrid-theme=shatterproof] #dd-container .button:focus,[data-engrid-theme=shatterproof] #dd-container .button:hover,[data-engrid-theme=shatterproof] #dd-container a[class*=mg-][class*=-button]:focus,[data-engrid-theme=shatterproof] #dd-container a[class*=mg-][class*=-button]:hover,[data-engrid-theme=shatterproof] #dd-container button:focus,[data-engrid-theme=shatterproof] #dd-container button:hover,[data-engrid-theme=shatterproof] .dtd-plugin .button:focus,[data-engrid-theme=shatterproof] .dtd-plugin .button:hover,[data-engrid-theme=shatterproof] .dtd-plugin a[class*=mg-][class*=-button]:focus,[data-engrid-theme=shatterproof] .dtd-plugin a[class*=mg-][class*=-button]:hover,[data-engrid-theme=shatterproof] .dtd-plugin button:focus,[data-engrid-theme=shatterproof] .dtd-plugin button:hover{
+  background-color:var(--submit__button_background-color_hover);
+  border-color:var(--submit__button_border-color_hover);
+  color:var(--submit__button_color_hover);
 }
 body{
   opacity:1;
