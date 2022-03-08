@@ -248,6 +248,18 @@
     }
   }
 
+  &[data-engrid-layout*="leftleft"] .page-backgroundImage:before {
+    left: 500px;
+    width: calc(100% - 500px);
+    right: 0px;
+  }
+
+  &[data-engrid-layout*="rightright"] .page-backgroundImage:before {
+    right: 500px;
+    width: calc(100% - 500px);
+    left: 0px;
+  }
+
   &[data-engrid-layout*="center"] {
     --engrid__body_border-radius: 7px;
 
