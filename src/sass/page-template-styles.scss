@@ -108,7 +108,6 @@
   // --give-by-select__button_count: 4;
 
   //   --engrid__body_margin: 0 1rem;
-  --engrid__body_border-radius: 7px;
   --engrid__body_padding: 0px min(var(--spacing_lg), 5vw);
 
   --label_font-size: 15px;
@@ -236,13 +235,35 @@
   .content-header {
     --engrid__content-header_background-color: #ffffff;
     --engrid__content-header_padding: 1.5rem 0;
-    --engrid__content-header_margin: 0 0 min(2rem, 10vh, 10vw) 0;
     img {
       margin: var(--engrid__body-title_padding);
     }
   }
 
-  .body-header,
+  &[data-engrid-layout*="leftleft"],
+  &[data-engrid-layout*="rightright"] {
+    .content-header,
+    .content-footer {
+      grid-column: bc;
+    }
+  }
+
+  &[data-engrid-layout*="center"] {
+    --engrid__body_border-radius: 7px;
+
+    .content-header {
+      --engrid__content-header_margin: 0 0 min(2rem, 10vh, 10vw) 0;
+    }
+
+    .body-header {
+      min-height: min(var(--spacing_lg), 5vw);
+    }
+
+    .body-footer {
+      margin-bottom: min(2rem, max(6vw, 20px));
+    }
+  }
+
   .body-footer {
     min-height: min(var(--spacing_lg), 5vw);
   }
@@ -324,10 +345,6 @@
     &.en__field--withOther--active .en__field__item--other::before {
       color: #ffffff;
     }
-  }
-
-  .body-footer {
-    margin-bottom: min(2rem, max(6vw, 20px));
   }
 
   // Should be moved up to engrid with consideration for downstream client themes that will be impacted

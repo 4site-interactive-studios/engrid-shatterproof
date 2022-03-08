@@ -19,8 +19,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, March 2, 2022 @ 09:07:52 ET
- *  By: fernando
+ *  Date: Monday, March 7, 2022 @ 22:20:26 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.10.4
  *  ENGrid scripts: v0.10.5
  *
@@ -6636,7 +6636,6 @@ body:not([data-engrid-debug]) #debug-bar{
   --submit__button_color_hover:#fff;
   --radio_border-color_selected:var(--color_primary);
   --radio_box-shadow_selected:inset 0 0 0 6px var(--color_primary);
-  --engrid__body_border-radius:7px;
   --engrid__body_padding:0px min(var(--spacing_lg), 5vw);
   --label_font-size:15px;
   --label_font-weight:300;
@@ -6676,12 +6675,26 @@ body:not([data-engrid-debug]) #debug-bar{
 [data-engrid-theme=shatterproof] .content-header{
   --engrid__content-header_background-color:#fff;
   --engrid__content-header_padding:1.5rem 0;
-  --engrid__content-header_margin:0 0 min(2rem, 10vh, 10vw) 0;
 }
 [data-engrid-theme=shatterproof] .content-header img{
   margin:var(--engrid__body-title_padding);
 }
-[data-engrid-theme=shatterproof] .body-footer,[data-engrid-theme=shatterproof] .body-header{
+[data-engrid-theme=shatterproof][data-engrid-layout*=leftleft] .content-footer,[data-engrid-theme=shatterproof][data-engrid-layout*=leftleft] .content-header,[data-engrid-theme=shatterproof][data-engrid-layout*=rightright] .content-footer,[data-engrid-theme=shatterproof][data-engrid-layout*=rightright] .content-header{
+  grid-column:bc;
+}
+[data-engrid-theme=shatterproof][data-engrid-layout*=center]{
+  --engrid__body_border-radius:7px;
+}
+[data-engrid-theme=shatterproof][data-engrid-layout*=center] .content-header{
+  --engrid__content-header_margin:0 0 min(2rem, 10vh, 10vw) 0;
+}
+[data-engrid-theme=shatterproof][data-engrid-layout*=center] .body-header{
+  min-height:min(var(--spacing_lg), 5vw);
+}
+[data-engrid-theme=shatterproof][data-engrid-layout*=center] .body-footer{
+  margin-bottom:min(2rem, max(6vw, 20px));
+}
+[data-engrid-theme=shatterproof] .body-footer{
   min-height:min(var(--spacing_lg), 5vw);
 }
 [data-engrid-theme=shatterproof] .body-main,[data-engrid-theme=shatterproof] .body-main>:first-child,[data-engrid-theme=shatterproof] .body-main>:first-child>:first-child,[data-engrid-theme=shatterproof] .body-main>:first-child>:first-child>:first-child,[data-engrid-theme=shatterproof] .body-main>:first-child>:first-child>:first-child>:first-child,[data-engrid-theme=shatterproof] .body-title,[data-engrid-theme=shatterproof] .body-title>:nth-child(2),[data-engrid-theme=shatterproof] .body-title>:nth-child(2)>:first-child,[data-engrid-theme=shatterproof] .body-title>:nth-child(2)>:first-child>:first-child,[data-engrid-theme=shatterproof] .body-title>:nth-child(2)>:first-child>:first-child>:first-child,[data-engrid-theme=shatterproof] .body-top,[data-engrid-theme=shatterproof] .body-top>:first-child,[data-engrid-theme=shatterproof] .body-top>:first-child>:first-child,[data-engrid-theme=shatterproof] .body-top>:first-child>:first-child>:first-child,[data-engrid-theme=shatterproof] .body-top>:first-child>:first-child>:first-child>:first-child{
@@ -6720,9 +6733,6 @@ body:not([data-engrid-debug]) #debug-bar{
 }
 [data-engrid-theme=shatterproof] .en__field--donationAmt.en__field--withOther--active .en__field__item--other:before{
   color:#fff;
-}
-[data-engrid-theme=shatterproof] .body-footer{
-  margin-bottom:min(2rem, max(6vw, 20px));
 }
 [data-engrid-theme=shatterproof] .en__component--socialshareblock:before{
   display:none;
