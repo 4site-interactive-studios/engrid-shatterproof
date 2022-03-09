@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, March 7, 2022 @ 22:45:45 ET
+ *  Date: Wednesday, March 9, 2022 @ 12:40:32 ET
  *  By: bryancasler
- *  ENGrid styles: v0.10.9
- *  ENGrid scripts: v0.10.8
+ *  ENGrid styles: v0.10.12
+ *  ENGrid scripts: v0.10.11
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10287,6 +10287,7 @@ const OptionsDefaults = {
     CapitalizeFields: false,
     ClickToExpand: true,
     CurrencySymbol: "$",
+    AddCurrencySymbol: true,
     ThousandsSeparator: "",
     DecimalSeparator: ".",
     DecimalPlaces: 2,
@@ -11181,6 +11182,12 @@ class App extends engrid_ENGrid {
             }, 10);
             return;
         }
+        // If there's an option object on the page, override the defaults
+        if (window.hasOwnProperty("EngridPageOptions")) {
+            this.options = Object.assign(Object.assign({}, this.options), window.EngridPageOptions);
+            // Add Options to window
+            window.EngridOptions = this.options;
+        }
         if (this.options.Debug || App.getUrlParameter("debug") == "true")
             // Enable debug if available is the first thing
             App.setBodyData("debug", "");
@@ -11444,7 +11451,8 @@ class AmountLabel {
     }
     // Should we run the script?
     shouldRun() {
-        return engrid_ENGrid.getPageType() === "DONATION";
+        return !!(engrid_ENGrid.getPageType() === "DONATION" &&
+            engrid_ENGrid.getOption("AddCurrencySymbol"));
     }
     // Fix Amount Labels
     fixAmountLabels() {
