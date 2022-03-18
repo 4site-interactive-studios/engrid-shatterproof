@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, March 17, 2022 @ 17:40:25 ET
- *  By: fernando
+ *  Date: Friday, March 18, 2022 @ 01:07:09 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.10.12
  *  ENGrid scripts: v0.10.19
  *
@@ -15206,6 +15206,8 @@ const options = {
   ClickToExpand: true,
   CurrencySymbol: "$",
   DecimalSeparator: ".",
+  MinAmount: 1,
+  MinAmountMessage: "Amount must be at least $1",
   ThousandsSeparator: ",",
   MediaAttribution: true,
   SkipToMainContentLink: true,
