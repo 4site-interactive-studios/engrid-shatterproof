@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, March 18, 2022 @ 15:33:54 ET
- *  By: bryancasler
- *  ENGrid styles: v0.10.12
- *  ENGrid scripts: v0.10.19
+ *  Date: Friday, April 1, 2022 @ 21:02:53 ET
+ *  By: fernando
+ *  ENGrid styles: v0.11.0
+ *  ENGrid scripts: v0.11.0
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10686,6 +10686,16 @@ class engrid_ENGrid {
     // Return any parameter from the URL
     static getUrlParameter(name) {
         const searchParams = new URLSearchParams(window.location.search);
+        // Add support for array on the name ending with []
+        if (name.endsWith("[]")) {
+            let values = [];
+            searchParams.forEach((value, key) => {
+                if (key.startsWith(name.replace("[]", ""))) {
+                    values.push(new Object({ [key]: value }));
+                }
+            });
+            return values.length > 0 ? values : null;
+        }
         if (searchParams.has(name)) {
             return searchParams.get(name) || true;
         }
@@ -11265,6 +11275,10 @@ class App extends engrid_ENGrid {
         new UpsellLightbox();
         // Amount Labels
         new AmountLabel();
+        // Engrid Data Replacement
+        new DataReplace();
+        // ENgrid Hide Script
+        new DataHide();
         // On the end of the script, after all subscribers defined, let's load the current value
         this._amount.load();
         this._frequency.load();
@@ -15149,8 +15163,116 @@ class Ticker {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/data-replace.js
+
+class DataReplace {
+    constructor() {
+        this.logger = new EngridLogger("DataReplace", "#333333", "#00f3ff", "⤵️");
+        this.enElements = new Array();
+        this.logger.log("Constructor");
+        this.searchElements();
+        if (!this.shouldRun()) {
+            this.logger.error("No Elements Found");
+            return;
+        }
+        this.replaceAll();
+    }
+    searchElements() {
+        const enElements = document.querySelectorAll(".en__component--copyblock, .en__field");
+        if (enElements.length > 0) {
+            enElements.forEach((item) => {
+                if (item instanceof HTMLElement &&
+                    item.innerHTML.includes("{engrid_data~")) {
+                    this.enElements.push(item);
+                }
+            });
+        }
+    }
+    shouldRun() {
+        this.logger.log("Elements Found:", this.enElements);
+        return this.enElements.length > 0;
+    }
+    replaceAll() {
+        const regEx = /{engrid_data~\[([\w-]+)\]~?\[?(.+?)?\]?}/g;
+        this.enElements.forEach((item) => {
+            const array = item.innerHTML.matchAll(regEx);
+            for (const match of array) {
+                this.replaceItem(item, match);
+            }
+        });
+    }
+    replaceItem(where, [item, key, defaultValue]) {
+        var _a;
+        let value = (_a = engrid_ENGrid.getUrlParameter(`engrid_data[${key}]`)) !== null && _a !== void 0 ? _a : defaultValue;
+        if (typeof value === "string") {
+            value = value.replace(/\r?\\n|\n|\r/g, "<br>");
+        }
+        else {
+            value = "";
+        }
+        this.logger.log("Replacing", key, value);
+        where.innerHTML = where.innerHTML.replace(item, value);
+    }
+}
+
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/data-hide.js
+
+class DataHide {
+    constructor() {
+        this.logger = new EngridLogger("DataHide", "#333333", "#f0f0f0", "🙈");
+        this.enElements = new Array();
+        this.logger.log("Constructor");
+        this.enElements = engrid_ENGrid.getUrlParameter("engrid_hide[]");
+        if (!this.enElements || this.enElements.length === 0) {
+            this.logger.log("No Elements Found");
+            return;
+        }
+        this.logger.log("Elements Found:", this.enElements);
+        this.hideAll();
+    }
+    hideAll() {
+        this.enElements.forEach((element) => {
+            const item = Object.keys(element)[0];
+            const type = Object.values(element)[0];
+            this.hideItem(item, type);
+        });
+        return;
+    }
+    hideItem(item, type) {
+        const regEx = /engrid_hide\[([\w-]+)\]/g;
+        const itemData = [...item.matchAll(regEx)].map((match) => match[1])[0];
+        switch (type) {
+            case "id":
+                const element = document.getElementById(itemData);
+                if (element) {
+                    this.logger.log("Hiding By ID", itemData, element);
+                    element.setAttribute("hidden-via-url-argument", "");
+                }
+                else {
+                    this.logger.error("Element Not Found By ID", itemData);
+                }
+                break;
+            case "class":
+            default:
+                const elements = document.getElementsByClassName(itemData);
+                if (elements.length > 0) {
+                    for (let i = 0; i < elements.length; i++) {
+                        this.logger.log("Hiding By Class", itemData, elements[i]);
+                        elements[i].setAttribute("hidden-via-url-argument", "");
+                    }
+                }
+                else {
+                    this.logger.log("No Elements Found By Class", itemData);
+                }
+                break;
+        }
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
+
 
 
 
