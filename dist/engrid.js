@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, April 5, 2022 @ 20:20:12 ET
+ *  Date: Tuesday, April 5, 2022 @ 20:25:47 ET
  *  By: fernando
  *  ENGrid styles: v0.11.0
- *  ENGrid scripts: v0.11.4
+ *  ENGrid scripts: v0.11.5
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -11197,8 +11197,6 @@ class App extends engrid_ENGrid {
         if (this.options.Debug || App.getUrlParameter("debug") == "true")
             // Enable debug if available is the first thing
             App.setBodyData("debug", "");
-        // Page Background
-        new PageBackground();
         // TODO: Abstract everything to the App class so we can remove custom-methods
         inputPlaceholder();
         preventAutocomplete();
@@ -11317,6 +11315,8 @@ class App extends engrid_ENGrid {
         new OtherAmount();
         new MinMaxAmount();
         new Ticker();
+        // Page Background
+        new PageBackground();
         this.setDataAttributes();
         engrid_ENGrid.setBodyData("data-engrid-scripts-js-loading", "finished");
     }
