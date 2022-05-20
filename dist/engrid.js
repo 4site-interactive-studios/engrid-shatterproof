@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, April 27, 2022 @ 14:49:16 ET
+ *  Date: Thursday, May 19, 2022 @ 21:04:02 ET
  *  By: fernando
  *  ENGrid styles: v0.11.9
- *  ENGrid scripts: v0.11.15
+ *  ENGrid scripts: v0.11.18
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10414,6 +10414,7 @@ class Loader {
         switch (assets) {
             case "local":
                 this.logger.log("LOADING LOCAL");
+                engrid_ENGrid.setBodyData("assets", "local");
                 engrid_js_url = `https://${engrid_repo}.test/dist/engrid.js`;
                 engrid_css_url = `https://${engrid_repo}.test/dist/engrid.css`;
                 break;
@@ -10703,6 +10704,8 @@ class engrid_ENGrid {
     }
     // Set a value to any field. If it's a dropdown, radio or checkbox, it selects the proper option matching the value
     static setFieldValue(name, value) {
+        if (value === engrid_ENGrid.getFieldValue(name))
+            return;
         document.getElementsByName(name).forEach((field) => {
             if ("type" in field) {
                 switch (field.type) {
@@ -10923,8 +10926,8 @@ class engrid_ENGrid {
         }
         return true;
     }
-    static setError(querySelector, errorMessage) {
-        const errorElement = document.querySelector(querySelector);
+    static setError(element, errorMessage) {
+        const errorElement = typeof element === "string" ? document.querySelector(element) : element;
         if (errorElement) {
             errorElement.classList.add("en__field--validationFailed");
             let errorMessageElement = errorElement.querySelector(".en__field__error");
@@ -10939,8 +10942,8 @@ class engrid_ENGrid {
             }
         }
     }
-    static removeError(querySelector) {
-        const errorElement = document.querySelector(querySelector);
+    static removeError(element) {
+        const errorElement = typeof element === "string" ? document.querySelector(element) : element;
         if (errorElement) {
             errorElement.classList.remove("en__field--validationFailed");
             const errorMessageElement = errorElement.querySelector(".en__field__error");
@@ -10948,6 +10951,11 @@ class engrid_ENGrid {
                 errorElement.removeChild(errorMessageElement);
             }
         }
+    }
+    static isVisible(element) {
+        return !!(element.offsetWidth ||
+            element.offsetHeight ||
+            element.getClientRects().length);
     }
 }
 
@@ -11167,6 +11175,11 @@ class App extends engrid_ENGrid {
         window.EngridOptions = this.options;
         if (loader.reload())
             return;
+        // Turn Debug ON if you use local assets
+        if (engrid_ENGrid.getBodyData("assets") === "local" &&
+            engrid_ENGrid.getUrlParameter("debug") !== "false") {
+            window.EngridOptions.Debug = true;
+        }
         // Document Load
         if (document.readyState !== "loading") {
             this.run();
@@ -11330,6 +11343,8 @@ class App extends engrid_ENGrid {
         new PageBackground();
         // Url Params to Form Fields
         new UrlToForm();
+        // Required if Visible Fields
+        new RequiredIfVisible();
         this.setDataAttributes();
         engrid_ENGrid.setBodyData("data-engrid-scripts-js-loading", "finished");
         window.EngridVersion = AppVersion;
@@ -13342,7 +13357,6 @@ class ShowHideRadioCheckboxes {
         this.elements = document.getElementsByName(elements);
         this.classes = classes;
         this.hideAll();
-        this.logger.log("New:", this.classes, this.elements);
         for (let i = 0; i < this.elements.length; i++) {
             let element = this.elements[i];
             if (element.checked) {
@@ -13367,6 +13381,7 @@ class ShowHideRadioCheckboxes {
         document.querySelectorAll("." + this.classes + inputValue).forEach((el) => {
             // Consider toggling "hide" class so these fields can be displayed when in a debug state
             if (el instanceof HTMLElement) {
+                this.toggleValue(el, "hide");
                 el.style.display = "none";
                 this.logger.log("Hiding", el);
             }
@@ -13378,12 +13393,41 @@ class ShowHideRadioCheckboxes {
         document.querySelectorAll("." + this.classes + inputValue).forEach((el) => {
             // Consider toggling "hide" class so these fields can be displayed when in a debug state
             if (el instanceof HTMLElement) {
+                this.toggleValue(el, "show");
                 el.style.display = "";
                 this.logger.log("Showing", el);
             }
         });
         if (item.type == "checkbox" && !item.checked) {
             this.hide(item);
+        }
+    }
+    // Take the field values and add to a data attribute on the field
+    toggleValue(item, type) {
+        const fields = item.querySelectorAll("input, select, textarea");
+        if (fields.length > 0) {
+            fields.forEach((field) => {
+                var _a;
+                if (field instanceof HTMLInputElement ||
+                    field instanceof HTMLSelectElement) {
+                    if (field.name) {
+                        const fieldValue = engrid_ENGrid.getFieldValue(field.name);
+                        if (!field.hasAttribute("data-original-value")) {
+                            field.setAttribute("data-original-value", fieldValue);
+                        }
+                        const originalValue = field.getAttribute("data-original-value");
+                        const dataValue = (_a = field.getAttribute("data-value")) !== null && _a !== void 0 ? _a : "";
+                        if (type === "hide" && engrid_ENGrid.isVisible(field)) {
+                            field.setAttribute("data-value", fieldValue);
+                            engrid_ENGrid.setFieldValue(field.name, originalValue);
+                        }
+                        if (type === "show" && !engrid_ENGrid.isVisible(field)) {
+                            field.setAttribute("data-value", "");
+                            engrid_ENGrid.setFieldValue(field.name, dataValue);
+                        }
+                    }
+                }
+            });
         }
     }
 }
@@ -15410,11 +15454,63 @@ class UrlToForm {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/required-if-visible.js
+
+class RequiredIfVisible {
+    constructor() {
+        this.logger = new EngridLogger("RequiredIfVisible", "#FFFFFF", "#811212", "🚥");
+        this._form = EnForm.getInstance();
+        this.requiredIfVisibleElements = document.querySelectorAll(`
+    .i-required .en__field,
+    .i1-required .en__field:nth-of-type(1),
+    .i2-required .en__field:nth-of-type(2),
+    .i3-required .en__field:nth-of-type(3),
+    .i4-required .en__field:nth-of-type(4),
+    .i5-required .en__field:nth-of-type(5),
+    .i6-required .en__field:nth-of-type(6),
+    .i7-required .en__field:nth-of-type(7),
+    .i8-required .en__field:nth-of-type(8),
+    .i9-required .en__field:nth-of-type(9),
+    .i10-required .en__field:nth-of-type(10),
+    .i11-required .en__field:nth-of-type(11)
+    `);
+        if (!this.shouldRun())
+            return;
+        this._form.onValidate.subscribe(this.validate.bind(this));
+    }
+    shouldRun() {
+        return this.requiredIfVisibleElements.length > 0;
+    }
+    validate() {
+        this.requiredIfVisibleElements.forEach((field) => {
+            engrid_ENGrid.removeError(field);
+            if (engrid_ENGrid.isVisible(field)) {
+                this.logger.log(`${field.getAttribute("class")} is visible`);
+                const fieldElement = field.querySelector("input, select, textarea");
+                if (fieldElement &&
+                    !engrid_ENGrid.getFieldValue(fieldElement.getAttribute("name"))) {
+                    const fieldLabel = field.querySelector(".en__field__label");
+                    if (fieldLabel) {
+                        this.logger.log(`${fieldLabel.innerText} is required`);
+                        engrid_ENGrid.setError(field, `${fieldLabel.innerText} is required`);
+                    }
+                    else {
+                        this.logger.log(`${fieldElement.getAttribute("name")} is required`);
+                        engrid_ENGrid.setError(field, `This field is required`);
+                    }
+                    this._form.validate = false;
+                }
+            }
+        });
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.11.15";
+const AppVersion = "0.11.18";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
 
 
 
