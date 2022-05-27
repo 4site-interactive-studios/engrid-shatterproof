@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, May 25, 2022 @ 16:38:40 ET
+ *  Date: Friday, May 27, 2022 @ 15:05:54 ET
  *  By: fernando
  *  ENGrid styles: v0.12.0
- *  ENGrid scripts: v0.12.2
+ *  ENGrid scripts: v0.12.5
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -13376,6 +13376,7 @@ class ShowHideRadioCheckboxes {
         this.logger = new EngridLogger("ShowHideRadioCheckboxes", "black", "lightblue", "👁");
         this.elements = document.getElementsByName(elements);
         this.classes = classes;
+        this.createDataAttributes();
         this.hideAll();
         for (let i = 0; i < this.elements.length; i++) {
             let element = this.elements[i];
@@ -13387,6 +13388,35 @@ class ShowHideRadioCheckboxes {
                 this.show(element);
             });
         }
+    }
+    // Create default data attributes on all fields
+    createDataAttributes() {
+        this.elements.forEach((item) => {
+            if (item instanceof HTMLInputElement) {
+                let inputValue = item.value.replace(/\s/g, "");
+                document
+                    .querySelectorAll("." + this.classes + inputValue)
+                    .forEach((el) => {
+                    // Consider toggling "hide" class so these fields can be displayed when in a debug state
+                    if (el instanceof HTMLElement) {
+                        const fields = el.querySelectorAll("input, select, textarea");
+                        if (fields.length > 0) {
+                            fields.forEach((field) => {
+                                if (field instanceof HTMLInputElement ||
+                                    field instanceof HTMLSelectElement) {
+                                    if (!field.hasAttribute("data-original-value")) {
+                                        field.setAttribute("data-original-value", field.value);
+                                    }
+                                    if (!field.hasAttribute("data-value")) {
+                                        field.setAttribute("data-value", field.value);
+                                    }
+                                }
+                            });
+                        }
+                    }
+                });
+            }
+        });
     }
     // Hide All Divs
     hideAll() {
@@ -13424,6 +13454,9 @@ class ShowHideRadioCheckboxes {
     }
     // Take the field values and add to a data attribute on the field
     toggleValue(item, type) {
+        if (type == "hide" && !engrid_ENGrid.isVisible(item))
+            return;
+        this.logger.log(`toggleValue: ${type}`);
         const fields = item.querySelectorAll("input, select, textarea");
         if (fields.length > 0) {
             fields.forEach((field) => {
@@ -13432,17 +13465,13 @@ class ShowHideRadioCheckboxes {
                     field instanceof HTMLSelectElement) {
                     if (field.name) {
                         const fieldValue = engrid_ENGrid.getFieldValue(field.name);
-                        if (!field.hasAttribute("data-original-value")) {
-                            field.setAttribute("data-original-value", fieldValue);
-                        }
                         const originalValue = field.getAttribute("data-original-value");
                         const dataValue = (_a = field.getAttribute("data-value")) !== null && _a !== void 0 ? _a : "";
-                        if (type === "hide" && engrid_ENGrid.isVisible(field)) {
+                        if (type === "hide") {
                             field.setAttribute("data-value", fieldValue);
                             engrid_ENGrid.setFieldValue(field.name, originalValue);
                         }
-                        if (type === "show" && !engrid_ENGrid.isVisible(field)) {
-                            field.setAttribute("data-value", "");
+                        else {
                             engrid_ENGrid.setFieldValue(field.name, dataValue);
                         }
                     }
@@ -15587,6 +15616,17 @@ class TidyContact {
         var _a, _b, _c, _d, _e, _f;
         if (!this.options)
             return;
+        // Creating Latitude and Longitude fields
+        const latitudeField = engrid_ENGrid.getField("supporter.geo.latitude");
+        const longitudeField = engrid_ENGrid.getField("supporter.geo.longitude");
+        if (!latitudeField) {
+            engrid_ENGrid.createHiddenInput("supporter.geo.latitude", "");
+            this.logger.log("Creating Hidden Field: supporter.geo.latitude");
+        }
+        if (!longitudeField) {
+            engrid_ENGrid.createHiddenInput("supporter.geo.longitude", "");
+            this.logger.log("Creating Hidden Field: supporter.geo.longitude");
+        }
         if (this.options.record_field) {
             const recordField = engrid_ENGrid.getField(this.options.record_field);
             if (!recordField) {
@@ -15785,6 +15825,8 @@ class TidyContact {
         const recordField = engrid_ENGrid.getField(this.options.record_field);
         const dateField = engrid_ENGrid.getField(this.options.date_field);
         const statusField = engrid_ENGrid.getField(this.options.status_field);
+        const latitudeField = engrid_ENGrid.getField("supporter.geo.latitude");
+        const longitudeField = engrid_ENGrid.getField("supporter.geo.longitude");
         // Call the API
         const address1 = engrid_ENGrid.getFieldValue((_a = this.options.address_fields) === null || _a === void 0 ? void 0 : _a.address1);
         const address2 = engrid_ENGrid.getFieldValue((_b = this.options.address_fields) === null || _b === void 0 ? void 0 : _b.address2);
@@ -15828,14 +15870,25 @@ class TidyContact {
         })
             .then((data) => tidycontact_awaiter(this, void 0, void 0, function* () {
             this.logger.log("callAPI response", JSON.parse(JSON.stringify(data)));
-            if ("changed" in data && data.valid === true) {
-                let record = this.setFields(data.changed);
+            if (data.valid === true) {
+                let record = {};
+                if ("changed" in data) {
+                    record = this.setFields(data.changed);
+                }
                 record["formData"] = formData;
                 yield this.checkSum(JSON.stringify(record)).then((checksum) => {
                     this.logger.log("Checksum", checksum);
                     record["requestId"] = data.requestId; // We don't want to add the requestId to the checksum
                     record["checksum"] = checksum;
                 });
+                if ("latitude" in data) {
+                    latitudeField.value = data.latitude;
+                    record["latitude"] = data.latitude;
+                }
+                if ("longitude" in data) {
+                    longitudeField.value = data.longitude;
+                    record["longitude"] = data.longitude;
+                }
                 if (recordField) {
                     recordField.value = JSON.stringify(record);
                 }
@@ -15846,7 +15899,7 @@ class TidyContact {
                     statusField.value = "Success";
                 }
             }
-            else if ("error" in data) {
+            else {
                 let record = {};
                 record["formData"] = formData;
                 yield this.checkSum(JSON.stringify(record)).then((checksum) => {
@@ -15861,7 +15914,8 @@ class TidyContact {
                     dateField.value = this.todaysDate();
                 }
                 if (statusField) {
-                    statusField.value = `Error: ` + data.error;
+                    statusField.value =
+                        "error" in data ? `Error: ` + data.error : "Invalid Address";
                 }
             }
         }))
@@ -15880,7 +15934,7 @@ class TidyContact {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.12.2";
+const AppVersion = "0.12.5";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
