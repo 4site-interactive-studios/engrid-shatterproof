@@ -1,13 +1,19 @@
 {
-	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "../engrid-scripts"
-		}
-	],
-	"settings": {
-		"liveServer.settings.multiRootWorkspaceName": "engrid"
-	}
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "../engrid-scripts"
+    },
+    {
+      "path": "../engrid-nwf"
+    },
+    {
+      "path": "../engrid-aiusa"
+    }
+  ],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "engrid"
+  }
 }
