@@ -1,10 +1,10 @@
 [data-engrid-subtheme="embedded-multistep"] {
   // Zoom Out If Screen Is 320px or less
-  // @media only screen and (max-width: 320px) {
-  //   #engrid {
-  //     zoom: 0.85;
-  //   }
-  // }
+  @media only screen and (max-width: 340px) {
+    form.en__component {
+      zoom: 0.85;
+    }
+  }
   .content-header,
   .content-footer {
     display: none;

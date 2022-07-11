@@ -111,7 +111,8 @@ export default class DonationMultistepForm {
             // Check if error contains "payment" or "account" and scroll to the right section
             if (
               error.innerHTML.toLowerCase().indexOf("payment") > -1 ||
-              error.innerHTML.toLowerCase().indexOf("account") > -1
+              error.innerHTML.toLowerCase().indexOf("account") > -1 ||
+              error.innerHTML.toLowerCase().indexOf("card") > -1
             ) {
               this.scrollToElement(
                 document.querySelector(".en__field--ccnumber")
@@ -304,7 +305,7 @@ export default class DonationMultistepForm {
       console.log(section);
       this.sections[sectionId].scrollIntoView({
         behavior: "smooth",
-        // block: "start",
+        block: "end",
         // inline: "center",
       });
     }
