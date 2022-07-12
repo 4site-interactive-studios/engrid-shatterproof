@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Sunday, July 10, 2022 @ 21:54:35 ET
+ *  Date: Tuesday, July 12, 2022 @ 16:59:43 ET
  *  By: fernando
  *  ENGrid styles: v0.13.0
  *  ENGrid scripts: v0.13.2
@@ -17505,23 +17505,6 @@ class DonationMultistepForm {
 
     if (urlParams.get("color")) {
       document.body.style.setProperty("--color_primary", urlParams.get("color"));
-    } // Check your IP Country
-
-
-    fetch("https://www.cloudflare.com/cdn-cgi/trace").then(res => res.text()).then(t => {
-      let data = t.replace(/[\r\n]+/g, '","').replace(/\=+/g, '":"');
-      data = '{"' + data.slice(0, data.lastIndexOf('","')) + '"}';
-      const jsondata = JSON.parse(data);
-      this.ipCountry = jsondata.loc;
-      this.canadaOnly();
-      console.log("Country:", this.ipCountry);
-    });
-    const countryField = document.querySelector("#en__field_supporter_country");
-
-    if (countryField) {
-      countryField.addEventListener("change", e => {
-        this.canadaOnly();
-      });
     }
   } // Send iframe message to parent
 
@@ -17646,7 +17629,7 @@ class DonationMultistepForm {
       console.log(section);
       this.sections[sectionId].scrollIntoView({
         behavior: "smooth",
-        block: "end" // inline: "center",
+        block: "nearest" // inline: "center",
 
       });
     }
@@ -18084,59 +18067,6 @@ class DonationMultistepForm {
     }
 
     return null;
-  } // Return true if you are in Canada, checking 3 conditions
-  // 1 - You are using a Canadian ip address
-  // 2 - You choose Canada as your country
-  // 3 - Your browser language is en-CA
-
-
-  isCanada() {
-    const country = document.querySelector("#en__field_supporter_country");
-
-    if (country) {
-      if (country.value === "CA") {
-        return true;
-      }
-    }
-
-    const lang = window.navigator.userLanguage || window.navigator.language;
-
-    if (lang === "en-CA" || this.ipCountry === "CA") {
-      return true;
-    }
-
-    return false;
-  } // Display and check the class canada-only if you are in Canada
-
-
-  canadaOnly() {
-    const canadaOnly = document.querySelectorAll(".canada-only");
-
-    if (canadaOnly.length) {
-      if (this.isCanada()) {
-        canadaOnly.forEach(item => {
-          item.style.display = "";
-          const input = item.querySelectorAll("input[type='checkbox']");
-
-          if (input.length) {
-            input.forEach(input => {
-              input.checked = false;
-            });
-          }
-        });
-      } else {
-        canadaOnly.forEach(item => {
-          item.style.display = "none";
-          const input = item.querySelectorAll("input[type='checkbox']");
-
-          if (input.length) {
-            input.forEach(input => {
-              input.checked = true;
-            });
-          }
-        });
-      }
-    }
   }
 
   checkNested(obj, level) {

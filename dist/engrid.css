@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Sunday, July 10, 2022 @ 21:54:35 ET
+ *  Date: Tuesday, July 12, 2022 @ 16:59:43 ET
  *  By: fernando
  *  ENGrid styles: v0.13.0
  *  ENGrid scripts: v0.13.2
@@ -7221,7 +7221,7 @@ body:not([data-engrid-debug]) #debug-bar{
   transition:background-position-x 1s ease-in-out;
 }
 [data-engrid-subtheme=embedded-multistep] .monthly-upsell-message svg{
-  color:var(--color_primary);
+  color:var(--donation-amount__button_color);
   display:none;
   height:40px;
   opacity:0;
