@@ -162,6 +162,15 @@ export default class DonationMultistepForm {
         urlParams.get("color")
       );
     }
+    // Check if theres a height value in the url
+    if (urlParams.get("height")) {
+      document.body.style.setProperty(
+        "--section_height",
+        urlParams.get("height")
+      );
+    }
+    // Add an active class to the first section
+    this.sections[0].classList.add("active");
   }
   // Send iframe message to parent
   sendMessage(key, value) {
@@ -171,6 +180,17 @@ export default class DonationMultistepForm {
   // Check if is iFrame
   isIframe() {
     return window.self !== window.top;
+  }
+  sendIframeHeight(scroll = false) {
+    let height = document.body.offsetHeight;
+    const data = {
+      frameHeight: height,
+    };
+    if (scroll) {
+      data.scroll = true;
+    }
+    window.parent.postMessage(data, "*");
+    console.log("Sent height & scroll:", data);
   }
   // Build Section Navigation
   buildSectionNavigation() {
@@ -185,7 +205,7 @@ export default class DonationMultistepForm {
       if (key == 0) {
         sectionNavigation.innerHTML = `
         <button class="section-navigation__next" data-section-id="${key}">
-          <span>Let's do it!</span>
+          <span>Continue</span>
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 14 14">
               <path fill="currentColor" d="M7.687 13.313c-.38.38-.995.38-1.374 0-.38-.38-.38-.996 0-1.375L10 8.25H1.1c-.608 0-1.1-.493-1.1-1.1 0-.608.492-1.1 1.1-1.1h9.2L6.313 2.062c-.38-.38-.38-.995 0-1.375s.995-.38 1.374 0L14 7l-6.313 6.313z"/>
           </svg>
@@ -284,13 +304,21 @@ export default class DonationMultistepForm {
   scrollToSection(sectionId) {
     console.log("DonationMultistepForm: scrollToSection", sectionId);
     const section = document.querySelector(`[data-section-id="${sectionId}"]`);
+    // Remove the active class from all sections
     if (this.sections[sectionId]) {
       console.log(section);
+      this.sections.forEach((section) => {
+        section.classList.remove("active");
+      });
       this.sections[sectionId].scrollIntoView({
         behavior: "smooth",
         block: "nearest",
         // inline: "center",
       });
+      this.sections[sectionId].classList.add("active");
+      window.setTimeout(() => {
+        this.sendIframeHeight(true);
+      }, 400);
     }
   }
   // Scroll to an element's section
@@ -473,7 +501,10 @@ export default class DonationMultistepForm {
       if (sectionId === false || sectionId == fieldSection) {
         if (!fieldElement.value) {
           this.scrollToElement(fieldElement);
-          this.sendMessage("error", "Please enter " + fieldLabel.textContent);
+          this.sendMessage(
+            "error",
+            "Please enter " + fieldLabel.textContent.toLowerCase()
+          );
           field.classList.add("has-error");
           hasError = true;
           return false;
