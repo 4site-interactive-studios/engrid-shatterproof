@@ -10,7 +10,6 @@ import { customScript } from "./scripts/main";
 
 const options: Options = {
   applePay: false,
-  AutoYear: true,
   CapitalizeFields: true,
   ClickToExpand: true,
   CurrencySymbol: "$",
