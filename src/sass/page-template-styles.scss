@@ -375,11 +375,3 @@
     align-items: flex-start;
   }
 }
-
-/* Force it to fit the width of the space remaining on the row: https://cln.sh/EZ7iIo */
-[data-engrid-subtheme="embedded-multistep"]
-  .radio-to-buttons_donationAmt
-  .en__field--radio.en__field--withOther.en__field--donationAmt
-  .en__field__item--other {
-  flex-basis: calc(100% / var(--donation-amount__button_count));
-}
