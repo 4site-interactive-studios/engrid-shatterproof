@@ -19,8 +19,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, July 22, 2022 @ 09:44:53 ET
- *  By: bryancasler
+ *  Date: Friday, July 22, 2022 @ 11:54:36 ET
+ *  By: fernando
  *  ENGrid styles: v0.13.0
  *  ENGrid scripts: v0.13.8
  *
@@ -7473,6 +7473,7 @@ body:not([data-engrid-debug]) #debug-bar{
 }
 [data-engrid-subtheme=embedded-multistep][data-engrid-embedded] form.en__component>.en__component{
   max-height:var(--section_height, auto);
+  min-height:var(--section_height, auto);
   overflow:hidden;
   padding:45px;
   scroll-snap-align:start;

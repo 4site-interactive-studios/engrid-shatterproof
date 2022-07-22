@@ -498,6 +498,7 @@
         scroll-snap-align: start;
         transition: 0.3s max-height linear;
         max-height: var(--section_height, auto);
+        min-height: var(--section_height, auto);
         overflow: hidden;
         &.active {
           max-height: 10000px;
