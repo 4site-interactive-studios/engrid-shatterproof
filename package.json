@@ -34,7 +34,7 @@
     "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.16.11",
     "@babel/preset-typescript": "7.16.7",
-    "babel-loader": "^8.2.3",
+    "babel-loader": "^8.2.5",
     "breakpoint-sass": "^2.7.1",
     "breakpoint-slicer": "^2.0.0",
     "css-loader": "^6.6.0",
