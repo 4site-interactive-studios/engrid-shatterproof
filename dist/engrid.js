@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, July 22, 2022 @ 11:54:36 ET
+ *  Date: Monday, July 25, 2022 @ 21:48:30 ET
  *  By: fernando
  *  ENGrid styles: v0.13.0
- *  ENGrid scripts: v0.13.8
+ *  ENGrid scripts: v0.13.11
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -12288,6 +12288,8 @@ class Autocomplete {
         this.autoCompleteField('[name="supporter.city"]', "address-level2");
         this.autoCompleteField('[name="supporter.region"]', "address-level1");
         this.autoCompleteField('[name="supporter.postcode"]', "postal-code");
+        // Ignore Autocomplete on the Recipient Email Field
+        this.autoCompleteField('[name="transaction.infemail"]', "none");
     }
     autoCompleteField(querySelector, autoCompleteValue) {
         let field = document.querySelector(querySelector);
@@ -12306,9 +12308,48 @@ class Autocomplete {
 class Ecard {
     constructor() {
         this._form = EnForm.getInstance();
-        if (engrid_ENGrid.getPageType() === "ECARD") {
-            this._form.onValidate.subscribe(() => this.checkRecipientFields());
+        this.logger = new EngridLogger("Ecard", "red", "#f5f5f5", "🪪");
+        if (!this.shouldRun())
+            return;
+        this._form.onValidate.subscribe(() => this.checkRecipientFields());
+        const schedule = engrid_ENGrid.getUrlParameter("engrid_ecard.schedule");
+        const scheduleField = engrid_ENGrid.getField("ecard.schedule");
+        const name = engrid_ENGrid.getUrlParameter("engrid_ecard.name");
+        const nameField = document.querySelector(".en__ecardrecipients__name input");
+        const email = engrid_ENGrid.getUrlParameter("engrid_ecard.email");
+        const emailField = document.querySelector(".en__ecardrecipients__email input");
+        if (schedule && scheduleField) {
+            // Check if chedule date is in the past
+            const scheduleDate = new Date(schedule.toString());
+            const today = new Date();
+            if (scheduleDate.setHours(0, 0, 0, 0) < today.setHours(0, 0, 0, 0)) {
+                // If it is, set the schedule to today
+                scheduleField.value = engrid_ENGrid.formatDate(today, "YYYY-MM-DD");
+            }
+            else {
+                // Otherwise, set the schedule to the date provided
+                scheduleField.value = schedule.toString();
+            }
+            this.logger.log("Schedule set to " + scheduleField.value);
         }
+        if (name && nameField) {
+            nameField.value = name.toString();
+            this.logger.log("Name set to " + nameField.value);
+        }
+        if (email && emailField) {
+            emailField.value = email.toString();
+            this.logger.log("Email set to " + emailField.value);
+        }
+        // Replace the Future Delivery Label with a H2
+        const futureDeliveryLabel = document.querySelector(".en__ecardrecipients__futureDelivery label");
+        if (futureDeliveryLabel) {
+            const futureDeliveryH2 = document.createElement("h2");
+            futureDeliveryH2.innerText = futureDeliveryLabel.innerText;
+            futureDeliveryLabel.replaceWith(futureDeliveryH2);
+        }
+    }
+    shouldRun() {
+        return engrid_ENGrid.getPageType() === "ECARD";
     }
     checkRecipientFields() {
         const addRecipientButton = document.querySelector(".en__ecarditems__addrecipient");
@@ -13907,7 +13948,7 @@ class ShowHideRadioCheckboxes {
     createDataAttributes() {
         this.elements.forEach((item) => {
             if (item instanceof HTMLInputElement) {
-                let inputValue = item.value.replace(/\s/g, "");
+                let inputValue = item.value.replace(/\W/g, "");
                 document
                     .querySelectorAll("." + this.classes + inputValue)
                     .forEach((el) => {
@@ -13941,7 +13982,7 @@ class ShowHideRadioCheckboxes {
     }
     // Hide Single Element Div
     hide(item) {
-        let inputValue = item.value.replace(/\s/g, "");
+        let inputValue = item.value.replace(/\W/g, "");
         document.querySelectorAll("." + this.classes + inputValue).forEach((el) => {
             // Consider toggling "hide" class so these fields can be displayed when in a debug state
             if (el instanceof HTMLElement) {
@@ -13953,7 +13994,7 @@ class ShowHideRadioCheckboxes {
     }
     // Show Single Element Div
     show(item) {
-        let inputValue = item.value.replace(/\s/g, "");
+        let inputValue = item.value.replace(/\W/g, "");
         document.querySelectorAll("." + this.classes + inputValue).forEach((el) => {
             // Consider toggling "hide" class so these fields can be displayed when in a debug state
             if (el instanceof HTMLElement) {
@@ -17375,7 +17416,7 @@ class TidyContact {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.13.8";
+const AppVersion = "0.13.11";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
