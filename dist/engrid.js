@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, July 25, 2022 @ 21:48:30 ET
+ *  Date: Friday, July 29, 2022 @ 15:17:07 ET
  *  By: fernando
  *  ENGrid styles: v0.13.0
  *  ENGrid scripts: v0.13.11
@@ -17942,7 +17942,7 @@ class DonationMultistepForm {
     } // Validate Everything else
 
 
-    const mandatoryFields = form.querySelectorAll(".en__mandatory");
+    const mandatoryFields = form.querySelectorAll(".en__mandatory:not(.en__hidden)");
     let hasError = false;
     mandatoryFields.forEach(field => {
       if (hasError) {

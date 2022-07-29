@@ -489,7 +489,9 @@ export default class DonationMultistepForm {
       }
     }
     // Validate Everything else
-    const mandatoryFields = form.querySelectorAll(".en__mandatory");
+    const mandatoryFields = form.querySelectorAll(
+      ".en__mandatory:not(.en__hidden)"
+    );
     let hasError = false;
     mandatoryFields.forEach((field) => {
       if (hasError) {
