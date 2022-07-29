@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, July 25, 2022 @ 21:48:30 ET
+ *  Date: Friday, July 29, 2022 @ 15:17:07 ET
  *  By: fernando
  *  ENGrid styles: v0.13.0
  *  ENGrid scripts: v0.13.11
@@ -7198,10 +7198,10 @@ body:not([data-engrid-debug]) #debug-bar{
 [data-engrid-subtheme=embedded-multistep] .radio-to-buttons_donationAmt .en__field--withOther--active .en__field__item--other:after,[data-engrid-subtheme=embedded-multistep] .radio-to-buttons_donationAmt .en__field--withOther--active .en__field__item--other:before{
   color:#fff !important;
 }
-[data-engrid-subtheme=embedded-multistep] .monthly-upsell-message{
+[data-engrid-subtheme=embedded-multistep]:not(#en__pagebuilder) .monthly-upsell-message{
   position:relative;
 }
-[data-engrid-subtheme=embedded-multistep] .monthly-upsell-message p{
+[data-engrid-subtheme=embedded-multistep]:not(#en__pagebuilder) .monthly-upsell-message p{
   color:var(--color_primary);
   font-family:Kalam,sans-serif;
   font-size:14px;
@@ -7214,7 +7214,7 @@ body:not([data-engrid-debug]) #debug-bar{
   padding:0 5px;
   transition:max-height .3s ease-in-out;
 }
-[data-engrid-subtheme=embedded-multistep] .monthly-upsell-message p strong{
+[data-engrid-subtheme=embedded-multistep]:not(#en__pagebuilder) .monthly-upsell-message p strong{
   background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="76" height="10" fill="none" viewBox="0 0 76 10"><path fill="%23FFF06D" d="M74.22 5.129l-1.245.005c-.208.367-.567.653-1.103.756-.24.045-.48.077-.72.12.123.99-.461 2.084-1.76 2.084h-4.76c-.006.907-.6 1.814-1.78 1.824-10.952.1-21.903.105-32.855.033l-22.193.023c-.427 0-.774-.116-1.047-.302-.868-.015-1.736-.024-2.605-.04-1.122-.021-1.705-.815-1.767-1.656C1.177 7.537.947 5.914 1.7 5.027-.137 4.961-.482 2.707.65 1.777.675.885 1.265.01 2.426.01L71.626 0c1.044 0 1.627.694 1.754 1.476l.84.001c2.376.004 2.371 3.643 0 3.652z"/></svg>');
   background-position-x:-100vw;
   background-position-y:10px;
@@ -7223,7 +7223,7 @@ body:not([data-engrid-debug]) #debug-bar{
   display:inline-block;
   transition:background-position-x 1s ease-in-out;
 }
-[data-engrid-subtheme=embedded-multistep] .monthly-upsell-message svg{
+[data-engrid-subtheme=embedded-multistep]:not(#en__pagebuilder) .monthly-upsell-message svg{
   color:var(--donation-amount__button_color);
   display:none;
   height:40px;
@@ -7233,28 +7233,28 @@ body:not([data-engrid-debug]) #debug-bar{
   transition:opacity 1s ease-in-out,transform 1s ease-in-out;
   width:55px;
 }
-[data-engrid-subtheme=embedded-multistep] .monthly-upsell-message svg.right{
+[data-engrid-subtheme=embedded-multistep]:not(#en__pagebuilder) .monthly-upsell-message svg.right{
   display:block;
   right:-38px;
   transform:translateX(100vw);
 }
-[data-engrid-subtheme=embedded-multistep] .monthly-upsell-message svg.left{
+[data-engrid-subtheme=embedded-multistep]:not(#en__pagebuilder) .monthly-upsell-message svg.left{
   display:block;
   left:-38px;
   transform:scaleX(-1) translateX(-100vw);
 }
-[data-engrid-subtheme=embedded-multistep] .monthly-upsell-message.bounce svg{
+[data-engrid-subtheme=embedded-multistep]:not(#en__pagebuilder) .monthly-upsell-message.bounce svg{
   opacity:1;
   transform:translateX(0);
 }
-[data-engrid-subtheme=embedded-multistep] .monthly-upsell-message.bounce svg.right{
+[data-engrid-subtheme=embedded-multistep]:not(#en__pagebuilder) .monthly-upsell-message.bounce svg.right{
   opacity:1;
 }
-[data-engrid-subtheme=embedded-multistep] .monthly-upsell-message.bounce svg.left{
+[data-engrid-subtheme=embedded-multistep]:not(#en__pagebuilder) .monthly-upsell-message.bounce svg.left{
   opacity:1;
   transform:scaleX(-1) translateX(0);
 }
-[data-engrid-subtheme=embedded-multistep][data-engrid-transaction-recurring-frequency=onetime] .monthly-upsell-message p{
+[data-engrid-subtheme=embedded-multistep]:not(#en__pagebuilder)[data-engrid-transaction-recurring-frequency=onetime] .monthly-upsell-message p{
   max-height:200px;
 }
 [data-engrid-subtheme=embedded-multistep]:not(#en__pagebuilder) .en__field:not(.en__field--checkbox)>.en__field__label{

@@ -77,69 +77,70 @@
       }
     }
   }
-
-  .monthly-upsell-message {
-    position: relative;
-    p {
-      font-size: 14px;
-      line-height: 1.43;
-      font-family: "Kalam", sans-serif;
-      color: var(--color_primary);
-      font-weight: 400;
-      padding: 0 5px;
-      margin-top: 5px;
-      margin-bottom: 15px;
-      max-height: 0;
-      overflow: hidden;
-      transition: 0.3s max-height ease-in-out;
-      strong {
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="76" height="10" fill="none" viewBox="0 0 76 10"><path fill="%23FFF06D" d="M74.22 5.129l-1.245.005c-.208.367-.567.653-1.103.756-.24.045-.48.077-.72.12.123.99-.461 2.084-1.76 2.084h-4.76c-.006.907-.6 1.814-1.78 1.824-10.952.1-21.903.105-32.855.033l-22.193.023c-.427 0-.774-.116-1.047-.302-.868-.015-1.736-.024-2.605-.04-1.122-.021-1.705-.815-1.767-1.656C1.177 7.537.947 5.914 1.7 5.027-.137 4.961-.482 2.707.65 1.777.675.885 1.265.01 2.426.01L71.626 0c1.044 0 1.627.694 1.754 1.476l.84.001c2.376.004 2.371 3.643 0 3.652z"/></svg>');
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position-y: 10px;
-        background-position-x: -100vw;
-        transition: 1s background-position-x ease-in-out;
-        display: inline-block;
-      }
-    }
-    svg {
-      color: var(--donation-amount__button_color);
-      position: absolute;
-      top: -65px;
-      width: 55px;
-      height: 40px;
-      display: none;
-      opacity: 0;
-      transition: 1s opacity ease-in-out, 1s transform ease-in-out;
-      &.right {
-        right: -38px;
-        display: block;
-        transform: translateX(100vw);
-      }
-      &.left {
-        transform: scaleX(-1) translateX(-100vw);
-        left: -38px;
-        display: block;
-      }
-    }
-    &.bounce {
-      svg {
-        opacity: 1;
-        transform: translateX(0);
-      }
-      svg.right {
-        opacity: 1;
-      }
-      svg.left {
-        opacity: 1;
-        transform: scaleX(-1) translateX(0);
-      }
-    }
-  }
-  &[data-engrid-transaction-recurring-frequency="onetime"] {
+  &:not(#en__pagebuilder) {
     .monthly-upsell-message {
+      position: relative;
       p {
-        max-height: 200px;
+        font-size: 14px;
+        line-height: 1.43;
+        font-family: "Kalam", sans-serif;
+        color: var(--color_primary);
+        font-weight: 400;
+        padding: 0 5px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+        max-height: 0;
+        overflow: hidden;
+        transition: 0.3s max-height ease-in-out;
+        strong {
+          background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="76" height="10" fill="none" viewBox="0 0 76 10"><path fill="%23FFF06D" d="M74.22 5.129l-1.245.005c-.208.367-.567.653-1.103.756-.24.045-.48.077-.72.12.123.99-.461 2.084-1.76 2.084h-4.76c-.006.907-.6 1.814-1.78 1.824-10.952.1-21.903.105-32.855.033l-22.193.023c-.427 0-.774-.116-1.047-.302-.868-.015-1.736-.024-2.605-.04-1.122-.021-1.705-.815-1.767-1.656C1.177 7.537.947 5.914 1.7 5.027-.137 4.961-.482 2.707.65 1.777.675.885 1.265.01 2.426.01L71.626 0c1.044 0 1.627.694 1.754 1.476l.84.001c2.376.004 2.371 3.643 0 3.652z"/></svg>');
+          background-size: contain;
+          background-repeat: no-repeat;
+          background-position-y: 10px;
+          background-position-x: -100vw;
+          transition: 1s background-position-x ease-in-out;
+          display: inline-block;
+        }
+      }
+      svg {
+        color: var(--donation-amount__button_color);
+        position: absolute;
+        top: -65px;
+        width: 55px;
+        height: 40px;
+        display: none;
+        opacity: 0;
+        transition: 1s opacity ease-in-out, 1s transform ease-in-out;
+        &.right {
+          right: -38px;
+          display: block;
+          transform: translateX(100vw);
+        }
+        &.left {
+          transform: scaleX(-1) translateX(-100vw);
+          left: -38px;
+          display: block;
+        }
+      }
+      &.bounce {
+        svg {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        svg.right {
+          opacity: 1;
+        }
+        svg.left {
+          opacity: 1;
+          transform: scaleX(-1) translateX(0);
+        }
+      }
+    }
+    &[data-engrid-transaction-recurring-frequency="onetime"] {
+      .monthly-upsell-message {
+        p {
+          max-height: 200px;
+        }
       }
     }
   }
