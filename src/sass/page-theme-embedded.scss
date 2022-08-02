@@ -503,7 +503,7 @@
         overflow: hidden;
         &.active {
           max-height: 10000px;
-          overflow: auto;
+          overflow-y: auto;
         }
 
         & > .en__component {
