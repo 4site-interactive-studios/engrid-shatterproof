@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, August 2, 2022 @ 16:53:53 ET
+ *  Date: Thursday, November 3, 2022 @ 11:04:44 ET
  *  By: fernando
- *  ENGrid styles: v0.13.0
- *  ENGrid scripts: v0.13.11
+ *  ENGrid styles: v0.13.19
+ *  ENGrid scripts: v0.13.30
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10740,6 +10740,7 @@ const OptionsDefaults = {
     CapitalizeFields: false,
     ClickToExpand: true,
     CurrencySymbol: "$",
+    CurrencyCode: "USD",
     AddCurrencySymbol: true,
     ThousandsSeparator: "",
     DecimalSeparator: ".",
@@ -10791,6 +10792,7 @@ const UpsellOptionsDefaults = {
     minAmount: 0,
     canClose: true,
     submitOnClose: false,
+    disablePaymentMethods: [],
 };
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/interfaces/translate-options.js
@@ -11115,6 +11117,9 @@ class engrid_ENGrid {
     static get debug() {
         return !!this.getOption("Debug");
     }
+    static get demo() {
+        return this.getUrlParameter("mode") === "DEMO";
+    }
     // Return any parameter from the URL
     static getUrlParameter(name) {
         const searchParams = new URLSearchParams(window.location.search);
@@ -11303,6 +11308,11 @@ class engrid_ENGrid {
         const body = document.querySelector("body");
         return body.getAttribute(`data-engrid-${dataName}`);
     }
+    // Check if body has engrid data attributes
+    static hasBodyData(dataName) {
+        const body = document.querySelector("body");
+        return body.hasAttribute(`data-engrid-${dataName}`);
+    }
     // Return the option value
     static getOption(key) {
         return window.EngridOptions[key] || null;
@@ -11313,10 +11323,10 @@ class engrid_ENGrid {
         scriptTag.src = url;
         scriptTag.onload = onload;
         if (head) {
-            document.getElementsByTagName("head")[0].appendChild(scriptTag);
+            document.head.appendChild(scriptTag);
             return;
         }
-        document.getElementsByTagName("body")[0].appendChild(scriptTag);
+        document.body.appendChild(scriptTag);
         return;
     }
     // Format a number
@@ -11461,6 +11471,28 @@ class engrid_ENGrid {
         return !!(element.offsetWidth ||
             element.offsetHeight ||
             element.getClientRects().length);
+    }
+    static getCurrencySymbol() {
+        const currencyField = engrid_ENGrid.getField("transaction.paycurrency");
+        if (currencyField) {
+            const currencyArray = {
+                USD: "$",
+                EUR: "€",
+                GBP: "£",
+                AUD: "$",
+                CAD: "$",
+                JPY: "¥",
+            };
+            return currencyArray[currencyField.value] || "$";
+        }
+        return engrid_ENGrid.getOption("CurrencySymbol") || "$";
+    }
+    static getCurrencyCode() {
+        const currencyField = engrid_ENGrid.getField("transaction.paycurrency");
+        if (currencyField) {
+            return currencyField.value || "USD";
+        }
+        return engrid_ENGrid.getOption("CurrencyCode") || "USD";
     }
 }
 
@@ -11768,8 +11800,8 @@ class App extends engrid_ENGrid {
                 this._amount.load();
             }, 150);
         });
-        this._form.onSubmit.subscribe((s) => this.logger.success("Submit: " + s));
-        this._form.onError.subscribe((s) => this.logger.danger("Error: " + s));
+        this._form.onSubmit.subscribe((s) => this.logger.success("Submit: " + JSON.stringify(s)));
+        this._form.onError.subscribe((s) => this.logger.danger("Error: " + JSON.stringify(s)));
         window.enOnSubmit = () => {
             this._form.submit = true;
             this._form.submitPromise = false;
@@ -11778,6 +11810,7 @@ class App extends engrid_ENGrid {
                 return false;
             if (this._form.submitPromise)
                 return this._form.submitPromise;
+            this.logger.success("enOnSubmit Success");
             return true;
         };
         window.enOnError = () => {
@@ -11791,8 +11824,11 @@ class App extends engrid_ENGrid {
                 return false;
             if (this._form.validatePromise)
                 return this._form.validatePromise;
+            this.logger.success("Validation Passed");
             return true;
         };
+        // Live Currency
+        new LiveCurrency();
         // iFrame Logic
         new iFrame();
         // Live Variables
@@ -11807,6 +11843,8 @@ class App extends engrid_ENGrid {
         new DataReplace();
         // ENgrid Hide Script
         new DataHide();
+        // Autosubmit script
+        new Autosubmit();
         // On the end of the script, after all subscribers defined, let's load the current value
         this._amount.load();
         this._frequency.load();
@@ -11849,6 +11887,7 @@ class App extends engrid_ENGrid {
         new OtherAmount();
         new MinMaxAmount();
         new Ticker();
+        new A11y();
         new AddNameToMessage();
         new ExpandRegionName();
         // Page Background
@@ -11900,7 +11939,7 @@ class App extends engrid_ENGrid {
     }
     // Use this function to add any Data Attributes to the Body tag
     setDataAttributes() {
-        // Add the Page Type as a Data Attribute on the video
+        // Add the Page Type as a Data Attribute on the Body Tag
         if (engrid_ENGrid.checkNested(window, "pageJson", "pageType")) {
             App.setBodyData("page-type", window.pageJson.pageType);
             this.logger.log("Page Type: " + window.pageJson.pageType);
@@ -11908,6 +11947,8 @@ class App extends engrid_ENGrid {
         else {
             this.logger.log("Page Type: Not Found");
         }
+        // Add the currency code as a Data Attribute on the Body Tag
+        App.setBodyData("currency-code", App.getCurrencyCode());
         // Add a body banner data attribute if the banner contains no image or video
         if (!document.querySelector(".body-banner img, .body-banner video")) {
             App.setBodyData("body-banner", "empty");
@@ -11992,6 +12033,21 @@ class App extends engrid_ENGrid {
                 App.setBodyData("country", countrySelect.value);
             });
         }
+        const otherAmountDiv = document.querySelector(".en__field--donationAmt .en__field__item--other");
+        if (otherAmountDiv) {
+            otherAmountDiv.setAttribute("data-currency-symbol", App.getCurrencySymbol());
+        }
+        // Add a payment type data attribute
+        const paymentTypeSelect = App.getField("transaction.paymenttype");
+        if (paymentTypeSelect) {
+            App.setBodyData("payment-type", paymentTypeSelect.value);
+            paymentTypeSelect.addEventListener("change", () => {
+                App.setBodyData("payment-type", paymentTypeSelect.value);
+            });
+        }
+        // Add demo data attribute
+        if (App.demo)
+            App.setBodyData("demo", "");
     }
 }
 
@@ -12017,7 +12073,7 @@ class AmountLabel {
     // Fix Amount Labels
     fixAmountLabels() {
         let amounts = document.querySelectorAll(".en__field--donationAmt label");
-        const currencySymbol = engrid_ENGrid.getOption("CurrencySymbol") || "";
+        const currencySymbol = engrid_ENGrid.getCurrencySymbol() || "";
         amounts.forEach((element) => {
             if (!isNaN(element.innerText)) {
                 element.innerText = currencySymbol + element.innerText;
@@ -12192,6 +12248,54 @@ class ApplePay {
         }
         this._form.submit = true;
         return true;
+    }
+}
+
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/a11y.js
+// a11y means accessibility
+// This Component is supposed to be used as a helper for Arria Attributes & Other Accessibility Features
+class A11y {
+    constructor() {
+        this.addRequired();
+        this.addLabel();
+        this.addGroupRole();
+    }
+    addGroupRole() {
+        // Add role="group" to all EN Radio fields
+        const radioFields = document.querySelectorAll(".en__field--radio");
+        radioFields.forEach((field) => {
+            field.setAttribute("role", "group");
+            // Add random ID to the label
+            const label = field.querySelector("label");
+            if (label) {
+                label.setAttribute("id", `en__field__label--${Math.random().toString(36).slice(2, 7)}`);
+                field.setAttribute("aria-labelledby", label.id);
+            }
+        });
+    }
+    addRequired() {
+        const mandatoryFields = document.querySelectorAll(".en__mandatory .en__field__input");
+        mandatoryFields.forEach((field) => {
+            field.setAttribute("aria-required", "true");
+        });
+    }
+    addLabel() {
+        const otherAmount = document.querySelector(".en__field__input--otheramount");
+        if (otherAmount) {
+            otherAmount.setAttribute("aria-label", "Enter your custom donation amount");
+        }
+        // Split selects usually don't have a label, so let's make the first option the label
+        const splitSelects = document.querySelectorAll(".en__field__input--splitselect");
+        splitSelects.forEach((select) => {
+            var _a, _b, _c, _d;
+            const firstOption = select.querySelector("option");
+            if (firstOption &&
+                firstOption.value === "" &&
+                !((_b = (_a = firstOption.textContent) === null || _a === void 0 ? void 0 : _a.toLowerCase()) === null || _b === void 0 ? void 0 : _b.includes("select")) &&
+                !((_d = (_c = firstOption.textContent) === null || _c === void 0 ? void 0 : _c.toLowerCase()) === null || _d === void 0 ? void 0 : _d.includes("choose"))) {
+                select.setAttribute("aria-label", firstOption.textContent || "");
+            }
+        });
     }
 }
 
@@ -12904,6 +13008,8 @@ const watchGiveBySelectField = () => {
             }
             enFieldPaymentType.value = "applepay";
         }
+        const event = new Event("change");
+        enFieldPaymentType.dispatchEvent(event);
     };
     // Check Giving Frequency on page load
     if (enFieldGiveBySelect) {
@@ -13208,14 +13314,10 @@ const isInViewport = (e) => {
 };
 // Checks to see if the page is so short, the footer is above the fold. If the footer is above the folde we'll use this class to ensure at a minimum the page fills the full viewport height.
 if (contentFooter && isInViewport(contentFooter)) {
-    document
-        .getElementsByTagName("BODY")[0]
-        .setAttribute("data-engrid-footer-above-fold", "");
+    document.body.setAttribute("data-engrid-footer-above-fold", "");
 }
 else {
-    document
-        .getElementsByTagName("BODY")[0]
-        .setAttribute("data-engrid-footer-below-fold", "");
+    document.body.setAttribute("data-engrid-footer-below-fold", "");
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/iframe.js
@@ -13259,6 +13361,11 @@ class iFrame {
                 this.sendIframeFormStatus("chained");
                 this.hideFormComponents();
                 this.addChainedBanner();
+            }
+            // Remove the skip link markup when inside an iFrame
+            const skipLink = document.querySelector(".skip-link");
+            if (skipLink) {
+                skipLink.remove();
             }
         }
         else {
@@ -13496,7 +13603,7 @@ class LiveVariables {
     }
     getAmountTxt(amount = 0) {
         var _a, _b, _c, _d;
-        const symbol = (_a = this.options.CurrencySymbol) !== null && _a !== void 0 ? _a : "$";
+        const symbol = (_a = engrid_ENGrid.getCurrencySymbol()) !== null && _a !== void 0 ? _a : "$";
         const dec_separator = (_b = this.options.DecimalSeparator) !== null && _b !== void 0 ? _b : ".";
         const thousands_separator = (_c = this.options.ThousandsSeparator) !== null && _c !== void 0 ? _c : "";
         const dec_places = amount % 1 == 0 ? 0 : (_d = this.options.DecimalPlaces) !== null && _d !== void 0 ? _d : 2;
@@ -13505,7 +13612,7 @@ class LiveVariables {
     }
     getUpsellAmountTxt(amount = 0) {
         var _a, _b, _c, _d;
-        const symbol = (_a = this.options.CurrencySymbol) !== null && _a !== void 0 ? _a : "$";
+        const symbol = (_a = engrid_ENGrid.getCurrencySymbol()) !== null && _a !== void 0 ? _a : "$";
         const dec_separator = (_b = this.options.DecimalSeparator) !== null && _b !== void 0 ? _b : ".";
         const thousands_separator = (_c = this.options.ThousandsSeparator) !== null && _c !== void 0 ? _c : "";
         const dec_places = amount % 1 == 0 ? 0 : (_d = this.options.DecimalPlaces) !== null && _d !== void 0 ? _d : 2;
@@ -13690,7 +13797,7 @@ class UpsellLightbox {
                     </p>
                   </div>
                   <div class="upsellOtherAmountInput">
-                    <input href="#" id="secondOtherField" name="secondOtherField" size="12" type="number" inputmode="numeric" step="1" value="" autocomplete="off">
+                    <input href="#" id="secondOtherField" name="secondOtherField" type="text" value="" inputmode="decimal" aria-label="Enter your custom donation amount" autocomplete="off" data-lpignore="true" aria-required="true" size="12">
                     <small>Minimum ${this.getAmountTxt(this.options.minAmount)}</small>
                   </div>
                 </div>
@@ -13811,11 +13918,13 @@ class UpsellLightbox {
     shouldOpen() {
         const freq = this._frequency.frequency;
         const upsellAmount = this.getUpsellAmount();
+        const paymenttype = engrid_ENGrid.getFieldValue("transaction.paymenttype") || "";
         // If frequency is not onetime or
         // the modal is already opened or
         // there's no suggestion for this donation amount,
         // we should not open
         if (freq == "onetime" &&
+            !this.options.disablePaymentMethods.includes(paymenttype.toLowerCase()) &&
             !this.overlay.classList.contains("is-submitting") &&
             upsellAmount > 0) {
             this.logger.log("Upsell Frequency " + this._frequency.frequency);
@@ -13904,7 +14013,7 @@ class UpsellLightbox {
     }
     getAmountTxt(amount = 0) {
         var _a, _b, _c, _d;
-        const symbol = (_a = engrid_ENGrid.getOption("CurrencySymbol")) !== null && _a !== void 0 ? _a : "$";
+        const symbol = (_a = engrid_ENGrid.getCurrencySymbol()) !== null && _a !== void 0 ? _a : "$";
         const dec_separator = (_b = engrid_ENGrid.getOption("DecimalSeparator")) !== null && _b !== void 0 ? _b : ".";
         const thousands_separator = (_c = engrid_ENGrid.getOption("ThousandsSeparator")) !== null && _c !== void 0 ? _c : "";
         const dec_places = amount % 1 == 0 ? 0 : (_d = engrid_ENGrid.getOption("DecimalPlaces")) !== null && _d !== void 0 ? _d : 2;
@@ -14962,7 +15071,7 @@ class NeverBounce {
                 this.init();
             }, 1000);
         }
-        this.form.onValidate.subscribe(() => (this.form.validate = this.validate()));
+        this.form.onValidate.subscribe(this.validate.bind(this));
     }
     init() {
         if (this.nbLoaded || !this.shouldRun)
@@ -14985,9 +15094,7 @@ class NeverBounce {
             '<div id="nb-feedback" class="en__field__error nb-hidden">Enter a valid email.</div>';
         this.insertAfter(nbCustomMessageHTML, this.emailField);
         const NBClass = this;
-        document
-            .getElementsByTagName("body")[0]
-            .addEventListener("nb:registered", function (event) {
+        document.body.addEventListener("nb:registered", function (event) {
             const field = document.querySelector('[data-nb-id="' + event.detail.id + '"]');
             field.addEventListener("nb:loading", function (e) {
                 engrid_ENGrid.disableSubmit("Validating Your Email");
@@ -15129,19 +15236,20 @@ class NeverBounce {
     }
     validate() {
         var _a;
-        if (!this.emailField || !this.shouldRun || !this.nbLoaded) {
+        const nbResult = engrid_ENGrid.getFieldValue("nb-result");
+        if (!this.emailField || !this.shouldRun || !this.nbLoaded || !nbResult) {
             this.logger.log("validate(): Should Not Run. Returning true.");
-            return true;
+            return;
         }
         if (this.nbStatus) {
-            this.nbStatus.value = engrid_ENGrid.getFieldValue("nb-result");
+            this.nbStatus.value = nbResult;
         }
-        if (!["catchall", "unknown", "valid"].includes(engrid_ENGrid.getFieldValue("nb-result"))) {
+        if (!["catchall", "unknown", "valid"].includes(nbResult)) {
             this.setEmailStatus("required");
             (_a = this.emailField) === null || _a === void 0 ? void 0 : _a.focus();
-            return false;
+            this.logger.log("NB-Result:", engrid_ENGrid.getFieldValue("nb-result"));
+            this.form.validate = false;
         }
-        return true;
     }
 }
 
@@ -15236,7 +15344,7 @@ class RememberMe {
         if (this.useRemote()) {
             this.createIframe(() => {
                 if (this.iframe && this.iframe.contentWindow) {
-                    this.iframe.contentWindow.postMessage({ key: this.cookieName, operation: "read" }, "*");
+                    this.iframe.contentWindow.postMessage(JSON.stringify({ key: this.cookieName, operation: "read" }), "*");
                     this._form.onSubmit.subscribe(() => {
                         if (this.rememberMeOptIn) {
                             this.readFields();
@@ -15245,11 +15353,17 @@ class RememberMe {
                     });
                 }
             }, (event) => {
+                let data;
                 if (event.data &&
-                    event.data.key &&
-                    event.data.value !== undefined &&
-                    event.data.key === this.cookieName) {
-                    this.updateFieldData(event.data.value);
+                    typeof event.data === "string" &&
+                    this.isJson(event.data)) {
+                    data = JSON.parse(event.data);
+                }
+                if (data &&
+                    data.key &&
+                    data.value !== undefined &&
+                    data.key === this.cookieName) {
+                    this.updateFieldData(data.value);
                     this.writeFields();
                     let hasFieldData = Object.keys(this.fieldData).length > 0;
                     if (!hasFieldData) {
@@ -15405,7 +15519,12 @@ class RememberMe {
             this.iframe = iframe;
             document.body.appendChild(this.iframe);
             this.iframe.addEventListener("load", () => iframeLoaded(), false);
-            window.addEventListener("message", (event) => messageReceived(event), false);
+            window.addEventListener("message", (event) => {
+                var _a;
+                if (((_a = this.iframe) === null || _a === void 0 ? void 0 : _a.contentWindow) === event.source) {
+                    messageReceived(event);
+                }
+            }, false);
         }
     }
     clearCookie() {
@@ -15418,12 +15537,12 @@ class RememberMe {
     }
     saveCookieToRemote() {
         if (this.iframe && this.iframe.contentWindow) {
-            this.iframe.contentWindow.postMessage({
+            this.iframe.contentWindow.postMessage(JSON.stringify({
                 key: this.cookieName,
-                value: JSON.stringify(this.fieldData),
+                value: this.fieldData,
                 operation: "write",
                 expires: this.cookieExpirationDays,
-            }, "*");
+            }), "*");
         }
     }
     readCookie() {
@@ -15506,6 +15625,15 @@ class RememberMe {
                 }
             }
         }
+    }
+    isJson(str) {
+        try {
+            JSON.parse(str);
+        }
+        catch (e) {
+            return false;
+        }
+        return true;
     }
 }
 
@@ -15761,7 +15889,7 @@ class EngridLogger {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/min-max-amount.js
-// This script checks if the donations amounts are numbers and if they are, appends the correct currency symbol
+// This script adds an erros message to the page if the amount is greater than the max amount or less than the min amount.
 
 class MinMaxAmount {
     constructor() {
@@ -15898,15 +16026,18 @@ class DataLayer {
         this.logger = new EngridLogger("DataLayer", "#f1e5bc", "#009cdc", "📊");
         this.dataLayer = window.dataLayer || [];
         this._form = EnForm.getInstance();
-        if (!this.shouldRun()) {
-            // If we're not on a Donation Page, get out
-            return;
-        }
         this.onLoad();
         this._form.onSubmit.subscribe(() => this.onSubmit());
     }
-    shouldRun() {
-        return engrid_ENGrid.getPageType() === "DONATION";
+    transformJSON(value) {
+        if (typeof value === "string") {
+            return value.toUpperCase().split(" ").join("-").replace(":-", "-");
+        }
+        else if (typeof value === "boolean") {
+            value = value ? "TRUE" : "FALSE";
+            return value;
+        }
+        return "";
     }
     onLoad() {
         if (engrid_ENGrid.getGiftProcess()) {
@@ -15920,6 +16051,27 @@ class DataLayer {
             this.dataLayer.push({
                 event: "EN_PAGE_VIEW",
             });
+        }
+        if (window.pageJson) {
+            const pageJson = window.pageJson;
+            for (const property in pageJson) {
+                if (Number.isInteger(pageJson[property])) {
+                    this.dataLayer.push({
+                        event: `EN_PAGEJSON_${property.toUpperCase()}-${pageJson[property]}`,
+                    });
+                    this.dataLayer.push({
+                        [`'EN_PAGEJSON_${property.toUpperCase()}'`]: pageJson[property],
+                    });
+                }
+                else {
+                    this.dataLayer.push({
+                        event: `EN_PAGEJSON_${property.toUpperCase()}-${this.transformJSON(pageJson[property])}`,
+                    });
+                    this.dataLayer.push({
+                        [`'EN_PAGEJSON_${property.toUpperCase()}'`]: this.transformJSON(pageJson[property]),
+                    });
+                }
+            }
         }
     }
     onSubmit() {
@@ -17415,11 +17567,124 @@ class TidyContact {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/live-currency.js
+// This script enables live currency symbol and code to the page.
+
+class LiveCurrency {
+    constructor() {
+        this.logger = new EngridLogger("LiveCurrency", "#1901b1", "#feb47a", "💲");
+        this.elementsFound = false;
+        this._amount = DonationAmount.getInstance();
+        this._frequency = DonationFrequency.getInstance();
+        this._fees = ProcessingFees.getInstance();
+        this.searchElements();
+        if (!this.shouldRun())
+            return;
+        this.updateCurrency();
+        this.addEventListeners();
+    }
+    searchElements() {
+        const enElements = document.querySelectorAll(`
+      .en__component--copyblock,
+      .en__component--codeblock,
+      .en__field label,
+      .en__submit
+      `);
+        if (enElements.length > 0) {
+            this.elementsFound = true;
+            const currency = engrid_ENGrid.getCurrencySymbol();
+            const currencyCode = engrid_ENGrid.getCurrencyCode();
+            const currencyElement = `<span class="engrid-currency-symbol">${currency}</span>`;
+            const currencyCodeElement = `<span class="engrid-currency-code">${currencyCode}</span>`;
+            enElements.forEach((item) => {
+                if (item instanceof HTMLElement &&
+                    (item.innerHTML.includes("[$]") || item.innerHTML.includes("[$$$]"))) {
+                    this.logger.log("Old Value:", item.innerHTML);
+                    const currencyRegex = /\[\$\]/g;
+                    const currencyCodeRegex = /\[\$\$\$\]/g;
+                    item.innerHTML = item.innerHTML.replace(currencyCodeRegex, currencyCodeElement);
+                    item.innerHTML = item.innerHTML.replace(currencyRegex, currencyElement);
+                    this.logger.log("New Value:", item.innerHTML);
+                }
+            });
+        }
+    }
+    shouldRun() {
+        return this.elementsFound;
+    }
+    addEventListeners() {
+        this._fees.onFeeChange.subscribe(() => {
+            setTimeout(() => {
+                this.updateCurrency();
+            }, 10);
+        });
+        this._amount.onAmountChange.subscribe(() => {
+            setTimeout(() => {
+                this.updateCurrency();
+            }, 10);
+        });
+        this._frequency.onFrequencyChange.subscribe(() => {
+            setTimeout(() => {
+                this.searchElements();
+                this.updateCurrency();
+            }, 10);
+        });
+        const currencyField = engrid_ENGrid.getField("transaction.paycurrency");
+        if (currencyField) {
+            currencyField.addEventListener("change", () => {
+                setTimeout(() => {
+                    this.updateCurrency();
+                    this._amount.load();
+                    const otherAmountDiv = document.querySelector(".en__field--donationAmt .en__field__item--other");
+                    if (otherAmountDiv) {
+                        otherAmountDiv.setAttribute("data-currency-symbol", engrid_ENGrid.getCurrencySymbol());
+                    }
+                    engrid_ENGrid.setBodyData("currency-code", engrid_ENGrid.getCurrencyCode());
+                }, 10);
+            });
+        }
+    }
+    updateCurrency() {
+        const currencySymbolElements = document.querySelectorAll(".engrid-currency-symbol");
+        const currencyCodeElements = document.querySelectorAll(".engrid-currency-code");
+        if (currencySymbolElements.length > 0) {
+            currencySymbolElements.forEach((item) => {
+                item.innerHTML = engrid_ENGrid.getCurrencySymbol();
+            });
+        }
+        if (currencyCodeElements.length > 0) {
+            currencyCodeElements.forEach((item) => {
+                item.innerHTML = engrid_ENGrid.getCurrencyCode();
+            });
+        }
+        this.logger.log(`Currency updated for ${currencySymbolElements.length + currencyCodeElements.length} elements`);
+    }
+}
+
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/autosubmit.js
+// Automatically submits the page if a URL argument is present
+
+class Autosubmit {
+    constructor() {
+        this.logger = new EngridLogger("Autosubmit", "#f0f0f0", "#ff0000", "🚀");
+        this._form = EnForm.getInstance();
+        if (engrid_ENGrid.checkNested(window.EngagingNetworks, "require", "_defined", "enjs", "checkSubmissionFailed") &&
+            !window.EngagingNetworks.require._defined.enjs.checkSubmissionFailed() &&
+            engrid_ENGrid.getUrlParameter("autosubmit") === "Y") {
+            this.logger.log("Autosubmitting Form");
+            this._form.submitForm();
+        }
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.13.11";
+const AppVersion = "0.13.30";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
+
+
 
 
 
