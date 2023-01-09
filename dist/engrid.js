@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, November 3, 2022 @ 11:04:44 ET
+ *  Date: Monday, January 9, 2023 @ 17:15:07 ET
  *  By: fernando
  *  ENGrid styles: v0.13.19
- *  ENGrid scripts: v0.13.30
+ *  ENGrid scripts: v0.13.31
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -11022,7 +11022,10 @@ class DonationAmount {
                 }
                 else if (element.name == other) {
                     const cleanedAmount = engrid_ENGrid.cleanAmount(element.value);
-                    element.value = cleanedAmount.toString();
+                    element.value =
+                        cleanedAmount % 1 != 0
+                            ? cleanedAmount.toFixed(2)
+                            : cleanedAmount.toString();
                     this.amount = cleanedAmount;
                 }
             }
@@ -13331,7 +13334,7 @@ class iFrame {
             // Add the data-engrid-embedded attribute when inside an iFrame if it wasn't already added by a script in the Page Template
             engrid_ENGrid.setBodyData("embedded", "");
             // Fire the resize event
-            this.logger.log("First Resize");
+            this.logger.log("iFrame Event - Begin Resizing");
             this.sendIframeHeight();
             // Listen for the resize event
             window.addEventListener("resize", this.sendIframeHeight.bind(this));
@@ -13344,7 +13347,7 @@ class iFrame {
                 }, "*");
                 // On click fire the resize event
                 document.addEventListener("click", (e) => {
-                    this.logger.log("Event - click");
+                    this.logger.log("iFrame Event - click");
                     setTimeout(() => {
                         this.sendIframeHeight();
                     }, 100);
@@ -13352,12 +13355,12 @@ class iFrame {
             });
             // Listen for the form submit event
             this._form.onSubmit.subscribe((e) => {
-                this.logger.log("Event - onSubmit");
+                this.logger.log("iFrame Event - onSubmit");
                 this.sendIframeFormStatus("submit");
             });
             // If the iFrame is Chained, check if the form has data
             if (this.isChained() && this.hasPayment()) {
-                this.logger.log("Chained iFrame");
+                this.logger.log("iFrame Event - Chained iFrame");
                 this.sendIframeFormStatus("chained");
                 this.hideFormComponents();
                 this.addChainedBanner();
@@ -13385,7 +13388,7 @@ class iFrame {
                             left: 0,
                             behavior: "smooth",
                         });
-                        this.logger.log("Scrolling Window To " + scrollTo);
+                        this.logger.log("iFrame Event - Scrolling Window to " + scrollTo);
                     }
                 }
             });
@@ -13393,7 +13396,7 @@ class iFrame {
     }
     sendIframeHeight() {
         let height = document.body.offsetHeight;
-        this.logger.log("Sending iFrame height of: " + height + "px"); // check the message is being sent correctly
+        this.logger.log("iFrame Event - Sending iFrame height of: " + height + "px"); // check the message is being sent correctly
         window.parent.postMessage({
             frameHeight: height,
             pageNumber: engrid_ENGrid.getPageNumber(),
@@ -13448,7 +13451,7 @@ class iFrame {
         return payment || ccnumber;
     }
     hideFormComponents() {
-        this.logger.log("Hiding Form Components");
+        this.logger.log("iFrame Event - Hiding Form Components");
         const en__component = document.querySelectorAll(".body-main > div");
         en__component.forEach((component, index) => {
             if (component.classList.contains("hide") === false &&
@@ -13463,7 +13466,7 @@ class iFrame {
         this.sendIframeHeight();
     }
     showFormComponents() {
-        this.logger.log("Showing Form Components");
+        this.logger.log("iFrame Event - Showing Form Components");
         const en__component = document.querySelectorAll(".body-main > div.hide-chained");
         en__component.forEach((component) => {
             component.classList.remove("hide-iframe");
@@ -13473,7 +13476,7 @@ class iFrame {
     }
     addChainedBanner() {
         var _a, _b;
-        this.logger.log("Adding Chained Banner");
+        this.logger.log("iFrame Event - Adding Chained Banner");
         const banner = document.createElement("div");
         const lastComponent = document.querySelector(".body-main > div:last-of-type");
         banner.classList.add("en__component");
@@ -15784,7 +15787,10 @@ class OtherAmount {
                             otherAmountTransformation: `${amount} => ${cleanAmount}`,
                         });
                     }
-                    target.value = cleanAmount.toString();
+                    target.value =
+                        cleanAmount % 1 != 0
+                            ? cleanAmount.toFixed(2)
+                            : cleanAmount.toString();
                 }
             });
         }
@@ -17678,7 +17684,7 @@ class Autosubmit {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.13.30";
+const AppVersion = "0.13.31";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
