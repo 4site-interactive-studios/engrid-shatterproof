@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, March 2, 2023 @ 09:18:01 ET
+ *  Date: Thursday, March 2, 2023 @ 09:32:09 ET
  *  By: fernando
  *  ENGrid styles: v0.13.39
  *  ENGrid scripts: v0.13.39
@@ -18003,6 +18003,8 @@ class DonationMultistepForm {
   buildSectionNavigation() {
     console.log("DonationMultistepForm: buildSectionNavigation");
     this.sections.forEach((section, key) => {
+      var _sectionNavigation$qu, _sectionNavigation$qu2, _sectionNavigation$qu3;
+
       section.dataset.sectionId = key;
       const sectionNavigation = document.createElement("div");
       sectionNavigation.classList.add("section-navigation");
@@ -18050,18 +18052,18 @@ class DonationMultistepForm {
         <span class="section-count__current">${key + 1}</span> of
         <span class="section-count__total">${sectionTotal}</span>
       `;
-      sectionNavigation.querySelector(".section-navigation__previous")?.addEventListener("click", e => {
+      (_sectionNavigation$qu = sectionNavigation.querySelector(".section-navigation__previous")) === null || _sectionNavigation$qu === void 0 ? void 0 : _sectionNavigation$qu.addEventListener("click", e => {
         e.preventDefault();
         this.scrollToSection(key - 1);
       });
-      sectionNavigation.querySelector(".section-navigation__next")?.addEventListener("click", e => {
+      (_sectionNavigation$qu2 = sectionNavigation.querySelector(".section-navigation__next")) === null || _sectionNavigation$qu2 === void 0 ? void 0 : _sectionNavigation$qu2.addEventListener("click", e => {
         e.preventDefault();
 
         if (this.validateForm(key)) {
           this.scrollToSection(key + 1);
         }
       });
-      sectionNavigation.querySelector(".section-navigation__submit")?.addEventListener("click", e => {
+      (_sectionNavigation$qu3 = sectionNavigation.querySelector(".section-navigation__submit")) === null || _sectionNavigation$qu3 === void 0 ? void 0 : _sectionNavigation$qu3.addEventListener("click", e => {
         e.preventDefault(); // Validate the entire form again
 
         if (this.validateForm()) {
