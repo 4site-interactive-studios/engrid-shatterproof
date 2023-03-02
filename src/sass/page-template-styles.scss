@@ -148,9 +148,8 @@
       }
     }
 
-    // No need for it on mobile
     .body-header {
-      display: none;
+      margin-top: 0;
     }
   }
 
@@ -269,6 +268,8 @@
 
     .body-header {
       min-height: min(var(--spacing_lg), 5vw);
+      margin-top: 15px;
+      margin-bottom: -1px;
     }
 
     .body-footer {
