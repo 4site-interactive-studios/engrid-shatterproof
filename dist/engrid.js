@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Sunday, March 26, 2023 @ 19:46:00 ET
+ *  Date: Sunday, March 26, 2023 @ 20:12:54 ET
  *  By: bryancasler
  *  ENGrid styles: v0.13.42
  *  ENGrid scripts: v0.13.41
@@ -18671,7 +18671,7 @@ class DonationMultistepForm {
 const customScript = function (App) {
   console.log("ENGrid client scripts are executing"); // Use addHtml in engrid.js to add HTML to the page
 
-  App.addHtml('<div class="upsell-message"><p class="recurring-frequency-y-show">Thank you! Your monthly gift does even more to help end the addiction crisis.</p><p class="recurring-frequency-n-show">A monthly gift does even more to help end the addiction crisis.</p><span class="arrow"></span></div>', ".insert-upsell-message .en__field--recurrfreq", "after");
+  App.addHtml('<div class="upsell-message"><p class="recurring-frequency-y-show">Thank you! Your monthly gift does even more to help end the addiction crisis.</p><p class="recurring-frequency-n-show">A monthly gift does even more to help end the addiction crisis.</p><span class="arrow"></span></div>', ".insert-upsell-message > div:last-child", "after");
 };
 ;// CONCATENATED MODULE: ./src/index.ts
  // Uses ENGrid via NPM

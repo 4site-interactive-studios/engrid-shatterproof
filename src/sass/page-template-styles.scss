@@ -376,6 +376,21 @@
     align-items: flex-start;
   }
 
+  // Use CSS ordering to position it so that the i#-hide classes don't break because their count in the DOM order changed
+  .insert-upsell-message {
+    > * {
+      order: 3;
+    }
+
+    .en__field--recurrfreq {
+      order: 1;
+    }
+
+    .upsell-message {
+      order: 2;
+    }
+  }
+
   .upsell-message {
     display: flex;
     margin-bottom: var(--fields_spacing-block);
