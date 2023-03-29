@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, March 29, 2023 @ 15:33:46 ET
+ *  Date: Wednesday, March 29, 2023 @ 15:35:33 ET
  *  By: bryancasler
- *  ENGrid styles: v0.13.42
- *  ENGrid scripts: v0.13.41
+ *  ENGrid styles: v0.13.44
+ *  ENGrid scripts: v0.13.43
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10855,8 +10855,8 @@ class Loader {
         var _a, _b, _c, _d;
         const assets = this.getOption("assets");
         const isLoaded = engrid_ENGrid.getBodyData("loaded");
-        const shouldSkipCss = this.getOption("engridcss") === "false";
-        const shouldSkipJs = this.getOption("engridjs") === "false";
+        let shouldSkipCss = this.getOption("engridcss") === "false";
+        let shouldSkipJs = this.getOption("engridjs") === "false";
         if (isLoaded || !assets) {
             if (shouldSkipCss && this.cssElement) {
                 this.logger.log("engridcss=false | Removing original stylesheet:", this.cssElement);
@@ -10865,6 +10865,10 @@ class Loader {
             if (shouldSkipJs && this.jsElement) {
                 this.logger.log("engridjs=false | Removing original script:", this.jsElement);
                 this.jsElement.remove();
+            }
+            if (shouldSkipCss) {
+                this.logger.log("engridcss=false | adding top banner CSS");
+                this.addENgridCSSUnloadedCSS();
             }
             if (shouldSkipJs) {
                 this.logger.log("engridjs=false | Skipping JS load.");
@@ -10923,17 +10927,21 @@ class Loader {
             this.logger.log("engridcss=false | Removing original stylesheet:", this.cssElement);
             this.cssElement.remove();
         }
-        if (shouldSkipCss && engrid_css_url && engrid_css_url !== '') {
+        if (shouldSkipCss && engrid_css_url && engrid_css_url !== "") {
             this.logger.log("engridcss=false | Skipping injection of stylesheet:", engrid_css_url);
         }
-        if (!shouldSkipCss) {
+        if (shouldSkipCss) {
+            this.logger.log("engridcss=false | adding top banner CSS");
+            this.addENgridCSSUnloadedCSS();
+        }
+        else {
             this.setCssFile(engrid_css_url);
         }
         if (shouldSkipJs && this.jsElement) {
             this.logger.log("engridjs=false | Removing original script:", this.jsElement);
             this.jsElement.remove();
         }
-        if (shouldSkipJs && engrid_js_url && engrid_js_url !== '') {
+        if (shouldSkipJs && engrid_js_url && engrid_js_url !== "") {
             this.logger.log("engridjs=false | Skipping injection of script:", engrid_js_url);
         }
         if (!shouldSkipJs) {
@@ -10959,7 +10967,7 @@ class Loader {
         return null;
     }
     setCssFile(url) {
-        if (url === '') {
+        if (url === "") {
             return;
         }
         if (this.cssElement) {
@@ -10977,13 +10985,50 @@ class Loader {
         }
     }
     setJsFile(url) {
-        if (url === '') {
+        if (url === "") {
             return;
         }
         this.logger.log("Injecting script:", url);
         const script = document.createElement("script");
         script.setAttribute("src", url);
         document.head.appendChild(script);
+    }
+    addENgridCSSUnloadedCSS() {
+        document.body.insertAdjacentHTML("beforeend", `<style>
+        html,
+        body {
+            background-color: #ffffff;
+        }
+
+        body {
+            opacity: 1;
+            margin: 0;
+        }
+
+        body:before {
+            content: "ENGRID CSS UNLOADED";
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            background-color: #ffff00;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+            font-weight: 600;
+        }
+
+        .en__component--advrow {
+            flex-direction: column;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .en__component--advrow * {
+            max-width: 100%;
+            height: auto;
+        }
+      </style>`);
     }
 }
 
@@ -11970,6 +12015,9 @@ class App extends engrid_ENGrid {
         new UrlToForm();
         // Required if Visible Fields
         new RequiredIfVisible();
+        //Debug hidden fields
+        if (this.options.Debug)
+            new DebugHiddenFields();
         // TidyContact
         if (this.options.TidyContact)
             new TidyContact();
@@ -17873,11 +17921,36 @@ class SwapAmounts {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/debug-hidden-fields.js
+// Switches hidden fields to be type text when debug mode is enabled.
+
+class DebugHiddenFields {
+    constructor() {
+        this.logger = new EngridLogger("Debug hidden fields", "#f0f0f0", "#ff0000", "🫣");
+        const fields = document.querySelectorAll(".en__component--row [type='hidden'], .engrid-added-input[type='hidden']");
+        if (fields.length > 0) {
+            this.logger.log(`Switching the following type 'hidden' fields to type 'text':  ${[
+                ...fields,
+            ]
+                .map((f) => f.name)
+                .join(", ")}`);
+            fields.forEach((el) => {
+                el.type = "text";
+                el.setAttribute("unhidden", "");
+                const label = document.createElement("label");
+                label.textContent = "Hidden field:" + el.name;
+                el.insertAdjacentElement("beforebegin", label);
+            });
+        }
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.13.41";
+const AppVersion = "0.13.43";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
 
 
 
