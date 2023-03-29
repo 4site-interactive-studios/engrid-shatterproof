@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, March 2, 2023 @ 12:44:20 ET
+ *  Date: Tuesday, March 28, 2023 @ 21:49:14 ET
  *  By: fernando
- *  ENGrid styles: v0.13.39
- *  ENGrid scripts: v0.13.39
+ *  ENGrid styles: v0.13.44
+ *  ENGrid scripts: v0.13.43
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10855,8 +10855,8 @@ class Loader {
         var _a, _b, _c, _d;
         const assets = this.getOption("assets");
         const isLoaded = engrid_ENGrid.getBodyData("loaded");
-        const shouldSkipCss = this.getOption("engridcss") === "false";
-        const shouldSkipJs = this.getOption("engridjs") === "false";
+        let shouldSkipCss = this.getOption("engridcss") === "false";
+        let shouldSkipJs = this.getOption("engridjs") === "false";
         if (isLoaded || !assets) {
             if (shouldSkipCss && this.cssElement) {
                 this.logger.log("engridcss=false | Removing original stylesheet:", this.cssElement);
@@ -10865,6 +10865,10 @@ class Loader {
             if (shouldSkipJs && this.jsElement) {
                 this.logger.log("engridjs=false | Removing original script:", this.jsElement);
                 this.jsElement.remove();
+            }
+            if (shouldSkipCss) {
+                this.logger.log("engridcss=false | adding top banner CSS");
+                this.addENgridCSSUnloadedCSS();
             }
             if (shouldSkipJs) {
                 this.logger.log("engridjs=false | Skipping JS load.");
@@ -10923,17 +10927,21 @@ class Loader {
             this.logger.log("engridcss=false | Removing original stylesheet:", this.cssElement);
             this.cssElement.remove();
         }
-        if (shouldSkipCss && engrid_css_url && engrid_css_url !== '') {
+        if (shouldSkipCss && engrid_css_url && engrid_css_url !== "") {
             this.logger.log("engridcss=false | Skipping injection of stylesheet:", engrid_css_url);
         }
-        if (!shouldSkipCss) {
+        if (shouldSkipCss) {
+            this.logger.log("engridcss=false | adding top banner CSS");
+            this.addENgridCSSUnloadedCSS();
+        }
+        else {
             this.setCssFile(engrid_css_url);
         }
         if (shouldSkipJs && this.jsElement) {
             this.logger.log("engridjs=false | Removing original script:", this.jsElement);
             this.jsElement.remove();
         }
-        if (shouldSkipJs && engrid_js_url && engrid_js_url !== '') {
+        if (shouldSkipJs && engrid_js_url && engrid_js_url !== "") {
             this.logger.log("engridjs=false | Skipping injection of script:", engrid_js_url);
         }
         if (!shouldSkipJs) {
@@ -10959,7 +10967,7 @@ class Loader {
         return null;
     }
     setCssFile(url) {
-        if (url === '') {
+        if (url === "") {
             return;
         }
         if (this.cssElement) {
@@ -10977,13 +10985,50 @@ class Loader {
         }
     }
     setJsFile(url) {
-        if (url === '') {
+        if (url === "") {
             return;
         }
         this.logger.log("Injecting script:", url);
         const script = document.createElement("script");
         script.setAttribute("src", url);
         document.head.appendChild(script);
+    }
+    addENgridCSSUnloadedCSS() {
+        document.body.insertAdjacentHTML("beforeend", `<style>
+        html,
+        body {
+            background-color: #ffffff;
+        }
+
+        body {
+            opacity: 1;
+            margin: 0;
+        }
+
+        body:before {
+            content: "ENGRID CSS UNLOADED";
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            background-color: #ffff00;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            font-family: sans-serif;
+            font-weight: 600;
+        }
+
+        .en__component--advrow {
+            flex-direction: column;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .en__component--advrow * {
+            max-width: 100%;
+            height: auto;
+        }
+      </style>`);
     }
 }
 
@@ -11542,6 +11587,28 @@ class engrid_ENGrid {
         }
         return engrid_ENGrid.getOption("CurrencyCode") || "USD";
     }
+    static addHtml(html, target = "body", position = "before") {
+        var _a, _b;
+        const targetElement = document.querySelector(target);
+        if (typeof html === "object") {
+            html = html.outerHTML;
+        }
+        if (targetElement) {
+            const htmlElement = document.createRange().createContextualFragment(html);
+            if (position === "before") {
+                (_a = targetElement.parentNode) === null || _a === void 0 ? void 0 : _a.insertBefore(htmlElement, targetElement);
+            }
+            else {
+                (_b = targetElement.parentNode) === null || _b === void 0 ? void 0 : _b.insertBefore(htmlElement, targetElement.nextSibling);
+            }
+        }
+    }
+    static removeHtml(target) {
+        const targetElement = document.querySelector(target);
+        if (targetElement) {
+            targetElement.remove();
+        }
+    }
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/events/donation-frequency.js
@@ -11895,6 +11962,8 @@ class App extends engrid_ENGrid {
         new Autosubmit();
         // Adjust display of event tickets.
         new EventTickets();
+        // Swap Amounts
+        new SwapAmounts();
         // On the end of the script, after all subscribers defined, let's load the current value
         this._amount.load();
         this._frequency.load();
@@ -11946,6 +12015,9 @@ class App extends engrid_ENGrid {
         new UrlToForm();
         // Required if Visible Fields
         new RequiredIfVisible();
+        //Debug hidden fields
+        if (this.options.Debug)
+            new DebugHiddenFields();
         // TidyContact
         if (this.options.TidyContact)
             new TidyContact();
@@ -11982,6 +12054,11 @@ class App extends engrid_ENGrid {
         }
     }
     onError() {
+        // Smooth Scroll to the first .en__field--validationFailed element
+        const firstError = document.querySelector(".en__field--validationFailed");
+        if (firstError) {
+            firstError.scrollIntoView({ behavior: "smooth" });
+        }
         if (this.options.onError) {
             this.logger.danger("Client onError Triggered");
             this.options.onError();
@@ -13639,7 +13716,6 @@ class LiveVariables {
         this._fees.onFeeChange.subscribe(() => this.changeLiveAmount());
         this._fees.onFeeChange.subscribe(() => this.changeLiveUpsellAmount());
         this._fees.onFeeChange.subscribe(() => this.changeSubmitButton());
-        this._frequency.onFrequencyChange.subscribe(() => this.swapAmounts());
         this._frequency.onFrequencyChange.subscribe(() => this.changeLiveFrequency());
         this._frequency.onFrequencyChange.subscribe(() => this.changeRecurrency());
         this._frequency.onFrequencyChange.subscribe(() => this.changeSubmitButton());
@@ -13745,28 +13821,6 @@ class LiveVariables {
             // Trigger the onChange event for the field
             const event = new Event("change", { bubbles: true });
             recurrpay.dispatchEvent(event);
-        }
-    }
-    swapAmounts() {
-        if ("EngridAmounts" in window &&
-            this._frequency.frequency in window.EngridAmounts) {
-            const loadEnAmounts = (amountArray) => {
-                let ret = [];
-                for (let amount in amountArray.amounts) {
-                    ret.push({
-                        selected: amountArray.amounts[amount] === amountArray.default,
-                        label: amount,
-                        value: amountArray.amounts[amount].toString(),
-                    });
-                }
-                return ret;
-            };
-            window.EngagingNetworks.require._defined.enjs.swapList("donationAmt", loadEnAmounts(window.EngridAmounts[this._frequency.frequency]), {
-                ignoreCurrentValue: !window.EngagingNetworks.require._defined.enjs.checkSubmissionFailed(),
-            });
-            this._amount.load();
-            if (engrid_ENGrid.getOption("Debug"))
-                console.log("Amounts Swapped To", window.EngridAmounts[this._frequency.frequency]);
         }
     }
     // Watch for a clicks on monthly-upsell link
@@ -15117,8 +15171,10 @@ class NeverBounce {
         };
         engrid_ENGrid.loadJS("https://cdn.neverbounce.com/widget/dist/NeverBounce.js");
         if (this.emailField) {
-            if (this.emailField.value)
+            if (this.emailField.value) {
+                this.logger.log("E-mail Field Found");
                 this.shouldRun = false;
+            }
             this.emailField.addEventListener("change", (e) => {
                 var _a;
                 if (!this.nbLoaded) {
@@ -15134,14 +15190,24 @@ class NeverBounce {
                 }
             });
             window.setTimeout(() => {
+                if (this.emailField && this.emailField.value) {
+                    this.logger.log("E-mail Filled Programatically");
+                    this.shouldRun = false;
+                }
                 this.init();
             }, 1000);
         }
         this.form.onValidate.subscribe(this.validate.bind(this));
     }
     init() {
-        if (this.nbLoaded || !this.shouldRun)
+        if (!this.shouldRun) {
+            this.logger.log("Should Not Run");
             return;
+        }
+        if (this.nbLoaded) {
+            this.logger.log("Already Loaded");
+            return;
+        }
         this.logger.log("Init Function");
         if (this.dateField && document.getElementsByName(this.dateField).length)
             this.nbDate = document.querySelector("[name='" + this.dateField + "']");
@@ -15923,37 +15989,37 @@ class EngridLogger {
         if (!engrid_ENGrid.debug) {
             return () => { };
         }
-        return console.log.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
+        return console.log.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background-color: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
     }
     get success() {
         if (!engrid_ENGrid.debug) {
             return () => { };
         }
-        return console.log.bind(window.console, "%c ✅ " + this.prefix + " %s", `color: green; background: white; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
+        return console.log.bind(window.console, "%c ✅ " + this.prefix + " %s", `color: green; background-color: white; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
     }
     get danger() {
         if (!engrid_ENGrid.debug) {
             return () => { };
         }
-        return console.log.bind(window.console, "%c ⛔️ " + this.prefix + " %s", `color: red; background: white; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
+        return console.log.bind(window.console, "%c ⛔️ " + this.prefix + " %s", `color: red; background-color: white; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
     }
     get warn() {
         if (!engrid_ENGrid.debug) {
             return () => { };
         }
-        return console.warn.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
+        return console.warn.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background-color: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
     }
     get dir() {
         if (!engrid_ENGrid.debug) {
             return () => { };
         }
-        return console.dir.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
+        return console.dir.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background-color: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
     }
     get error() {
         if (!engrid_ENGrid.debug) {
             return () => { };
         }
-        return console.error.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
+        return console.error.bind(window.console, "%c" + this.emoji + " " + this.prefix + " %s", `color: ${this.color}; background-color: ${this.background}; font-size: 1.2em; padding: 4px; border-radius: 2px; font-family: monospace;`);
     }
 }
 
@@ -17774,11 +17840,118 @@ class EventTickets {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/swap-amounts.js
+// This script allows you to override the default donation amounts in Engaging Networks
+// with a custom list of amounts.
+/**
+ * Example:
+ * window.EngridAmounts = {
+ *   "onetime": {
+ *     amounts: {
+ *       "10": 10,
+ *       "30": 30,
+ *       "50": 50,
+ *       "100": 100,
+ *       "Other": "other",
+ *     },
+ *     default: 30,
+ *   },
+ *   "monthly": {
+ *     amounts: {
+ *       "5": 5,
+ *       "15": 15,
+ *       "25": 25,
+ *       "30": 30,
+ *       "Other": "other",
+ *     },
+ *     default: 15,
+ *   },
+ * };
+ */
+
+class SwapAmounts {
+    constructor() {
+        this.logger = new EngridLogger("SwapAmounts", "purple", "white", "💰");
+        this._amount = DonationAmount.getInstance();
+        this._frequency = DonationFrequency.getInstance();
+        this.defaultChange = false;
+        this.swapped = false;
+        if (!this.shouldRun())
+            return;
+        this._frequency.onFrequencyChange.subscribe(() => this.swapAmounts());
+        this._amount.onAmountChange.subscribe(() => {
+            this.defaultChange = false;
+            if (!this.swapped)
+                return;
+            // Check if the amount is not default amount for the frequency
+            if (this._amount.amount !=
+                window.EngridAmounts[this._frequency.frequency].default) {
+                this.defaultChange = true;
+            }
+        });
+    }
+    swapAmounts() {
+        if (this._frequency.frequency in window.EngridAmounts) {
+            window.EngagingNetworks.require._defined.enjs.swapList("donationAmt", this.loadEnAmounts(window.EngridAmounts[this._frequency.frequency]), {
+                ignoreCurrentValue: this.ignoreCurrentValue(),
+            });
+            this._amount.load();
+            this.logger.log("Amounts Swapped To", window.EngridAmounts[this._frequency.frequency]);
+            this.swapped = true;
+        }
+    }
+    loadEnAmounts(amountArray) {
+        let ret = [];
+        for (let amount in amountArray.amounts) {
+            ret.push({
+                selected: amountArray.amounts[amount] === amountArray.default,
+                label: amount,
+                value: amountArray.amounts[amount].toString(),
+            });
+        }
+        return ret;
+    }
+    shouldRun() {
+        return "EngridAmounts" in window;
+    }
+    ignoreCurrentValue() {
+        return !(window.EngagingNetworks.require._defined.enjs.checkSubmissionFailed() ||
+            engrid_ENGrid.getUrlParameter("transaction.donationAmt") !== null ||
+            this.defaultChange);
+    }
+}
+
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/debug-hidden-fields.js
+// Switches hidden fields to be type text when debug mode is enabled.
+
+class DebugHiddenFields {
+    constructor() {
+        this.logger = new EngridLogger("Debug hidden fields", "#f0f0f0", "#ff0000", "🫣");
+        const fields = document.querySelectorAll(".en__component--row [type='hidden'], .engrid-added-input[type='hidden']");
+        if (fields.length > 0) {
+            this.logger.log(`Switching the following type 'hidden' fields to type 'text':  ${[
+                ...fields,
+            ]
+                .map((f) => f.name)
+                .join(", ")}`);
+            fields.forEach((el) => {
+                el.type = "text";
+                el.setAttribute("unhidden", "");
+                const label = document.createElement("label");
+                label.textContent = "Hidden field:" + el.name;
+                el.insertAdjacentElement("beforebegin", label);
+            });
+        }
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.13.39";
+const AppVersion = "0.13.43";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
+
 
 
 
