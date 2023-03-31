@@ -375,4 +375,40 @@
     flex-direction: column;
     align-items: flex-start;
   }
+
+  // Use CSS ordering to position it so that the i#-hide classes don't break because their count in the DOM order changed
+  .insert-upsell-message {
+    > * {
+      order: 3;
+    }
+
+    .en__field--recurrfreq {
+      order: 1;
+    }
+
+    .upsell-message {
+      order: 2;
+    }
+  }
+
+  .upsell-message {
+    display: flex;
+    margin-bottom: var(--fields_spacing-block);
+    position: relative;
+    top: -0.5rem;
+
+    p {
+      margin: 0 1rem 0 0;
+      flex-basis: fit-content;
+    }
+
+    .arrow {
+      background-image: url("https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10089/arrow.png");
+      background-repeat: no-repeat;
+      background-size: contain;
+      position: relative;
+      flex-basis: 32px;
+      background-position: center;
+    }
+  }
 }

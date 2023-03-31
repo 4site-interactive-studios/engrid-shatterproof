@@ -17,7 +17,7 @@ document
 
 import "./sass/main.scss";
 import DonationMultistepForm from "./scripts/donation-multistep-form";
-import { customScript } from "./scripts/main";
+import { customScript } from "./scripts/main.js";
 
 const options: Options = {
   applePay: false,
@@ -38,7 +38,7 @@ const options: Options = {
     console.log("Starter Theme Loaded"); /*dataCapture();*/
     (<any>window).DonationMultistepForm = DonationMultistepForm;
     new DonationMultistepForm(DonationAmount, DonationFrequency);
-    customScript();
+    customScript(App);
   },
   onResize: () => console.log("Starter Theme Window Resized"),
 };

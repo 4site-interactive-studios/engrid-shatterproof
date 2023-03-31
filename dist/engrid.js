@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, March 28, 2023 @ 21:50:30 ET
- *  By: fernando
+ *  Date: Wednesday, March 29, 2023 @ 15:35:33 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.13.44
  *  ENGrid scripts: v0.13.43
  *
@@ -18739,8 +18739,10 @@ class DonationMultistepForm {
 
 }
 ;// CONCATENATED MODULE: ./src/scripts/main.js
-const customScript = function () {
-  console.log("ENGrid client scripts are executing"); // Add your client scripts here
+const customScript = function (App) {
+  console.log("ENGrid client scripts are executing"); // Use addHtml in engrid.js to add HTML to the page
+
+  App.addHtml('<div class="upsell-message"><p class="recurring-frequency-y-show">Thank you! Your monthly does even more to help people who are living with addiction.</p><p class="recurring-frequency-n-show">Giving monthly is the best way to help provide access to quality addiction treatment.</p><span class="arrow"></span></div>', ".insert-upsell-message > div:last-child", "after");
 };
 ;// CONCATENATED MODULE: ./src/index.ts
  // Uses ENGrid via NPM
@@ -18776,7 +18778,7 @@ const options = {
 
     window.DonationMultistepForm = DonationMultistepForm;
     new DonationMultistepForm(DonationAmount, DonationFrequency);
-    customScript();
+    customScript(App);
   },
   onResize: () => console.log("Starter Theme Window Resized")
 };

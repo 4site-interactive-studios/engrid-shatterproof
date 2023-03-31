@@ -19,8 +19,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, March 28, 2023 @ 21:50:30 ET
- *  By: fernando
+ *  Date: Wednesday, March 29, 2023 @ 15:35:33 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.13.44
  *  ENGrid scripts: v0.13.43
  *
@@ -7160,6 +7160,33 @@ body:not([data-engrid-debug]) #debug-bar{
 [data-engrid-theme=shatterproof] .en__field--NOT_TAGGED_24 .en__field__element--radio{
   align-items:flex-start;
   flex-direction:column;
+}
+[data-engrid-theme=shatterproof] .insert-upsell-message>*{
+  order:3;
+}
+[data-engrid-theme=shatterproof] .insert-upsell-message .en__field--recurrfreq{
+  order:1;
+}
+[data-engrid-theme=shatterproof] .insert-upsell-message .upsell-message{
+  order:2;
+}
+[data-engrid-theme=shatterproof] .upsell-message{
+  display:flex;
+  margin-bottom:var(--fields_spacing-block);
+  position:relative;
+  top:-.5rem;
+}
+[data-engrid-theme=shatterproof] .upsell-message p{
+  flex-basis:fit-content;
+  margin:0 1rem 0 0;
+}
+[data-engrid-theme=shatterproof] .upsell-message .arrow{
+  background-image:url(https://acb0a5d73b67fccd4bbe-c2d8138f0ea10a18dd4c43ec3aa4240a.ssl.cf5.rackcdn.com/10089/arrow.png);
+  background-position:50%;
+  background-repeat:no-repeat;
+  background-size:contain;
+  flex-basis:32px;
+  position:relative;
 }
 
 @media only screen and (max-width:340px){
