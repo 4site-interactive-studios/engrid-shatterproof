@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, March 31, 2023 @ 11:34:24 ET
+ *  Date: Tuesday, April 25, 2023 @ 10:51:02 ET
  *  By: fernando
  *  ENGrid styles: v0.13.44
  *  ENGrid scripts: v0.13.43
@@ -18646,8 +18646,9 @@ class DonationMultistepForm {
 
   bounceArrow(freq) {
     const arrow = document.querySelector(".monthly-upsell-message");
+    if (!arrow) return;
 
-    if (arrow && freq === "onetime") {
+    if (freq === "onetime") {
       arrow.classList.add("bounce"); // setTimeout(() => {
       //   arrow.classList.remove("bounce");
       // }, 1000);

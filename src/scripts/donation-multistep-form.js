@@ -640,7 +640,8 @@ export default class DonationMultistepForm {
   // Bounce Arrow Up and Down
   bounceArrow(freq) {
     const arrow = document.querySelector(".monthly-upsell-message");
-    if (arrow && freq === "onetime") {
+    if (!arrow) return;
+    if (freq === "onetime") {
       arrow.classList.add("bounce");
       // setTimeout(() => {
       //   arrow.classList.remove("bounce");
