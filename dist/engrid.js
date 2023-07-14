@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, July 13, 2023 @ 13:00:45 ET
+ *  Date: Friday, July 14, 2023 @ 10:44:00 ET
  *  By: michael
  *  ENGrid styles: v0.14.9
  *  ENGrid scripts: v0.14.9
@@ -10881,15 +10881,19 @@ class iFrame {
       }
 
       this._form.onError.subscribe(() => {
-        // Smooth Scroll to the first .en__field--validationFailed element
-        const firstError = document.querySelector(".en__field--validationFailed"); //send scrollTo event.
+        // Get the first .en__field--validationFailed element
+        const firstError = document.querySelector(".en__field--validationFailed"); // Send scrollTo message
+        // Parent pages listens for this message and scrolls to the correct position
+
+        const scrollTo = firstError ? firstError.getBoundingClientRect().top : 0;
+        this.logger.log(`iFrame Event 'scrollTo' - Position of top of first error ${scrollTo} px`); // check the message is being sent correctly
 
         window.parent.postMessage({
-          scrollTo: firstError ? firstError.getBoundingClientRect().top : 0
+          scrollTo
         }, "*");
       });
     } else {
-      // When not in iframe, default behaviour
+      // When not in iframe, default behaviour, smooth scroll to first error
       this._form.onError.subscribe(() => {
         // Smooth Scroll to the first .en__field--validationFailed element
         const firstError = document.querySelector(".en__field--validationFailed");
@@ -10899,7 +10903,7 @@ class iFrame {
             behavior: "smooth"
           });
         }
-      }); // Parent Page Logic
+      }); // Parent Page Logic (when an ENgrid form is embedded in an ENgrid page)
 
 
       window.addEventListener("message", event => {
@@ -10908,7 +10912,8 @@ class iFrame {
         if (iframe) {
           if (event.data.hasOwnProperty("frameHeight")) {
             iframe.style.height = event.data.frameHeight + "px";
-          } else if (event.data.hasOwnProperty("scroll") && event.data.scroll > 0) {
+          } // Old scroll event logic "scroll", scrolls to correct iframe?
+          else if (event.data.hasOwnProperty("scroll") && event.data.scroll > 0) {
             const elDistanceToTop = window.pageYOffset + iframe.getBoundingClientRect().top;
             let scrollTo = elDistanceToTop + event.data.scroll;
             window.scrollTo({
@@ -10917,12 +10922,15 @@ class iFrame {
               behavior: "smooth"
             });
             this.logger.log("iFrame Event - Scrolling Window to " + scrollTo);
-          } else if (event.data.hasOwnProperty("scrollTo")) {
+          } // New scroll event logic "scrollTo", scrolls to the first error
+          else if (event.data.hasOwnProperty("scrollTo")) {
+            const scrollToPosition = event.data.scrollTo + window.scrollY + iframe.getBoundingClientRect().top;
             window.scrollTo({
-              top: event.data.scrollTo + window.scrollY + iframe.getBoundingClientRect().top,
+              top: scrollToPosition,
               left: 0,
               behavior: "smooth"
             });
+            this.logger.log("iFrame Event - Scrolling Window to " + scrollToPosition);
           }
         }
       });
