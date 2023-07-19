@@ -6,4 +6,28 @@ export const customScript = function (App) {
     ".insert-upsell-message > div:last-child",
     "after"
   );
+
+  function handlePersonalMessageField() {
+    const personalMessageTextarea = document.querySelector('textarea[name="transaction.gftrsn"]');
+    const hasPersonalMessageField = document.querySelector('input[name="supporter.NOT_TAGGED_32"]');
+
+    // Check if the required fields exist on the page
+    if (!personalMessageTextarea || !hasPersonalMessageField) {
+      console.warn('Personal message field or hasPersonalMessageField not found. Aborting.');
+      return;
+    }
+
+    function updateHasPersonalMessageField() {
+      const hasPersonalMessage = personalMessageTextarea.value.trim() !== '';
+      hasPersonalMessageField.value = hasPersonalMessage ? 'true' : 'false';
+    }
+
+    personalMessageTextarea.addEventListener('input', updateHasPersonalMessageField);
+
+    // Initial update of the hasPersonalMessageField value
+    updateHasPersonalMessageField();
+  }
+
+  handlePersonalMessageField();
+
 };
