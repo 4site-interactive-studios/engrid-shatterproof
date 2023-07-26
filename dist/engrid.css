@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, July 26, 2023 @ 10:09:07 ET
+ *  Date: Wednesday, July 26, 2023 @ 17:56:38 ET
  *  By: michael
  *  ENGrid styles: v0.14.10
  *  ENGrid scripts: v0.14.11
@@ -8004,6 +8004,14 @@ body[data-engrid-debug]:before{
   --donation-amount__button_color:var(--color-dark-blue);
   --donation-amount__button_color_hover:var(--color-dark-blue);
   --donation-amount__button_color_checked:#fff;
+  --give-by-select__button_count:1;
+  --give-by-select__button_background-color:#fff;
+  --give-by-select__button_background-color_checked:var(--color-light-blue);
+  --give-by-select__button_background-color_hover:var(--color-light-blue);
+  --give-by-select__button_border-color:var(--color-dark-blue);
+  --give-by-select__button_border-color_checked:var(--color-dark-blue);
+  --give-by-select__button_border-color_hover:var(--color-dark-blue);
+  --give-by-select__button_border-radius:6px;
   --error__color:#e53935;
   --error__background-color:#e5393508;
   --input_box-shadow:none;
@@ -8030,6 +8038,31 @@ body[data-engrid-debug]:before{
   --checkbox_border-color_checked:var(--color-dark-blue);
   --checkbox_color_checked:var(--color-dark-blue);
   --checkbox_content_checked:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='14' fill='none'%3E%3Cpath d='m6.5 12-.707.707.827.828.689-.947L6.5 12Zm8.809-10.412A1 1 0 1 0 13.69.412l1.618 1.176ZM.293 7.208l5.5 5.5 1.414-1.415-5.5-5.5L.293 7.207Zm7.016 5.38 8-11L13.69.412l-8 11 1.618 1.176Z' fill='%23041E42'/%3E%3C/svg%3E");
+}
+[data-engrid-subtheme=embedded-multistep-v2] .give-by-select .en__field__input--radio:focus+.en__field__label{
+  outline:none;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .give-by-select label{
+  height:62px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .give-by-select .cc-logos{
+  width:211px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .give-by-select .pp-venmo-logos{
+  width:215px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .give-by-select .pseudo-en-field.stripedigitalwallet label{
+  display:flex;
+  flex-flow:row nowrap !important;
+  justify-content:center;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .give-by-select .google-pay-logo{
+  margin:0 20px 0 0;
+  width:80px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .give-by-select .apple-pay-logo{
+  margin:0;
+  width:80px;
 }
 [data-engrid-subtheme=embedded-multistep-v2] input:not([type=radio]):not([type=checkbox]):focus,[data-engrid-subtheme=embedded-multistep-v2] select:focus{
   outline-color:#2cd5c4;
@@ -8575,6 +8608,26 @@ body[data-engrid-debug]:before{
   background-color:#fff;
   display:inline;
   padding:0 15px;
+}
+[data-engrid-subtheme=embedded-multistep-v2][data-conditonally-hide-show-digital-wallet-elements] #en__digitalWallet .en__digitalWallet__container{
+  margin:10px 0 20px !important;
+  padding:0;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .back-btn-container{
+  display:block;
+  text-align:center;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .back-btn-container .back-btn{
+  color:#041e42;
+  cursor:pointer;
+  font-size:18px;
+  font-style:italic;
+  font-weight:400;
+  line-height:140%;
+  margin:0 auto;
+  text-align:center;
+  -webkit-text-decoration-line:underline;
+          text-decoration-line:underline;
 }
 body{
   opacity:1;

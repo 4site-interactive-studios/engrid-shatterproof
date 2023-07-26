@@ -39,6 +39,16 @@
   --donation-amount__button_color_hover: var(--color-dark-blue);
   --donation-amount__button_color_checked: #ffffff;
 
+  // Give by select styles
+  --give-by-select__button_count: 1;
+  --give-by-select__button_background-color: #ffffff;
+  --give-by-select__button_background-color_checked: var(--color-light-blue);
+  --give-by-select__button_background-color_hover: var(--color-light-blue);
+  --give-by-select__button_border-color: var(--color-dark-blue);
+  --give-by-select__button_border-color_checked: var(--color-dark-blue);
+  --give-by-select__button_border-color_hover: var(--color-dark-blue);
+  --give-by-select__button_border-radius: 6px;
+
   // Input styles
   --error__color: #E53935;
   --error__background-color: rgba(229, 57, 53, 0.03);
@@ -68,6 +78,40 @@
   --checkbox_border-color_checked: var(--color-dark-blue);
   --checkbox_color_checked: var(--color-dark-blue);
   --checkbox_content_checked: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='14' viewBox='0 0 16 14' fill='none'%3E%3Cpath d='M6.5 12L5.79289 12.7071L6.62041 13.5346L7.30874 12.5882L6.5 12ZM15.3087 1.58817C15.6336 1.14152 15.5348 0.516102 15.0882 0.191264C14.6415 -0.133574 14.0161 -0.0348243 13.6913 0.411828L15.3087 1.58817ZM0.292893 7.20711L5.79289 12.7071L7.20711 11.2929L1.70711 5.79289L0.292893 7.20711ZM7.30874 12.5882L15.3087 1.58817L13.6913 0.411828L5.69126 11.4118L7.30874 12.5882Z' fill='%23041E42'/%3E%3C/svg%3E");
+
+  .give-by-select {
+    .en__field__input--radio:focus + .en__field__label {
+      outline: none;
+    }
+
+    label {
+      height: 62px;
+    }
+
+    .cc-logos {
+      width: 211px;
+    }
+
+    .pp-venmo-logos {
+      width: 215px;
+    }
+
+    .pseudo-en-field.stripedigitalwallet label {
+      display: flex;
+      flex-flow: row nowrap!important;
+      justify-content: center;
+    }
+
+    .google-pay-logo {
+      width: 80px;
+      margin: 0 20px 0 0;
+    }
+
+    .apple-pay-logo {
+      width: 80px;
+      margin: 0;
+    }
+  }
 
   input:not([type="radio"]):not([type="checkbox"]):focus,
   select:focus {
@@ -845,4 +889,26 @@
       padding: 0 15px;
     }
   }
+
+  &[data-conditonally-hide-show-digital-wallet-elements] #en__digitalWallet .en__digitalWallet__container {
+    padding: 0;
+    margin: 10px 0 20px!important;
+  }
+
+  .back-btn-container {
+    display: block;
+    text-align: center;
+    .back-btn {
+      margin: 0 auto;
+      font-size: 18px;
+      color: #041E42;
+      text-align: center;
+      font-style: italic;
+      font-weight: 400;
+      line-height: 140%;
+      text-decoration-line: underline;
+      cursor: pointer;
+    }
+  }
+
 }

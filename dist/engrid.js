@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, July 26, 2023 @ 10:09:07 ET
+ *  Date: Wednesday, July 26, 2023 @ 17:56:38 ET
  *  By: michael
  *  ENGrid styles: v0.14.10
  *  ENGrid scripts: v0.14.11
@@ -19473,6 +19473,7 @@ class DonationMultistepForm {
     this.amount = DonationAmount;
     this.frequency = DonationFrequency;
     this.ipCountry = "";
+    this.subtheme = document.body.dataset.engridSubtheme;
     console.log("DonationMultistepForm: constructor"); // Each EN Row is a Section
 
     this.sections = document.querySelectorAll("form.en__component > .en__component"); // Check if we're on the Thank You page
@@ -19591,7 +19592,21 @@ class DonationMultistepForm {
     } // Add an active class to the first section
 
 
-    this.sections[0].classList.add("active");
+    this.sections[0].classList.add("active"); // Digital wallet handling for new theme
+
+    if (this.subtheme === "embedded-multistep-v2") {
+      const digitalWalletPaymentMethod = ["paypaltouch", "stripedigitalwallet"];
+      const giveBySelect = document.getElementsByName("transaction.giveBySelect");
+      giveBySelect.forEach(element => {
+        element.addEventListener("change", e => {
+          if (digitalWalletPaymentMethod.includes(element.value)) {
+            this.sections[2].classList.add("hide");
+          } else {
+            this.sections[2].classList.remove("hide");
+          }
+        });
+      });
+    }
   } // Send iframe message to parent
 
 
@@ -19656,6 +19671,7 @@ class DonationMultistepForm {
           <span>Give Now</span>
         </button>
       `;
+        sectionNavigation.classList.add("hideif-stripedigitalwallet-selected", "hideif-paypaltouch-selected");
       } else {
         sectionNavigation.innerHTML = `
         <button class="section-navigation__previous" data-section-id="${key}">
@@ -19678,13 +19694,33 @@ class DonationMultistepForm {
       `;
       (_sectionNavigation$qu = sectionNavigation.querySelector(".section-navigation__previous")) === null || _sectionNavigation$qu === void 0 ? void 0 : _sectionNavigation$qu.addEventListener("click", e => {
         e.preventDefault();
-        this.scrollToSection(key - 1);
+        const paymentType = document.querySelector("#en__field_transaction_paymenttype").value;
+
+        if (key === 3) {
+          if (paymentType === "paypaltouch" || paymentType === "stripedigitalwallet") {
+            this.scrollToSection(key - 2);
+          } else {
+            this.scrollToSection(key - 1);
+          }
+        } else {
+          this.scrollToSection(key - 1);
+        }
       });
       (_sectionNavigation$qu2 = sectionNavigation.querySelector(".section-navigation__next")) === null || _sectionNavigation$qu2 === void 0 ? void 0 : _sectionNavigation$qu2.addEventListener("click", e => {
         e.preventDefault();
 
         if (this.validateForm(key)) {
-          this.scrollToSection(key + 1);
+          const paymentType = document.querySelector("#en__field_transaction_paymenttype").value;
+
+          if (key === 1) {
+            if (paymentType === "paypaltouch" || paymentType === "stripedigitalwallet") {
+              this.scrollToSection(key + 2);
+            } else {
+              this.scrollToSection(key + 1);
+            }
+          } else {
+            this.scrollToSection(key + 1);
+          }
         }
       });
       (_sectionNavigation$qu3 = sectionNavigation.querySelector(".section-navigation__submit")) === null || _sectionNavigation$qu3 === void 0 ? void 0 : _sectionNavigation$qu3.addEventListener("click", e => {
@@ -19717,7 +19753,22 @@ class DonationMultistepForm {
 
           document.querySelector("form.en__component").submit();
         }
-      });
+      }); // Adding back button for new theme to last section
+
+      if (this.subtheme === "embedded-multistep-v2" && key === this.sections.length - 1) {
+        const backBtnContainer = document.createElement("div");
+        backBtnContainer.classList.add("back-btn-container", "giveBySelect-stripedigitalwallet", "giveBySelect-paypaltouch");
+        const backBtn = document.createElement("span");
+        backBtn.classList.add("back-btn");
+        backBtn.textContent = "Back";
+        backBtnContainer.append(backBtn);
+        section.querySelector(".en__component").append(backBtnContainer);
+        backBtn.addEventListener("click", e => {
+          e.preventDefault();
+          this.scrollToSection(key - 1);
+        });
+      }
+
       section.querySelector(".en__component").append(sectionNavigation);
       section.querySelector(".en__component").append(sectionCount);
     });
@@ -19854,8 +19905,9 @@ class DonationMultistepForm {
       } // If payment type is not paypal, check credit card expiration and cvv
 
 
-      if (paymentType.value !== "paypal") {
+      if (["paypal", "paypaltouch", "stripedigitalwallet"].includes(paymentType.value) === false) {
         if (!ccnumber || !ccnumber.value) {
+          console.log("cc error");
           this.scrollToElement(ccnumber);
           this.sendMessage("error", "Please add your credit card information");
 
