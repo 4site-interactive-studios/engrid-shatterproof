@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, July 14, 2023 @ 11:03:03 ET
+ *  Date: Wednesday, July 26, 2023 @ 10:09:07 ET
  *  By: michael
  *  ENGrid styles: v0.14.10
  *  ENGrid scripts: v0.14.11
@@ -7967,6 +7967,614 @@ body[data-engrid-debug]:before{
   left:-1px;
   position:fixed;
   top:-1px;
+}
+
+[data-engrid-subtheme=embedded-multistep-v2]{
+  --color-light-blue:#ebf7f5;
+  --color-dark-blue:#041e42;
+  --a_color:var(--color-dark-blue);
+  --default_font-family:"museo-sans", "Helvetica", "Arial", sans-serif;
+  --engrid__body_box-shadow:none;
+  --h1_color:var(--color-dark-blue);
+  --h2_color:var(--color-dark-blue);
+  --h3_color:var(--color-dark-blue);
+  --h4_color:var(--color-dark-blue);
+  --h5_color:var(--color-dark-blue);
+  --h6_color:var(--color-dark-blue);
+  --recurring-frequency__button_count:2;
+  --recurring-frequency__button_font-weight:600;
+  --recurring-frequency__button_font-size:18px;
+  --recurring-frequency__button_border-width:0;
+  --recurring-frequency__button_padding:20px 0;
+  --recurring-frequency__button_background-color:none;
+  --recurring-frequency__button_color:var(--color-dark-blue);
+  --recurring-frequency__button_background-color_hover:#caf5f0;
+  --recurring-frequency__button_color_hover:var(--color-dark-blue);
+  --recurring-frequency__button_color_checked:#fff;
+  --recurring-frequency__button_background-color_checked:none;
+  --donation-amount__button_count:2;
+  --donation-amount__button_border-width:0;
+  --donation-amount__button_font-size:28px;
+  --donation-amount__button_font-weight:700;
+  --donation-amount__button_padding:10px 0;
+  --donation-amount__button_border-radius:10px;
+  --donation-amount__button_background-color:var(--color-light-blue);
+  --donation-amount__button_background-color_hover:#caf5f0;
+  --donation-amount__button_background-color_checked:var(--color-dark-blue);
+  --donation-amount__button_color:var(--color-dark-blue);
+  --donation-amount__button_color_hover:var(--color-dark-blue);
+  --donation-amount__button_color_checked:#fff;
+  --error__color:#e53935;
+  --error__background-color:#e5393508;
+  --input_box-shadow:none;
+  --input_background-color:#fff;
+  --input_border-color:#041e42;
+  --input_border-radius:6px;
+  --input_border-width:1px;
+  --input_color:#041e42;
+  --input_font-family:var(--default_font-family);
+  --input_font-size:18px;
+  --input_font-weight:300;
+  --input_line-height:16px;
+  --input_padding:14px 16px;
+  --select_padding:17px 16px;
+  --input_placeholder-color:#041e42b3;
+  --input_border-color_hover:#2cd5c4;
+  --radio_height:27px;
+  --radio_width:27px;
+  --radio_font-size:14px;
+  --radio_font-weight:400;
+  --radio_line-height:140%;
+  --checkbox_background-color_checked:#fff;
+  --checkbox_border-color_hover:var(--color-dark-blue);
+  --checkbox_border-color_checked:var(--color-dark-blue);
+  --checkbox_color_checked:var(--color-dark-blue);
+  --checkbox_content_checked:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='14' fill='none'%3E%3Cpath d='m6.5 12-.707.707.827.828.689-.947L6.5 12Zm8.809-10.412A1 1 0 1 0 13.69.412l1.618 1.176ZM.293 7.208l5.5 5.5 1.414-1.415-5.5-5.5L.293 7.207Zm7.016 5.38 8-11L13.69.412l-8 11 1.618 1.176Z' fill='%23041E42'/%3E%3C/svg%3E");
+}
+[data-engrid-subtheme=embedded-multistep-v2] input:not([type=radio]):not([type=checkbox]):focus,[data-engrid-subtheme=embedded-multistep-v2] select:focus{
+  outline-color:#2cd5c4;
+}
+[data-engrid-subtheme=embedded-multistep-v2] input[type=checkbox]+label{
+  -webkit-font-smoothing:antialiased;
+  align-items:flex-start;
+}
+[data-engrid-subtheme=embedded-multistep-v2] input[type=checkbox]+label:before{
+  margin-top:3px;
+  padding-top:7px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--general-opt-in{
+  margin-top:10px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .content-footer,[data-engrid-subtheme=embedded-multistep-v2] .content-header{
+  display:none;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--recurrfreq .en__field__element--radio{
+  flex-direction:row !important;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .body-main:not(:empty){
+  padding:0;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field.en__field--ccexpire .en__field__item{
+  flex-basis:100%;
+  padding-left:0 !important;
+  padding-right:0 !important;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .radio-to-buttons_recurrfreq .en__field--recurrfreq{
+  border-radius:10px;
+  overflow:hidden;
+  position:relative;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .radio-to-buttons_recurrfreq .en__field--recurrfreq:after{
+  background:linear-gradient(90deg, #ebf7f5 0 25%, #041e42 25% 50%, #ebf7f5 50% 75%, #041e42 75% 100%);
+  border-radius:10px 0 0 10px;
+  content:"";
+  height:100%;
+  position:absolute;
+  transform:translateX(-25%);
+  transition:transform .5s ease;
+  width:200%;
+  z-index:-1;
+}
+[data-engrid-subtheme=embedded-multistep-v2][data-engrid-transaction-recurring-frequency=monthly] .radio-to-buttons_recurrfreq .en__field--recurrfreq{
+  position:relative;
+}
+[data-engrid-subtheme=embedded-multistep-v2][data-engrid-transaction-recurring-frequency=monthly] .radio-to-buttons_recurrfreq .en__field--recurrfreq:after{
+  border-radius:0 10px 10px 0;
+  transform:translateX(0);
+}
+[data-engrid-subtheme=embedded-multistep-v2] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__item{
+  padding:0 !important;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__item:first-of-type>label{
+  border-radius:10px 0 0 10px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__item:last-of-type>label{
+  border-radius:0 10px 10px 0;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .radio-to-buttons_donationAmt .en__field--donationAmt .en__field__input--radio:focus+.en__field__label,[data-engrid-subtheme=embedded-multistep-v2] .radio-to-buttons_recurrfreq .en__field--recurrfreq .en__field__item .en__field__input--radio:focus+.en__field__label{
+  outline:none;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .radio-to-buttons_donationAmt .en__field--donationAmt .en__field__item--other{
+  flex-basis:100%;
+  position:relative;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .radio-to-buttons_donationAmt .en__field--donationAmt .en__field__item--other:before{
+  color:var(--donation-amount__button_color);
+  content:"$";
+  font-size:20px;
+  font-weight:400;
+  height:20px;
+  left:19px;
+  line-height:1;
+  position:absolute;
+  top:50%;
+  transform:translateY(-50%);
+  width:11px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .radio-to-buttons_donationAmt .en__field--donationAmt .en__field__item--other:after{
+  color:var(--donation-amount__button_color);
+  content:"USD";
+  display:block;
+  font-size:12px;
+  font-weight:400;
+  height:0;
+  letter-spacing:.72px;
+  line-height:0;
+  position:absolute;
+  right:19px;
+  top:50%;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .radio-to-buttons_donationAmt .en__field--donationAmt .en__field__item--other input{
+  --input_placeholder-font-weight:500;
+  --input_placeholder-color:#041e424d;
+  background-color:var(--donation-amount__button_background-color);
+  background-image:none !important;
+  box-shadow:none;
+  color:var(--donation-amount__button_color);
+  font-size:var(--donation-amount__button_font-size);
+  font-weight:500;
+  padding:10px 58px 10px 31px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .radio-to-buttons_donationAmt .en__field--donationAmt .engrid-currency-symbol{
+  font-size:70%;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio.en__field--withOther--active .en__field__item .en__field__input--other{
+  background-color:var(--donation-amount__button_background-color);
+  color:var(--donation-amount__button_color);
+}
+[data-engrid-subtheme=embedded-multistep-v2]:not(#en__pagebuilder) .monthly-nudge{
+  position:relative;
+}
+[data-engrid-subtheme=embedded-multistep-v2]:not(#en__pagebuilder) .monthly-nudge p{
+  color:#324e8a;
+  font-family:museo-slab,serif;
+  font-size:17px;
+  font-style:italic;
+  font-weight:300;
+  line-height:1.43;
+  margin:14px 0;
+  max-height:0;
+  overflow:hidden;
+  padding:0 20px 0 0;
+  transition:max-height .3s ease-in-out;
+}
+[data-engrid-subtheme=embedded-multistep-v2]:not(#en__pagebuilder) .monthly-nudge:after{
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='38' fill='none'%3E%3Cpath d='M8.135 24.9c-1.053 3.974-3.228 8.264-7.09 12.731a.596.596 0 0 1-.847.053.62.62 0 0 1-.045-.862C15.01 19.61 3.84 5.18 1.492 2.504a.642.642 0 0 1 .018-.87.56.56 0 0 1 .826.01c1.816 2.06 8.999 11.182 5.799 23.257Z' fill='%233E62AC'/%3E%3Cpath d='M6.459 3.18a.602.602 0 0 1-.857.382l-3.848-1.98-.042 3.466a.601.601 0 1 1-1.203-.015L.561.594A.601.601 0 0 1 1.44.067l4.714 2.425a.6.6 0 0 1 .306.688Z' fill='%233E62AC'/%3E%3C/svg%3E");
+  background-size:cover;
+  content:"";
+  display:block;
+  height:38px;
+  position:absolute;
+  right:0;
+  top:0;
+  width:9px;
+}
+[data-engrid-subtheme=embedded-multistep-v2]:not(#en__pagebuilder)[data-engrid-transaction-recurring-frequency=onetime] .monthly-nudge p{
+  max-height:50px;
+}
+[data-engrid-subtheme=embedded-multistep-v2]:not(#en__pagebuilder)[data-engrid-transaction-recurring-frequency=monthly] .monthly-nudge p{
+  max-height:100px;
+}
+[data-engrid-subtheme=embedded-multistep-v2]:not(#en__pagebuilder) .en__field:not(.en__field--checkbox)>.en__field__label{
+  display:none;
+}
+[data-engrid-subtheme=embedded-multistep-v2] h2{
+  font-size:1.5rem;
+  line-height:1.2;
+  text-align:center;
+}
+[data-engrid-subtheme=embedded-multistep-v2][data-engrid-transaction-recurring-frequency=monthly] .radio-to-buttons_donationAmt .en__field--donationAmt div:not(.en__field__item--other) .en__field__label--item:after{
+  font-size:calc(var(--donation-amount__button_font-size)*.642);
+  font-weight:400;
+  margin-left:0;
+  opacity:1;
+  position:relative;
+  text-transform:lowercase;
+  top:3px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] select,[data-engrid-subtheme=embedded-multistep-v2] select.en__field__input--select,[data-engrid-subtheme=embedded-multistep-v2] select.en__field__input--splitselect,[data-engrid-subtheme=embedded-multistep-v2] select.en__field__input--tripleselect{
+  background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='9' fill='none'%3E%3Cpath d='m1 1 7.241 6L15 1' stroke='%23041E42' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-position-x:calc(100% + 13px);
+  background-size:16px 9px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--validationFailed .en__field__error{
+  display:none;
+}
+[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component{
+  position:relative;
+}
+[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation{
+  align-items:flex-start;
+  bottom:0;
+  display:flex;
+  justify-content:space-between;
+  position:absolute;
+  width:260px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation button{
+  align-items:center;
+  backface-visibility:hidden;
+  border:0;
+  border-radius:10px;
+  color:#fff;
+  cursor:pointer;
+  display:flex;
+  font-family:var(--default_font-family);
+  font-size:20px;
+  font-stretch:normal;
+  font-style:normal;
+  font-weight:700;
+  height:64px;
+  justify-content:center;
+  letter-spacing:.4px;
+  margin-bottom:0;
+  min-width:52px;
+  padding:0 12px;
+  position:relative;
+  transform:translateZ(0);
+}
+[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation button small{
+  font-size:14px;
+  font-weight:400;
+}
+[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation button .live-giving-frequency{
+  font-size:14px;
+  font-style:italic;
+  font-weight:300;
+  letter-spacing:.28px;
+  text-transform:capitalize;
+}
+[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation button.section-navigation__previous{
+  background-color:#fff;
+  border:1px solid var(--color_primary);
+  border-radius:10px;
+  color:var(--color_primary);
+  width:64px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation button.section-navigation__previous:hover{
+  border-color:#ac4918;
+  color:#ac4918;
+}
+[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation button.section-navigation__next,[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation button.section-navigation__submit{
+  background-color:var(--color_primary);
+  opacity:1;
+  transition:all .3s ease-in-out;
+  width:190px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation button.section-navigation__next svg,[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation button.section-navigation__submit svg{
+  transform:translateX(15px);
+  transition:all .3s ease-in-out;
+}
+[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation button.section-navigation__next:hover,[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation button.section-navigation__submit:hover{
+  background-color:#ac4918;
+}
+[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation button.section-navigation__next:hover svg,[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation button.section-navigation__submit:hover svg{
+  margin-left:5px;
+  transform:translateX(15px);
+}
+[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-navigation button[data-section-id="0"]{
+  width:100%;
+}
+[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-count{
+  bottom:-45px;
+  color:#041e42;
+  font-size:10px;
+  letter-spacing:.4px;
+  position:absolute;
+  right:-45px;
+  text-align:right;
+  text-transform:uppercase;
+}
+[data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component>.en__component{
+  min-width:auto;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock .en__field .en__field__element.en__field__element--checkbox .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock .en__field .en__field__element.en__field__element--imgselect .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock .en__field .en__field__element.en__field__element--radio .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock .en__field .en__field__element.en__field__element--rating .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock .en__field .en__field__element.en__field__element--splitselect .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock .en__field .en__field__element.en__field__element--splittext .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock .en__field .en__field__element.en__field__element--tripleselect .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock .en__field .en__field__element.en__field__element--tripletext .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock .en__field .en__field__element.en__field__element--withOther .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock .en__field .en__field__element.en__field__element--checkbox .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock .en__field .en__field__element.en__field__element--imgselect .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock .en__field .en__field__element.en__field__element--radio .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock .en__field .en__field__element.en__field__element--rating .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock .en__field .en__field__element.en__field__element--splitselect .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock .en__field .en__field__element.en__field__element--splittext .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock .en__field .en__field__element.en__field__element--tripleselect .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock .en__field .en__field__element.en__field__element--tripletext .en__field__item,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock .en__field .en__field__element.en__field__element--withOther .en__field__item{
+  padding:4px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock .en__field:not(.en__field--validationFailed) .en__field__element>input,[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock .en__field:not(.en__field--validationFailed) .en__field__element>select,[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock .en__field:not(.en__field--validationFailed) .en__field__element>textarea,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock .en__field:not(.en__field--validationFailed) .en__field__element>input,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock .en__field:not(.en__field--validationFailed) .en__field__element>select,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock .en__field:not(.en__field--validationFailed) .en__field__element>textarea{
+  margin-bottom:4px;
+  margin-top:4px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock .en__field,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock .en__field{
+  margin-bottom:0;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock>*,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock>*{
+  padding-left:0;
+  padding-right:0;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__component--formblock,[data-engrid-subtheme=embedded-multistep-v2] .en__component--svblock{
+  margin-left:0;
+  margin-right:0;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--ccnumber input{
+  background-position:50%;
+  background-size:30px !important;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--ccexpire .en__field__element--splitselect{
+  margin-left:0 !important;
+  margin-right:0 !important;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--ccvv .en__field__element{
+  padding-left:0;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--checkbox>label{
+  display:none !important;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .credit-card-flags{
+  margin-bottom:25px;
+  text-align:center;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .credit-card-flags p:first-of-type svg:not(:last-child){
+  margin-right:16px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .credit-card-flags p:first-of-type{
+  margin-bottom:16px;
+  margin-top:10px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .secure{
+  color:#5c5d5f;
+  font-size:12px;
+  font-style:normal;
+  font-weight:600;
+  letter-spacing:.72px;
+  line-height:10px;
+  opacity:.5;
+  text-align:center;
+  text-transform:uppercase;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .secure svg{
+  vertical-align:bottom;
+}
+[data-engrid-subtheme=embedded-multistep-v2] h4.title-line{
+  color:#4f606c;
+  font-family:var(--font-stack-aiusa-bold-condensed);
+  font-size:16px;
+  font-weight:400;
+  margin:0 0 15px;
+  overflow:hidden;
+  position:relative;
+  text-align:center;
+  width:100%;
+}
+[data-engrid-subtheme=embedded-multistep-v2] h4.title-line span{
+  background-color:#fff;
+  display:inline-block;
+  padding-left:10px;
+  padding-right:10px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] h4.title-line:before{
+  background-color:#d7e5e8;
+  content:" ";
+  height:1px;
+  left:0;
+  overflow:hidden;
+  position:absolute;
+  top:51%;
+  width:100%;
+  z-index:-1;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .payment-options button{
+  border-radius:2px;
+  display:block;
+  height:52px;
+  margin-bottom:6px;
+  width:100%;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .payment-options button span{
+  display:inline-block;
+  overflow:hidden;
+  text-indent:-100vw;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .payment-options button.payment-option-paypal{
+  background-color:#e5ecef;
+  border-color:#e5ecef;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .payment-options button.payment-option-paypal span{
+  background-image:url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="82" height="20" fill="none" viewBox="0 0 82 20"><path fill="%23253B80" d="M30.626 4.473h-4.533c-.31 0-.574.225-.622.531l-1.833 11.623c-.037.229.141.436.374.436h2.163c.31 0 .574-.226.623-.532l.494-3.135c.048-.307.312-.532.622-.532h1.435c2.985 0 4.708-1.445 5.158-4.308.203-1.253.009-2.237-.578-2.926-.644-.757-1.786-1.157-3.303-1.157zm.523 4.245c-.248 1.626-1.49 1.626-2.692 1.626h-.684l.48-3.037c.028-.184.187-.32.373-.32h.313c.819 0 1.59 0 1.99.467.238.279.31.692.22 1.264zM44.174 8.665h-2.17c-.185 0-.345.136-.373.32l-.097.606-.151-.22c-.47-.682-1.518-.91-2.564-.91-2.398 0-4.447 1.817-4.846 4.365-.207 1.271.088 2.487.809 3.334.661.78 1.608 1.104 2.734 1.104 1.932 0 3.004-1.242 3.004-1.242l-.097.603c-.036.23.141.437.372.437h1.956c.31 0 .573-.225.622-.532l1.173-7.429c.037-.228-.14-.436-.372-.436zM41.15 12.89c-.21 1.24-1.194 2.072-2.45 2.072-.63 0-1.133-.202-1.456-.585-.321-.38-.443-.922-.341-1.525.195-1.23 1.196-2.09 2.432-2.09.616 0 1.117.206 1.448.592.33.39.462.935.367 1.536zM55.734 8.665h-2.181c-.209 0-.404.104-.522.277l-3.008 4.43-1.275-4.257c-.08-.267-.326-.45-.605-.45H46c-.26 0-.441.255-.359.5l2.403 7.05-2.259 3.189c-.177.25.002.596.308.596h2.179c.207 0 .4-.1.517-.27l7.255-10.472c.173-.25-.005-.593-.31-.593z"/><path fill="%23179BD7" d="M62.955 4.473h-4.533c-.31 0-.574.225-.622.531l-1.833 11.623c-.037.229.141.436.372.436h2.327c.216 0 .4-.158.434-.373l.52-3.294c.048-.307.313-.532.622-.532h1.434c2.987 0 4.709-1.445 5.16-4.308.203-1.253.008-2.237-.579-2.926-.643-.757-1.785-1.157-3.302-1.157zm.523 4.245c-.248 1.626-1.49 1.626-2.692 1.626h-.684l.48-3.037c.03-.184.187-.32.373-.32h.314c.818 0 1.59 0 1.99.467.237.279.31.692.219 1.264zM76.502 8.665h-2.169c-.186 0-.344.136-.372.32l-.096.606-.153-.22c-.47-.682-1.517-.91-2.563-.91-2.398 0-4.446 1.817-4.845 4.365-.207 1.271.087 2.487.808 3.334.663.78 1.608 1.104 2.734 1.104 1.932 0 3.004-1.242 3.004-1.242l-.097.603c-.036.23.141.437.374.437h1.955c.309 0 .573-.225.621-.532l1.174-7.429c.036-.228-.142-.436-.375-.436zm-3.025 4.225c-.208 1.24-1.194 2.072-2.449 2.072-.629 0-1.134-.202-1.457-.585-.32-.38-.442-.922-.34-1.525.196-1.23 1.196-2.09 2.431-2.09.617 0 1.118.206 1.448.592.332.39.463.935.367 1.536zM79.061 4.792l-1.86 11.835c-.036.23.141.436.373.436h1.87c.31 0 .574-.226.622-.532L81.9 4.909c.037-.23-.14-.437-.372-.437h-2.094c-.185 0-.344.136-.373.32z"/><path fill="%23253B80" d="M4.815 19.321l.347-2.201-.772-.018H.703L3.265.856C3.273.807 3.3.761 3.337.73c.038-.033.086-.05.136-.05H9.69c2.064 0 3.488.429 4.231 1.277.349.397.571.813.678 1.27.113.48.115 1.053.005 1.752l-.008.051v.448l.349.198c.293.156.527.334.705.538.299.34.492.772.573 1.284.084.527.056 1.154-.081 1.864-.16.817-.417 1.528-.764 2.11-.32.536-.726.98-1.21 1.325-.46.328-1.009.576-1.628.735-.6.156-1.285.235-2.036.235h-.484c-.346 0-.682.125-.946.348-.264.228-.44.54-.493.88l-.036.199-.613 3.88-.028.142c-.007.045-.02.068-.038.083-.017.014-.04.023-.064.023H4.815z"/><path fill="%23179BD7" d="M15.275 5.081c-.019.119-.04.24-.064.365-.82 4.209-3.624 5.663-7.207 5.663H6.181c-.438 0-.808.318-.876.75l-.934 5.922-.264 1.679c-.044.284.174.54.46.54h3.235c.383 0 .709-.279.77-.657l.031-.164.609-3.865.04-.212c.059-.38.385-.658.768-.658h.484c3.134 0 5.587-1.272 6.304-4.954.3-1.539.145-2.823-.648-3.726-.24-.273-.537-.499-.885-.683z"/><path fill="%23222D65" d="M14.417 4.74c-.125-.037-.254-.07-.387-.1s-.27-.055-.41-.078c-.492-.08-1.03-.117-1.608-.117H7.14c-.12 0-.234.027-.336.076-.225.108-.392.32-.432.581l-1.037 6.566-.03.191c.068-.432.438-.75.876-.75h1.824c3.582 0 6.386-1.455 7.206-5.663.025-.125.045-.246.064-.365-.208-.11-.432-.204-.674-.284-.06-.02-.122-.04-.184-.058z"/><path fill="%23253B80" d="M6.372 5.102c.04-.26.207-.473.432-.58.102-.05.216-.076.336-.076h4.872c.577 0 1.116.037 1.608.117.14.022.277.048.41.077.133.03.262.063.387.1.063.018.124.038.184.057.242.08.467.175.674.284.244-1.555-.002-2.614-.843-3.573C13.505.452 11.832 0 9.691 0H3.474c-.437 0-.81.318-.878.75L.006 17.165c-.05.324.2.617.527.617h3.838l.964-6.113 1.037-6.566z"/></svg>');
+  height:20px;
+  width:82px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__component--copyblock p{
+  margin-bottom:6px;
+  margin-top:6px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__component--copyblock a{
+  color:var(--color-dark-blue);
+}
+[data-engrid-subtheme=embedded-multistep-v2][data-engrid-embedded] form.en__component{
+  display:grid;
+  grid-auto-flow:column;
+  margin:0 auto;
+  overscroll-behavior-x:contain;
+  scroll-snap-type:x mandatory;
+}
+[data-engrid-subtheme=embedded-multistep-v2][data-engrid-embedded] form.en__component>.en__component{
+  max-height:var(--section_height, auto);
+  min-height:var(--section_height, auto);
+  overflow:hidden;
+  padding:45px;
+  scroll-snap-align:start;
+  transition:max-height .3s linear;
+  width:350px;
+}
+[data-engrid-subtheme=embedded-multistep-v2][data-engrid-embedded] form.en__component>.en__component.active{
+  max-height:10000px;
+  overflow-y:auto;
+}
+[data-engrid-subtheme=embedded-multistep-v2][data-engrid-embedded] form.en__component>.en__component>.en__component{
+  height:100%;
+  padding-bottom:110px;
+}
+[data-engrid-subtheme=embedded-multistep-v2][data-engrid-embedded] form.en__component .en__component--row>.en__component--column .en__component:first-of-type>:first-child{
+  margin-top:0;
+  padding-top:0;
+}
+[data-engrid-subtheme=embedded-multistep-v2][data-engrid-embedded] form.en__component .en__component--row>.en__component--column .en__component:last-of-type>:last-child{
+  margin-bottom:0;
+  padding-bottom:0;
+}
+[data-engrid-subtheme=embedded-multistep-v2][data-engrid-embedded] .en__errorHeader,[data-engrid-subtheme=embedded-multistep-v2][data-engrid-embedded] .en__errorList,[data-engrid-subtheme=embedded-multistep-v2][data-engrid-embedded] .en__submit{
+  display:none;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .has-error .en__field__input,[data-engrid-subtheme=embedded-multistep-v2] .has-error .en__field__input--other,[data-engrid-subtheme=embedded-multistep-v2] .has-error label{
+  background-color:#ffeeeb66;
+  border-color:var(--error__color) !important;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--emailAddress{
+  position:relative;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--emailAddress #petaEmailValidator{
+  background-color:var(--error__color);
+  border-bottom-left-radius:3px;
+  border-bottom-right-radius:3px;
+  bottom:40px;
+  color:#fff;
+  font-size:.75rem;
+  opacity:0;
+  padding:5px;
+  position:absolute;
+  transition:opacity .3s ease-in-out,bottom .3s ease-in-out,z-index .3s ease-in-out;
+  width:100%;
+  z-index:-1;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--emailAddress #petaEmailValidator.show{
+  bottom:-20px;
+  opacity:1;
+  z-index:3;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--emailAddress #petaEmailValidator .close{
+  box-sizing:initial;
+  height:15px;
+  outline:none;
+  position:absolute;
+  right:4px;
+  text-indent:-1000vw;
+  top:6px;
+  width:15px;
+  z-index:1000;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--emailAddress #petaEmailValidator .close:hover:before{
+  transform:rotate(45deg) scale(1.5);
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--emailAddress #petaEmailValidator .close:hover:after{
+  transform:rotate(-45deg) scale(1.5);
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--emailAddress #petaEmailValidator .close:hover:after,[data-engrid-subtheme=embedded-multistep-v2] .en__field--emailAddress #petaEmailValidator .close:hover:before{
+  background-color:var(--error__color_faded);
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--emailAddress #petaEmailValidator .close:after,[data-engrid-subtheme=embedded-multistep-v2] .en__field--emailAddress #petaEmailValidator .close:before{
+  background-color:#fff;
+  content:" ";
+  height:9px;
+  left:6px;
+  position:absolute;
+  top:4px;
+  transition:transform .3s ease-in-out,background-color .3s ease-in-out;
+  width:2px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--emailAddress #petaEmailValidator .close:before{
+  transform:rotate(45deg);
+}
+[data-engrid-subtheme=embedded-multistep-v2] .en__field--emailAddress #petaEmailValidator .close:after{
+  transform:rotate(-45deg);
+}
+[data-engrid-subtheme=embedded-multistep-v2] .mt-10{
+  margin-top:10px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .mt-20{
+  margin-top:20px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .summary-table{
+  color:var(--color_primary);
+  display:flex;
+  flex-wrap:wrap;
+  font-size:12px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .summary-table dt{
+  border-bottom:1px solid #d9ebff;
+  font-weight:700;
+  padding:5px 0;
+  width:100px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .summary-table dd{
+  border-bottom:1px solid #d9ebff;
+  margin-left:auto;
+  padding:5px 0;
+  text-align:right;
+  width:calc(100% - 100px);
+}
+[data-engrid-subtheme=embedded-multistep-v2] iframe[title^=recaptcha]{
+  left:-1px;
+  position:fixed;
+  top:-1px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .gift-summary{
+  background-color:var(--color-light-blue);
+  color:var(--color-dark-blue);
+  padding:28px;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .gift-summary p{
+  font-size:18px;
+  line-height:160%;
+  margin:0;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .thank-you-text{
+  color:var(--color-dark-blue);
+}
+[data-engrid-subtheme=embedded-multistep-v2] .thank-you-text p{
+  color:var(--color-dark-blue);
+  font-family:museo-slab,serif;
+  font-weight:300;
+  line-height:160%;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .thank-you-text p strong{
+  font-weight:600;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .thank-you-text a{
+  color:var(--color-dark-blue);
+  font-family:museo-slab,serif;
+  font-weight:400;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .section-header{
+  margin-bottom:30px;
+  text-align:center;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .section-header:before{
+  border:1px solid #0000;
+  border-radius:50% 50% 0 0;
+  border-top-color:#2cd5c4;
+  bottom:0;
+  content:"";
+  left:0;
+  position:absolute;
+  right:0;
+  top:50%;
+  z-index:-1;
+}
+[data-engrid-subtheme=embedded-multistep-v2] .section-header h2{
+  background-color:#fff;
+  display:inline;
+  padding:0 15px;
 }
 body{
   opacity:1;
