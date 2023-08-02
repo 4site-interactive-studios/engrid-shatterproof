@@ -273,6 +273,20 @@ export default class DonationMultistepForm {
           const paymentType = document.querySelector(
             "#en__field_transaction_paymenttype"
           ).value;
+
+          // If it's the 3rd section and we don't have digital wallets,
+          // Hide the payment method section and go to the first section
+          if (key === 2) {
+            this.sections[1].classList.remove("hide");
+            if (!this.digitalWalletsAvailable()) {
+              this.sections[1].classList.add("hide");
+              this.scrollToSection(key - 2);
+            } else {
+              this.scrollToSection(key - 1);
+            }
+            return;
+          }
+
           if (key === 3) {
             if (
               paymentType === "paypaltouch" ||
@@ -295,6 +309,19 @@ export default class DonationMultistepForm {
             const paymentType = document.querySelector(
               "#en__field_transaction_paymenttype"
             ).value;
+
+            // If it's the first section and we don't have digital wallets,
+            // Hide the payment method section and go to the next section
+            if (key === 0) {
+              this.sections[1].classList.remove("hide");
+              if (!this.digitalWalletsAvailable()) {
+                this.sections[1].classList.add("hide");
+                this.scrollToSection(key + 2);
+              } else {
+                this.scrollToSection(key + 1);
+              }
+              return;
+            }
 
             if (key === 1) {
               if (
@@ -813,5 +840,26 @@ export default class DonationMultistepForm {
     if (obj === undefined) return false;
     if (rest.length == 0 && obj.hasOwnProperty(level)) return true;
     return this.checkNested(obj[level], ...rest);
+  }
+
+  digitalWalletsAvailable() {
+    if (this.subtheme !== "embedded-multistep-v2") {
+      //Backwards compatibility with old multistep, never skip a section.
+      return true;
+    }
+
+    return (
+      document.body.getAttribute(
+        "data-engrid-payment-type-option-apple-pay"
+      ) === "true" ||
+      document.body.getAttribute(
+        "data-engrid-payment-type-option-google-pay"
+      ) === "true" ||
+      document.body.getAttribute(
+        "data-engrid-payment-type-option-paypal-one-touch"
+      ) === "true" ||
+      document.body.getAttribute("data-engrid-payment-type-option-venmo") ===
+        "true"
+    );
   }
 }

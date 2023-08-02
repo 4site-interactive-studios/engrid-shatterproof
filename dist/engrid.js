@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, July 26, 2023 @ 17:56:38 ET
+ *  Date: Wednesday, August 2, 2023 @ 10:46:48 ET
  *  By: michael
  *  ENGrid styles: v0.14.10
  *  ENGrid scripts: v0.14.11
@@ -19694,7 +19694,21 @@ class DonationMultistepForm {
       `;
       (_sectionNavigation$qu = sectionNavigation.querySelector(".section-navigation__previous")) === null || _sectionNavigation$qu === void 0 ? void 0 : _sectionNavigation$qu.addEventListener("click", e => {
         e.preventDefault();
-        const paymentType = document.querySelector("#en__field_transaction_paymenttype").value;
+        const paymentType = document.querySelector("#en__field_transaction_paymenttype").value; // If it's the 3rd section and we don't have digital wallets,
+        // Hide the payment method section and go to the first section
+
+        if (key === 2) {
+          this.sections[1].classList.remove("hide");
+
+          if (!this.digitalWalletsAvailable()) {
+            this.sections[1].classList.add("hide");
+            this.scrollToSection(key - 2);
+          } else {
+            this.scrollToSection(key - 1);
+          }
+
+          return;
+        }
 
         if (key === 3) {
           if (paymentType === "paypaltouch" || paymentType === "stripedigitalwallet") {
@@ -19710,7 +19724,21 @@ class DonationMultistepForm {
         e.preventDefault();
 
         if (this.validateForm(key)) {
-          const paymentType = document.querySelector("#en__field_transaction_paymenttype").value;
+          const paymentType = document.querySelector("#en__field_transaction_paymenttype").value; // If it's the first section and we don't have digital wallets,
+          // Hide the payment method section and go to the next section
+
+          if (key === 0) {
+            this.sections[1].classList.remove("hide");
+
+            if (!this.digitalWalletsAvailable()) {
+              this.sections[1].classList.add("hide");
+              this.scrollToSection(key + 2);
+            } else {
+              this.scrollToSection(key + 1);
+            }
+
+            return;
+          }
 
           if (key === 1) {
             if (paymentType === "paypaltouch" || paymentType === "stripedigitalwallet") {
@@ -19907,7 +19935,6 @@ class DonationMultistepForm {
 
       if (["paypal", "paypaltouch", "stripedigitalwallet"].includes(paymentType.value) === false) {
         if (!ccnumber || !ccnumber.value) {
-          console.log("cc error");
           this.scrollToElement(ccnumber);
           this.sendMessage("error", "Please add your credit card information");
 
@@ -20241,6 +20268,15 @@ class DonationMultistepForm {
 
     if (rest.length == 0 && obj.hasOwnProperty(level)) return true;
     return this.checkNested(obj[level], ...rest);
+  }
+
+  digitalWalletsAvailable() {
+    if (this.subtheme !== "embedded-multistep-v2") {
+      //Backwards compatibility with old multistep, never skip a section.
+      return true;
+    }
+
+    return document.body.getAttribute("data-engrid-payment-type-option-apple-pay") === "true" || document.body.getAttribute("data-engrid-payment-type-option-google-pay") === "true" || document.body.getAttribute("data-engrid-payment-type-option-paypal-one-touch") === "true" || document.body.getAttribute("data-engrid-payment-type-option-venmo") === "true";
   }
 
 }
