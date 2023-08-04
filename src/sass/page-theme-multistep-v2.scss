@@ -1,5 +1,6 @@
 [data-engrid-subtheme="embedded-multistep-v2"] {
   // Base styles
+  --color-orange: #f26722;
   --color-light-blue: #EBF7F5;
   --color-dark-blue: #041E42;
   --a_color: var(--color-dark-blue);
@@ -395,10 +396,10 @@
           text-transform: capitalize;
         }
         &.section-navigation__previous {
-          color: var(--color_primary);
+          color: var(--color-orange);
           border-radius: 10px;
           background-color: #ffffff;
-          border: 1px solid var(--color_primary);
+          border: 1px solid var(--color-orange);
           width: 64px;
           &:hover {
             color: #ac4918;
@@ -411,7 +412,7 @@
           //  left: 0;
           //  bottom: 0;
           //  right: 0;
-          //  background-color: var(--color_primary);
+          //  background-color: var(--color-orange);
           //  opacity: 0.3;
           //  transition: opacity 0.2s;
           //  border-radius: 2px;
@@ -426,7 +427,7 @@
 
         &.section-navigation__submit,
         &.section-navigation__next {
-          background-color: var(--color_primary);
+          background-color: var(--color-orange);
           opacity: 1;
           width: 190px;
           svg {
@@ -815,7 +816,7 @@
   .summary-table {
     display: flex;
     flex-wrap: wrap;
-    color: var(--color_primary);
+    color: var(--color-orange);
     font-size: 12px;
     dt {
       width: 100px;

@@ -513,12 +513,20 @@ export default class DonationMultistepForm {
     const ccnumber = form.querySelector("#en__field_transaction_ccnumber");
     const ccnumberBlock = form.querySelector(".en__field--ccnumber");
     const ccnumberSection = this.getSectionId(ccnumberBlock);
+    const isDigitalWalletPayment = [
+      "paypal",
+      "paypaltouch",
+      "stripedigitalwallet",
+    ].includes(paymentType.value);
     console.log(
       "DonationMultistepForm: validateForm",
       ccnumberBlock,
       ccnumberSection
     );
-    if (sectionId === false || sectionId == ccnumberSection) {
+    if (
+      !isDigitalWalletPayment &&
+      (sectionId === false || sectionId === ccnumberSection)
+    ) {
       if (!paymentType || !paymentType.value) {
         this.scrollToElement(paymentType);
         this.sendMessage("error", "Please add your credit card information");
@@ -527,71 +535,65 @@ export default class DonationMultistepForm {
         }
         return false;
       }
-      // If payment type is not paypal, check credit card expiration and cvv
-      if (
-        ["paypal", "paypaltouch", "stripedigitalwallet"].includes(
-          paymentType.value
-        ) === false
-      ) {
-        if (!ccnumber || !ccnumber.value) {
-          this.scrollToElement(ccnumber);
-          this.sendMessage("error", "Please add your credit card information");
-          if (ccnumberBlock) {
-            ccnumberBlock.classList.add("has-error");
-          }
-          return false;
-        } else {
-          if (ccnumberBlock) {
-            ccnumberBlock.classList.remove("has-error");
-          }
-        }
-        if (/^\d+$/.test(ccnumber.value) === false) {
-          this.scrollToElement(ccnumber);
-          this.sendMessage("error", "Only numbers are allowed on credit card");
-          if (ccnumberBlock) {
-            ccnumberBlock.classList.add("has-error");
-          }
-          return false;
-        } else {
-          if (ccnumberBlock) {
-            ccnumberBlock.classList.remove("has-error");
-          }
-        }
-        const ccexpire = form.querySelectorAll("[name='transaction.ccexpire']");
-        const ccexpireBlock = form.querySelector(".en__field--ccexpire");
-        let ccexpireValid = true;
-        ccexpire.forEach((e) => {
-          if (!e.value) {
-            this.scrollToElement(ccexpireBlock);
-            this.sendMessage("error", "Please enter a valid expiration date");
-            if (ccexpireBlock) {
-              ccexpireBlock.classList.add("has-error");
-            }
-            ccexpireValid = false;
-            return false;
-          }
-        });
-        if (!ccexpireValid && ccexpireBlock) {
-          return false;
-        } else {
-          if (ccexpireBlock) {
-            ccexpireBlock.classList.remove("has-error");
-          }
-        }
 
-        const cvv = form.querySelector("#en__field_transaction_ccvv");
-        const cvvBlock = form.querySelector(".en__field--ccvv");
-        if (!cvv || !cvv.value) {
-          this.scrollToElement(cvv);
-          this.sendMessage("error", "Please enter a valid CVV");
-          if (cvvBlock) {
-            cvvBlock.classList.add("has-error");
+      if (!ccnumber || !ccnumber.value) {
+        this.scrollToElement(ccnumber);
+        this.sendMessage("error", "Please add your credit card information");
+        if (ccnumberBlock) {
+          ccnumberBlock.classList.add("has-error");
+        }
+        return false;
+      } else {
+        if (ccnumberBlock) {
+          ccnumberBlock.classList.remove("has-error");
+        }
+      }
+      if (/^\d+$/.test(ccnumber.value) === false) {
+        this.scrollToElement(ccnumber);
+        this.sendMessage("error", "Only numbers are allowed on credit card");
+        if (ccnumberBlock) {
+          ccnumberBlock.classList.add("has-error");
+        }
+        return false;
+      } else {
+        if (ccnumberBlock) {
+          ccnumberBlock.classList.remove("has-error");
+        }
+      }
+      const ccexpire = form.querySelectorAll("[name='transaction.ccexpire']");
+      const ccexpireBlock = form.querySelector(".en__field--ccexpire");
+      let ccexpireValid = true;
+      ccexpire.forEach((e) => {
+        if (!e.value) {
+          this.scrollToElement(ccexpireBlock);
+          this.sendMessage("error", "Please enter a valid expiration date");
+          if (ccexpireBlock) {
+            ccexpireBlock.classList.add("has-error");
           }
+          ccexpireValid = false;
           return false;
-        } else {
-          if (cvvBlock) {
-            cvvBlock.classList.remove("has-error");
-          }
+        }
+      });
+      if (!ccexpireValid && ccexpireBlock) {
+        return false;
+      } else {
+        if (ccexpireBlock) {
+          ccexpireBlock.classList.remove("has-error");
+        }
+      }
+
+      const cvv = form.querySelector("#en__field_transaction_ccvv");
+      const cvvBlock = form.querySelector(".en__field--ccvv");
+      if (!cvv || !cvv.value) {
+        this.scrollToElement(cvv);
+        this.sendMessage("error", "Please enter a valid CVV");
+        if (cvvBlock) {
+          cvvBlock.classList.add("has-error");
+        }
+        return false;
+      } else {
+        if (cvvBlock) {
+          cvvBlock.classList.remove("has-error");
         }
       }
     }
