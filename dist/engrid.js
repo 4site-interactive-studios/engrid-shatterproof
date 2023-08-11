@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, August 4, 2023 @ 08:25:46 ET
+ *  Date: Friday, August 11, 2023 @ 21:26:21 ET
  *  By: michael
  *  ENGrid styles: v0.14.10
  *  ENGrid scripts: v0.14.11
@@ -19575,8 +19575,14 @@ class DonationMultistepForm {
     this.putArrowUpSVG();
     this.bounceArrow(this.frequency.getInstance().frequency);
     DonationFrequency.getInstance().onFrequencyChange.subscribe(s => this.bounceArrow(s));
-    DonationFrequency.getInstance().onFrequencyChange.subscribe(() => this.changeSubmitButton());
-    DonationAmount.getInstance().onAmountChange.subscribe(() => this.changeSubmitButton());
+    DonationFrequency.getInstance().onFrequencyChange.subscribe(() => {
+      this.changeSubmitButton();
+      this.updateInMemLinkURLParams();
+    });
+    DonationAmount.getInstance().onAmountChange.subscribe(() => {
+      this.changeSubmitButton();
+      this.updateInMemLinkURLParams();
+    });
     this.changeSubmitButton();
     this.sendMessage("status", "loaded"); // Check if theres a color value in the url
 
@@ -20275,6 +20281,19 @@ class DonationMultistepForm {
     }
 
     return document.body.getAttribute("data-engrid-payment-type-option-apple-pay") === "true" || document.body.getAttribute("data-engrid-payment-type-option-google-pay") === "true" || document.body.getAttribute("data-engrid-payment-type-option-paypal-one-touch") === "true" || document.body.getAttribute("data-engrid-payment-type-option-venmo") === "true";
+  }
+
+  updateInMemLinkURLParams() {
+    const amount = this.amount.getInstance().amount;
+    const frequency = this.frequency.getInstance().frequency;
+    const link = document.getElementById("in-mem-link");
+
+    if (link) {
+      const url = new URL(link.getAttribute("href"));
+      url.searchParams.set("transaction.donationAmt", amount);
+      url.searchParams.set("transaction.recurrfreq", frequency.toUpperCase());
+      link.setAttribute("href", url.href);
+    }
   }
 
 }

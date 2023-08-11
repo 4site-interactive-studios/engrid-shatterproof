@@ -268,8 +268,8 @@
       p {
         font-family: "museo-slab", serif;
         font-style: italic;
-        font-size: 17px;
-        line-height: 1.43;
+        font-size: 16px;
+        line-height: 1.2;
         color: #324E8A;
         font-weight: 300;
         padding: 0 20px 0 0;
@@ -453,7 +453,7 @@
       text-transform: uppercase;
       position: absolute;
       right: -45px;
-      bottom: -45px;
+      bottom: -38px;
       font-size: 10px;
       letter-spacing: 0.4px;
       text-align: right;
@@ -693,13 +693,13 @@
       // scroll-behavior: smooth;
 
       & > .en__component {
-        // height: 100vh;
+        height: 100vh;
         width: 350px;
         padding: 45px;
         scroll-snap-align: start;
         transition: 0.3s max-height linear;
-        max-height: var(--section_height, auto);
-        min-height: var(--section_height, auto);
+        //max-height: var(--section_height, auto);
+        //min-height: var(--section_height, auto);
         overflow: hidden;
         &.active {
           max-height: 10000px;
@@ -708,7 +708,7 @@
 
         & > .en__component {
           height: 100%;
-          padding-bottom: 110px;
+          padding-bottom: 64px;
         }
       }
 

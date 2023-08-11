@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, August 4, 2023 @ 08:25:46 ET
+ *  Date: Friday, August 11, 2023 @ 21:26:21 ET
  *  By: michael
  *  ENGrid styles: v0.14.10
  *  ENGrid scripts: v0.14.11
@@ -8182,10 +8182,10 @@ body[data-engrid-debug]:before{
 [data-engrid-subtheme=embedded-multistep-v2]:not(#en__pagebuilder) .monthly-nudge p{
   color:#324e8a;
   font-family:museo-slab,serif;
-  font-size:17px;
+  font-size:16px;
   font-style:italic;
   font-weight:300;
-  line-height:1.43;
+  line-height:1.2;
   margin:14px 0;
   max-height:0;
   overflow:hidden;
@@ -8310,7 +8310,7 @@ body[data-engrid-debug]:before{
   width:100%;
 }
 [data-engrid-subtheme=embedded-multistep-v2] form.en__component>.en__component .section-count{
-  bottom:-45px;
+  bottom:-38px;
   color:#041e42;
   font-size:10px;
   letter-spacing:.4px;
@@ -8443,8 +8443,7 @@ body[data-engrid-debug]:before{
   scroll-snap-type:x mandatory;
 }
 [data-engrid-subtheme=embedded-multistep-v2][data-engrid-embedded] form.en__component>.en__component{
-  max-height:var(--section_height, auto);
-  min-height:var(--section_height, auto);
+  height:100vh;
   overflow:hidden;
   padding:45px;
   scroll-snap-align:start;
@@ -8457,7 +8456,7 @@ body[data-engrid-debug]:before{
 }
 [data-engrid-subtheme=embedded-multistep-v2][data-engrid-embedded] form.en__component>.en__component>.en__component{
   height:100%;
-  padding-bottom:110px;
+  padding-bottom:64px;
 }
 [data-engrid-subtheme=embedded-multistep-v2][data-engrid-embedded] form.en__component .en__component--row>.en__component--column .en__component:first-of-type>:first-child{
   margin-top:0;
