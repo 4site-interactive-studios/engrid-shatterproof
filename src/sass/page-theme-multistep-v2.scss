@@ -1,8 +1,8 @@
 [data-engrid-subtheme="embedded-multistep-v2"] {
   // Base styles
   --color-orange: #f26722;
-  --color-light-blue: #EBF7F5;
-  --color-dark-blue: #041E42;
+  --color-light-blue: #ebf7f5;
+  --color-dark-blue: #041e42;
   --a_color: var(--color-dark-blue);
   --default_font-family: "museo-sans", "Helvetica", "Arial", sans-serif;
   --engrid__body_box-shadow: none;
@@ -21,7 +21,7 @@
   --recurring-frequency__button_padding: 20px 0;
   --recurring-frequency__button_background-color: none;
   --recurring-frequency__button_color: var(--color-dark-blue);
-  --recurring-frequency__button_background-color_hover: #CAF5F0;
+  --recurring-frequency__button_background-color_hover: #caf5f0;
   --recurring-frequency__button_color_hover: var(--color-dark-blue);
   --recurring-frequency__button_color_checked: #ffffff;
   --recurring-frequency__button_background-color_checked: none;
@@ -30,11 +30,11 @@
   --donation-amount__button_count: 2;
   --donation-amount__button_border-width: 0;
   --donation-amount__button_font-size: 28px;
-  --donation-amount__button_font-weight: 700;
+  --donation-amount__button_font-weight: 900;
   --donation-amount__button_padding: 10px 0;
   --donation-amount__button_border-radius: 10px;
   --donation-amount__button_background-color: var(--color-light-blue);
-  --donation-amount__button_background-color_hover: #CAF5F0;
+  --donation-amount__button_background-color_hover: #caf5f0;
   --donation-amount__button_background-color_checked: var(--color-dark-blue);
   --donation-amount__button_color: var(--color-dark-blue);
   --donation-amount__button_color_hover: var(--color-dark-blue);
@@ -51,22 +51,22 @@
   --give-by-select__button_border-radius: 6px;
 
   // Input styles
-  --error__color: #E53935;
+  --error__color: #e53935;
   --error__background-color: rgba(229, 57, 53, 0.03);
   --input_box-shadow: none;
   --input_background-color: #ffffff;
-  --input_border-color: #041E42;
+  --input_border-color: #041e42;
   --input_border-radius: 6px;
   --input_border-width: 1px;
-  --input_color: #041E42;
+  --input_color: #041e42;
   --input_font-family: var(--default_font-family);
   --input_font-size: 18px;
   --input_font-weight: 300;
   --input_line-height: 16px;
   --input_padding: 14px 16px;
   --select_padding: 17px 16px;
-  --input_placeholder-color: rgba(4, 30, 66, 0.70);
-  --input_border-color_hover: #2CD5C4;
+  --input_placeholder-color: rgba(4, 30, 66, 0.7);
+  --input_border-color_hover: #2cd5c4;
 
   // Radio / Checkbox styles
   --radio_height: 27px;
@@ -99,7 +99,7 @@
 
     .pseudo-en-field.stripedigitalwallet label {
       display: flex;
-      flex-flow: row nowrap!important;
+      flex-flow: row nowrap !important;
       justify-content: center;
     }
 
@@ -116,10 +116,10 @@
 
   input:not([type="radio"]):not([type="checkbox"]):focus,
   select:focus {
-    outline-color: #2CD5C4;
+    outline-color: #2cd5c4;
   }
 
-  input[type=checkbox]+label {
+  input[type="checkbox"] + label {
     align-items: flex-start;
     -webkit-font-smoothing: antialiased;
 
@@ -163,11 +163,17 @@
     border-radius: 10px;
     overflow: hidden;
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       height: 100%;
       width: 200%;
-      background: linear-gradient(to right, #EBF7F5 0% 25%, #041E42 25% 50%, #EBF7F5 50% 75%, #041E42 75% 100%);
+      background: linear-gradient(
+        to right,
+        #ebf7f5 0% 25%,
+        #041e42 25% 50%,
+        #ebf7f5 50% 75%,
+        #041e42 75% 100%
+      );
       border-radius: 10px 0 0 10px;
       transition: transform 0.5s ease;
       transform: translateX(-25%);
@@ -175,7 +181,9 @@
     }
   }
 
-  &[data-engrid-transaction-recurring-frequency="monthly"] .radio-to-buttons_recurrfreq .en__field--recurrfreq {
+  &[data-engrid-transaction-recurring-frequency="monthly"]
+    .radio-to-buttons_recurrfreq
+    .en__field--recurrfreq {
     position: relative;
     &:after {
       border-radius: 0 10px 10px 0;
@@ -186,7 +194,7 @@
   .radio-to-buttons_recurrfreq {
     .en__field--recurrfreq {
       .en__field__item {
-        padding: 0!important;
+        padding: 0 !important;
 
         &:first-of-type > label {
           border-radius: 10px 0 0 10px;
@@ -253,11 +261,15 @@
     }
 
     .engrid-currency-symbol {
-      font-size: 70%;
+      font-weight: 400;
+      font-size: 60%;
     }
   }
 
-  .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio.en__field--withOther--active .en__field__item .en__field__input--other {
+  .radio-to-buttons_donationAmt
+    .en__field--donationAmt.en__field--radio.en__field--withOther--active
+    .en__field__item
+    .en__field__input--other {
     background-color: var(--donation-amount__button_background-color);
     color: var(--donation-amount__button_color);
   }
@@ -267,10 +279,10 @@
       position: relative;
       p {
         font-family: "museo-slab", serif;
-        font-style: italic;
+        text-align: center;
         font-size: 16px;
         line-height: 1.2;
-        color: #324E8A;
+        color: #333333;
         font-weight: 300;
         padding: 0 20px 0 0;
         margin: 14px 0;
@@ -280,7 +292,7 @@
       }
       &:after {
         // Curved arrow pointing up
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='38' viewBox='0 0 9 38' fill='none'%3E%3Cpath d='M8.13484 24.9006C7.08169 28.8744 4.90665 33.1645 1.04471 37.6312C0.827328 37.8826 0.446535 37.9051 0.197944 37.6845C-0.0507355 37.4638 -0.0643614 37.0737 0.15289 36.822C15.0096 19.6104 3.83955 5.18025 1.49203 2.50404C1.27254 2.25383 1.27542 1.86922 1.51002 1.63312C1.74413 1.3975 2.11669 1.39511 2.33634 1.64425C4.15248 3.70427 11.3347 12.8263 8.13484 24.9006Z' fill='%233E62AC'/%3E%3Cpath d='M6.45865 3.18034C6.44768 3.22174 6.43243 3.26288 6.41191 3.30262C6.26015 3.59821 5.89661 3.71431 5.60152 3.56225L1.75381 1.58202L1.7115 5.04804C1.70684 5.37871 1.43507 5.64685 1.10256 5.64257C0.769946 5.6387 0.503752 5.36615 0.508243 5.03283L0.562384 0.594254C0.563818 0.383938 0.675487 0.193706 0.853939 0.0859104C1.03239 -0.0218856 1.25432 -0.028242 1.43939 0.0668587L6.15268 2.49239C6.40824 2.62311 6.52944 2.91324 6.45865 3.18034Z' fill='%233E62AC'/%3E%3C/svg%3E");
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='9' height='38' viewBox='0 0 9 38' fill='none'%3E%3Cpath d='M8.13484 24.9006C7.08169 28.8744 4.90665 33.1645 1.04471 37.6312C0.827328 37.8826 0.446535 37.9051 0.197944 37.6845C-0.0507355 37.4638 -0.0643614 37.0737 0.15289 36.822C15.0096 19.6104 3.83955 5.18025 1.49203 2.50404C1.27254 2.25383 1.27542 1.86922 1.51002 1.63312C1.74413 1.3975 2.11669 1.39511 2.33634 1.64425C4.15248 3.70427 11.3347 12.8263 8.13484 24.9006Z' fill='%23333333'/%3E%3Cpath d='M6.45865 3.18034C6.44768 3.22174 6.43243 3.26288 6.41191 3.30262C6.26015 3.59821 5.89661 3.71431 5.60152 3.56225L1.75381 1.58202L1.7115 5.04804C1.70684 5.37871 1.43507 5.64685 1.10256 5.64257C0.769946 5.6387 0.503752 5.36615 0.508243 5.03283L0.562384 0.594254C0.563818 0.383938 0.675487 0.193706 0.853939 0.0859104C1.03239 -0.0218856 1.25432 -0.028242 1.43939 0.0668587L6.15268 2.49239C6.40824 2.62311 6.52944 2.91324 6.45865 3.18034Z' fill='%23333333'/%3E%3C/svg%3E");
         content: "";
         height: 38px;
         width: 9px;
@@ -457,7 +469,7 @@
       font-size: 10px;
       letter-spacing: 0.4px;
       text-align: right;
-      color: #041E42;
+      color: #041e42;
     }
     > .en__component {
       min-width: auto;
@@ -610,7 +622,7 @@
   .secure {
     text-align: center;
     opacity: 0.5;
-    color: #5C5D5F;
+    color: #5c5d5f;
     font-size: 12px;
     font-style: normal;
     font-weight: 600;
@@ -891,9 +903,11 @@
     }
   }
 
-  &[data-conditonally-hide-show-digital-wallet-elements] #en__digitalWallet .en__digitalWallet__container {
+  &[data-conditonally-hide-show-digital-wallet-elements]
+    #en__digitalWallet
+    .en__digitalWallet__container {
     padding: 0;
-    margin: 10px 0 20px!important;
+    margin: 10px 0 20px !important;
   }
 
   .back-btn-container {
@@ -902,7 +916,7 @@
     .back-btn {
       margin: 0 auto;
       font-size: 18px;
-      color: #041E42;
+      color: #041e42;
       text-align: center;
       font-style: italic;
       font-weight: 400;
@@ -911,5 +925,4 @@
       cursor: pointer;
     }
   }
-
 }
