@@ -1,4 +1,4 @@
-export const customScript = function (App) {
+export const customScript = function (App, DonationFrequency) {
   console.log("ENGrid client scripts are executing");
   // Use addHtml in engrid.js to add HTML to the page
   App.addHtml(
@@ -6,4 +6,12 @@ export const customScript = function (App) {
     ".insert-upsell-message > div:last-child",
     "after"
   );
+  // When click on the monthly-nudge, set Frequency to monthly
+  const monthlyNudge = document.querySelector(".monthly-nudge");
+  if (monthlyNudge) {
+    const freq = DonationFrequency.getInstance();
+    monthlyNudge.addEventListener("click", function () {
+      if (freq.frequency !== "monthly") freq.setFrequency("monthly");
+    });
+  }
 };

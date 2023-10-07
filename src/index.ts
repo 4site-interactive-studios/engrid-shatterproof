@@ -38,7 +38,7 @@ const options: Options = {
     console.log("Starter Theme Loaded"); /*dataCapture();*/
     (<any>window).DonationMultistepForm = DonationMultistepForm;
     new DonationMultistepForm(DonationAmount, DonationFrequency);
-    customScript(App);
+    customScript(App, DonationFrequency);
   },
   onResize: () => console.log("Starter Theme Window Resized"),
 };
