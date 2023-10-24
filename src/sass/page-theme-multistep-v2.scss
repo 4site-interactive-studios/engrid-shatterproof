@@ -470,6 +470,9 @@
       letter-spacing: 0.4px;
       text-align: right;
       color: #041e42;
+      @media (max-width: 390px) {
+        right: -15px;
+      }
     }
     > .en__component {
       min-width: auto;
