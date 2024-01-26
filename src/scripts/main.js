@@ -70,4 +70,30 @@ export const customScript = function (App) {
 
   // Call the function initially
   watchHasPersonalMessageField();
+
+  // Check if the page has the "In Memory Of" checkbox, and if it's not selected then ensure the notification field inside it is also set to "Do not notify"
+  const checkbox = document.getElementById("en__field_transaction_inmem");
+
+  // Check if checkbox exists and is not selected
+  if (checkbox && !checkbox.checked) {
+    // console.log("In Honor of Memory was not selected. Checking which Notify Method is selected.");
+
+    // Find the radio button with the value "Do not notify" within the specified class
+    const doNotNotifyRadioSelect = document.querySelector(
+      '.en__field--NOT_TAGGED_24 input[type=radio][value="Do not notify"]'
+    );
+    const doNotNotifyTextInput = document.querySelector(
+      "#en__field_supporter_NOT_TAGGED_30"
+    );
+    // Check if the radio button exists and select it
+    if (
+      doNotNotifyRadioSelect &&
+      !doNotNotifyRadioSelect.checked &&
+      doNotNotifyTextInput
+    ) {
+      // console.log("The Notify Method was not selected as 'Do not notify' but it should be. So we selected it and set the corresponding Text Input's value to 'Do not notify'");
+      doNotNotifyRadioSelect.checked = true;
+      doNotNotifyTextInput.value = "Do not notify";
+    }
+  }
 };
