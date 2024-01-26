@@ -14,14 +14,21 @@ export const customScript = function (App) {
    */
   function watchHasPersonalMessageField() {
     // Check if the required fields exist on the page
-    const personalMessageTextarea = document.querySelector("textarea[name='transaction.gftrsn']");
-    let hasPersonalMessageField = document.querySelector("input[name='supporter.NOT_TAGGED_32']");
+    const personalMessageTextarea = document.querySelector(
+      "textarea[name='transaction.gftrsn']"
+    );
+    let hasPersonalMessageField = document.querySelector(
+      "input[name='supporter.NOT_TAGGED_32']"
+    );
 
     // If the personal message textarea exists but the hasPersonalMessageField doesn't
     if (personalMessageTextarea && !hasPersonalMessageField) {
       // Create the hasPersonalMessageField with the specified markup
       const newField = document.createElement("div");
-      newField.setAttribute("class", "en__field en__field--text en__field--NOT_TAGGED_32 hide");
+      newField.setAttribute(
+        "class",
+        "en__field en__field--text en__field--NOT_TAGGED_32 hide"
+      );
       newField.innerHTML = `
         <label for="en__field_supporter_NOT_TAGGED_32" class="en__field__label" style="">Has Personalized Message</label>
         <div class="en__field__element en__field__element--text">
@@ -33,24 +40,31 @@ export const customScript = function (App) {
       const gftrsnField = document.querySelector(".en__field--gftrsn");
       if (gftrsnField) {
         gftrsnField.insertAdjacentElement("afterend", newField);
-        hasPersonalMessageField = document.querySelector("input[name='supporter.NOT_TAGGED_32']");
+        hasPersonalMessageField = document.querySelector(
+          "input[name='supporter.NOT_TAGGED_32']"
+        );
       }
     }
-    
+
     // Update the hasPersonalMessageField value based on the personalMessageTextarea
-    function updateHasPersonalMessageField(){
+    function updateHasPersonalMessageField() {
       if (personalMessageTextarea && hasPersonalMessageField) {
         console.log("Updating hasPersonalMessageField value");
-        hasPersonalMessageField.value = personalMessageTextarea.value ? "true" : "false";
+        hasPersonalMessageField.value = personalMessageTextarea.value
+          ? "true"
+          : "false";
       } else {
         console.log("Unable to update hasPersonalMessageField value");
       }
-    }    
+    }
 
     // Add an input event listener to the personalMessageTextarea
     if (personalMessageTextarea) {
       updateHasPersonalMessageField();
-      personalMessageTextarea.addEventListener("input", updateHasPersonalMessageField);
+      personalMessageTextarea.addEventListener(
+        "input",
+        updateHasPersonalMessageField
+      );
     }
   }
 
