@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, January 24, 2024 @ 20:56:34 ET
- *  By: fernando
- *  ENGrid styles: v0.16.14
- *  ENGrid scripts: v0.16.16
+ *  Date: Friday, January 26, 2024 @ 14:49:02 ET
+ *  By: bryancasler
+ *  ENGrid styles: v0.16.18
+ *  ENGrid scripts: v0.16.18
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -13758,8 +13758,10 @@ class CreditCard {
         if (!this.ccField)
             return;
         // Set credit card field to type="tel" to prevent mobile browsers from
-        //  showing a credit card number keyboard
-        this.ccField.type = "tel";
+        //  showing a credit card number keyboard, only if the field is not hidden
+        if (this.ccField.type !== "hidden") {
+            this.ccField.type = "tel";
+        }
         const expireFiels = document.getElementsByName("transaction.ccexpire");
         if (expireFiels) {
             this.field_expiration_month = expireFiels[0];
@@ -21433,7 +21435,7 @@ class ENValidators {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.16.16";
+const AppVersion = "0.16.18";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
