@@ -10,6 +10,7 @@ export default class DonationMultistepForm {
     this.amount = DonationAmount;
     this.frequency = DonationFrequency;
     this.ipCountry = "";
+    this.subtheme = document.body.dataset.engridSubtheme;
     console.log("DonationMultistepForm: constructor");
     // Each EN Row is a Section
     this.sections = document.querySelectorAll(
@@ -146,12 +147,14 @@ export default class DonationMultistepForm {
     DonationFrequency.getInstance().onFrequencyChange.subscribe((s) =>
       this.bounceArrow(s)
     );
-    DonationFrequency.getInstance().onFrequencyChange.subscribe(() =>
-      this.changeSubmitButton()
-    );
-    DonationAmount.getInstance().onAmountChange.subscribe(() =>
-      this.changeSubmitButton()
-    );
+    DonationFrequency.getInstance().onFrequencyChange.subscribe(() => {
+      this.changeSubmitButton();
+      this.updateInMemLinkURLParams();
+    });
+    DonationAmount.getInstance().onAmountChange.subscribe(() => {
+      this.changeSubmitButton();
+      this.updateInMemLinkURLParams();
+    });
     this.changeSubmitButton();
     this.sendMessage("status", "loaded");
     // Check if theres a color value in the url
@@ -171,6 +174,25 @@ export default class DonationMultistepForm {
     }
     // Add an active class to the first section
     this.sections[0].classList.add("active");
+
+    // Digital wallet handling for new theme
+    if (this.subtheme === "embedded-multistep-v2") {
+      const digitalWalletPaymentMethod = ["paypaltouch", "stripedigitalwallet"];
+
+      const giveBySelect = document.getElementsByName(
+        "transaction.giveBySelect"
+      );
+
+      giveBySelect.forEach((element) => {
+        element.addEventListener("change", (e) => {
+          if (digitalWalletPaymentMethod.includes(element.value)) {
+            this.sections[2].classList.add("hide");
+          } else {
+            this.sections[2].classList.remove("hide");
+          }
+        });
+      });
+    }
   }
   // Send iframe message to parent
   sendMessage(key, value) {
@@ -205,7 +227,7 @@ export default class DonationMultistepForm {
       if (key == 0) {
         sectionNavigation.innerHTML = `
         <button class="section-navigation__next" data-section-id="${key}">
-          <span>Continue</span>
+          <span>Give <span class="live-giving-amount"></span> <span class="live-giving-frequency"></span></span>
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 14 14">
               <path fill="currentColor" d="M7.687 13.313c-.38.38-.995.38-1.374 0-.38-.38-.38-.996 0-1.375L10 8.25H1.1c-.608 0-1.1-.493-1.1-1.1 0-.608.492-1.1 1.1-1.1h9.2L6.313 2.062c-.38-.38-.38-.995 0-1.375s.995-.38 1.374 0L14 7l-6.313 6.313z"/>
           </svg>
@@ -222,6 +244,10 @@ export default class DonationMultistepForm {
           <span>Give Now</span>
         </button>
       `;
+        sectionNavigation.classList.add(
+          "hideif-stripedigitalwallet-selected",
+          "hideif-paypaltouch-selected"
+        );
       } else {
         sectionNavigation.innerHTML = `
         <button class="section-navigation__previous" data-section-id="${key}">
@@ -238,7 +264,7 @@ export default class DonationMultistepForm {
       `;
       }
       sectionCount.innerHTML = `
-        <span class="section-count__current">${key + 1}</span> of
+        Step <span class="section-count__current">${key + 1}</span> of
         <span class="section-count__total">${sectionTotal}</span>
       `;
 
@@ -246,7 +272,35 @@ export default class DonationMultistepForm {
         .querySelector(".section-navigation__previous")
         ?.addEventListener("click", (e) => {
           e.preventDefault();
-          this.scrollToSection(key - 1);
+          const paymentType = document.querySelector(
+            "#en__field_transaction_paymenttype"
+          ).value;
+
+          // If it's the 3rd section and we don't have digital wallets,
+          // Hide the payment method section and go to the first section
+          if (key === 2) {
+            this.sections[1].classList.remove("hide");
+            if (!this.digitalWalletsAvailable()) {
+              this.sections[1].classList.add("hide");
+              this.scrollToSection(key - 2);
+            } else {
+              this.scrollToSection(key - 1);
+            }
+            return;
+          }
+
+          if (key === 3) {
+            if (
+              paymentType === "paypaltouch" ||
+              paymentType === "stripedigitalwallet"
+            ) {
+              this.scrollToSection(key - 2);
+            } else {
+              this.scrollToSection(key - 1);
+            }
+          } else {
+            this.scrollToSection(key - 1);
+          }
         });
 
       sectionNavigation
@@ -254,7 +308,35 @@ export default class DonationMultistepForm {
         ?.addEventListener("click", (e) => {
           e.preventDefault();
           if (this.validateForm(key)) {
-            this.scrollToSection(key + 1);
+            const paymentType = document.querySelector(
+              "#en__field_transaction_paymenttype"
+            ).value;
+
+            // If it's the first section and we don't have digital wallets,
+            // Hide the payment method section and go to the next section
+            if (key === 0) {
+              this.sections[1].classList.remove("hide");
+              if (!this.digitalWalletsAvailable()) {
+                this.sections[1].classList.add("hide");
+                this.scrollToSection(key + 2);
+              } else {
+                this.scrollToSection(key + 1);
+              }
+              return;
+            }
+
+            if (key === 1) {
+              if (
+                paymentType === "paypaltouch" ||
+                paymentType === "stripedigitalwallet"
+              ) {
+                this.scrollToSection(key + 2);
+              } else {
+                this.scrollToSection(key + 1);
+              }
+            } else {
+              this.scrollToSection(key + 1);
+            }
           }
         });
 
@@ -296,6 +378,29 @@ export default class DonationMultistepForm {
             document.querySelector("form.en__component").submit();
           }
         });
+
+      // Adding back button for new theme to last section
+      if (
+        this.subtheme === "embedded-multistep-v2" &&
+        key === this.sections.length - 1
+      ) {
+        const backBtnContainer = document.createElement("div");
+        backBtnContainer.classList.add(
+          "back-btn-container",
+          "giveBySelect-stripedigitalwallet",
+          "giveBySelect-paypaltouch"
+        );
+        const backBtn = document.createElement("span");
+        backBtn.classList.add("back-btn");
+        backBtn.textContent = "Back";
+        backBtnContainer.append(backBtn);
+        section.querySelector(".en__component").append(backBtnContainer);
+        backBtn.addEventListener("click", (e) => {
+          e.preventDefault();
+          this.scrollToSection(key - 1);
+        });
+      }
+
       section.querySelector(".en__component").append(sectionNavigation);
       section.querySelector(".en__component").append(sectionCount);
     });
@@ -410,12 +515,20 @@ export default class DonationMultistepForm {
     const ccnumber = form.querySelector("#en__field_transaction_ccnumber");
     const ccnumberBlock = form.querySelector(".en__field--ccnumber");
     const ccnumberSection = this.getSectionId(ccnumberBlock);
+    const isDigitalWalletPayment = [
+      "paypal",
+      "paypaltouch",
+      "stripedigitalwallet",
+    ].includes(paymentType.value);
     console.log(
       "DonationMultistepForm: validateForm",
       ccnumberBlock,
       ccnumberSection
     );
-    if (sectionId === false || sectionId == ccnumberSection) {
+    if (
+      !isDigitalWalletPayment &&
+      (sectionId === false || sectionId == ccnumberSection)
+    ) {
       if (!paymentType || !paymentType.value) {
         this.scrollToElement(paymentType);
         this.sendMessage("error", "Please add your credit card information");
@@ -424,55 +537,51 @@ export default class DonationMultistepForm {
         }
         return false;
       }
-      // If payment type is not paypal, check credit card expiration and cvv
-      if (paymentType.value !== "paypal") {
-        if (!ccnumber || !ccnumber.value) {
-          this.scrollToElement(ccnumber);
-          this.sendMessage("error", "Please add your credit card information");
-          if (ccnumberBlock) {
-            ccnumberBlock.classList.add("has-error");
-          }
-          return false;
-        } else {
-          if (ccnumberBlock) {
-            ccnumberBlock.classList.remove("has-error");
-          }
-        }
-        if (/^\d+$/.test(ccnumber.value) === false) {
-          this.scrollToElement(ccnumber);
-          this.sendMessage("error", "Only numbers are allowed on credit card");
-          if (ccnumberBlock) {
-            ccnumberBlock.classList.add("has-error");
-          }
-          return false;
-        } else {
-          if (ccnumberBlock) {
-            ccnumberBlock.classList.remove("has-error");
-          }
-        }
-        const ccexpire = form.querySelectorAll("[name='transaction.ccexpire']");
-        const ccexpireBlock = form.querySelector(".en__field--ccexpire");
-        let ccexpireValid = true;
-        ccexpire.forEach((e) => {
-          if (!e.value) {
-            this.scrollToElement(ccexpireBlock);
-            this.sendMessage("error", "Please enter a valid expiration date");
-            if (ccexpireBlock) {
-              ccexpireBlock.classList.add("has-error");
-            }
-            ccexpireValid = false;
-            return false;
-          }
-        });
-        if (!ccexpireValid && ccexpireBlock) {
-          return false;
-        } else {
-          if (ccexpireBlock) {
-            ccexpireBlock.classList.remove("has-error");
-          }
-        }
 
-        const cvv = form.querySelector("#en__field_transaction_ccvv");
+      const ccValid =
+        ccnumber instanceof HTMLInputElement
+          ? !!ccnumber.value
+          : ccnumber.classList.contains("vgs-collect-container__valid");
+
+      if (!ccValid) {
+        this.scrollToElement(ccnumber);
+        this.sendMessage("error", "Please enter a valid credit card number");
+        if (ccnumberBlock) {
+          ccnumberBlock.classList.add("has-error");
+        }
+        return false;
+      } else {
+        if (ccnumberBlock) {
+          ccnumberBlock.classList.remove("has-error");
+        }
+      }
+
+      const ccexpire = form.querySelectorAll("[name='transaction.ccexpire']");
+      const ccexpireBlock = form.querySelector(".en__field--ccexpire");
+      let ccexpireValid = true;
+      ccexpire.forEach((e) => {
+        if (!e.value) {
+          this.scrollToElement(ccexpireBlock);
+          this.sendMessage("error", "Please enter a valid expiration date");
+          if (ccexpireBlock) {
+            ccexpireBlock.classList.add("has-error");
+          }
+          ccexpireValid = false;
+          return false;
+        }
+      });
+      if (!ccexpireValid && ccexpireBlock) {
+        return false;
+      } else {
+        if (ccexpireBlock) {
+          ccexpireBlock.classList.remove("has-error");
+        }
+      }
+
+      // TODO: add in CVV verification when EN gets back to us
+
+      const cvv = form.querySelector("#en__field_transaction_ccvv");
+      if (cvv instanceof HTMLInputElement) {
         const cvvBlock = form.querySelector(".en__field--ccvv");
         if (!cvv || !cvv.value) {
           this.scrollToElement(cvv);
@@ -733,5 +842,39 @@ export default class DonationMultistepForm {
     if (obj === undefined) return false;
     if (rest.length == 0 && obj.hasOwnProperty(level)) return true;
     return this.checkNested(obj[level], ...rest);
+  }
+
+  digitalWalletsAvailable() {
+    if (this.subtheme !== "embedded-multistep-v2") {
+      //Backwards compatibility with old multistep, never skip a section.
+      return true;
+    }
+
+    return (
+      document.body.getAttribute(
+        "data-engrid-payment-type-option-apple-pay"
+      ) === "true" ||
+      document.body.getAttribute(
+        "data-engrid-payment-type-option-google-pay"
+      ) === "true" ||
+      document.body.getAttribute(
+        "data-engrid-payment-type-option-paypal-one-touch"
+      ) === "true" ||
+      document.body.getAttribute("data-engrid-payment-type-option-venmo") ===
+        "true"
+    );
+  }
+
+  updateInMemLinkURLParams() {
+    const amount = this.amount.getInstance().amount;
+    const frequency = this.frequency.getInstance().frequency;
+    const link = document.getElementById("in-mem-link");
+
+    if (link) {
+      const url = new URL(link.getAttribute("href"));
+      url.searchParams.set("transaction.donationAmt", amount);
+      url.searchParams.set("transaction.recurrfreq", frequency.toUpperCase());
+      link.setAttribute("href", url.href);
+    }
   }
 }

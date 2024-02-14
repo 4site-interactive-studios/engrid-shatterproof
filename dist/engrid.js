@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Friday, January 26, 2024 @ 14:51:27 ET
- *  By: bryancasler
- *  ENGrid styles: v0.16.18
- *  ENGrid scripts: v0.16.18
+ *  Date: Wednesday, February 14, 2024 @ 10:16:39 ET
+ *  By: michael
+ *  ENGrid styles: v0.17.9
+ *  ENGrid scripts: v0.17.9
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -11833,6 +11833,8 @@ const OptionsDefaults = {
     ENValidators: false,
     MobileCTA: false,
     CustomCurrency: false,
+    VGS: false,
+    PostalCodeValidator: false,
     PageLayouts: [
         "leftleft1col",
         "centerleft1col",
@@ -12668,6 +12670,15 @@ class engrid_ENGrid {
         }
         return true;
     }
+    // Deep merge two objects
+    static deepMerge(target, source) {
+        for (const key in source) {
+            if (source[key] instanceof Object)
+                Object.assign(source[key], engrid_ENGrid.deepMerge(target[key], source[key]));
+        }
+        Object.assign(target || {}, source);
+        return target;
+    }
     static setError(element, errorMessage) {
         const errorElement = typeof element === "string" ? document.querySelector(element) : element;
         if (errorElement) {
@@ -13333,6 +13344,9 @@ class App extends engrid_ENGrid {
         new UrlParamsToBodyAttrs();
         new SetAttr();
         new ShowIfPresent();
+        new PostalCodeValidator();
+        // Very Good Security
+        new VGS();
         //Debug panel
         let showDebugPanel = this.options.Debug;
         try {
@@ -13684,6 +13698,7 @@ class CreditCard {
     constructor() {
         this.logger = new EngridLogger("CreditCard", "#ccc84a", "#333", "💳");
         this._form = EnForm.getInstance();
+        this.vgsField = document.querySelector(".en__field--vgs");
         this.ccField = engrid_ENGrid.getField("transaction.ccnumber");
         this.ccValues = {
             "american-express": [
@@ -13755,6 +13770,10 @@ class CreditCard {
                 }
             }
         };
+        if (this.vgsField) {
+            this.logger.log("The Page is Using VGS. Exiting Credit Card Handler");
+            return;
+        }
         if (!this.ccField)
             return;
         // Set credit card field to type="tel" to prevent mobile browsers from
@@ -20869,13 +20888,19 @@ class GiveBySelect {
     constructor() {
         this.logger = new EngridLogger("GiveBySelect", "#FFF", "#333", "🐇");
         this.transactionGiveBySelect = document.getElementsByName("transaction.giveBySelect");
+        this.vgsField = document.querySelector(".en__field--vgs");
         if (!this.transactionGiveBySelect)
             return;
         this.transactionGiveBySelect.forEach((giveBySelect) => {
             giveBySelect.addEventListener("change", () => {
                 this.logger.log("Changed to " + giveBySelect.value);
                 if (giveBySelect.value.toLowerCase() === "card") {
-                    engrid_ENGrid.setPaymentType("");
+                    if (this.vgsField) {
+                        engrid_ENGrid.setPaymentType("visa"); // VGS will not change the payment type field, so we have to do it manually to avoid errors
+                    }
+                    else {
+                        engrid_ENGrid.setPaymentType("");
+                    }
                 }
                 else {
                     engrid_ENGrid.setPaymentType(giveBySelect.value);
@@ -21434,11 +21459,297 @@ class ENValidators {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/postal-code-validator.js
+
+
+
+// Conditionally validates the postcode field for a US format zip code
+// If US is selected as the country, a country has not been selected yet
+// or if there is no country field
+// Allows blank zip code if zip code is not required.
+class PostalCodeValidator {
+    constructor() {
+        var _a, _b;
+        this.postalCodeField = engrid_ENGrid.getField("supporter.postcode");
+        this._form = EnForm.getInstance();
+        this.logger = new EngridLogger("Postal Code Validator", "white", "red", "📬");
+        this.supportedSeparators = ["+", "-", " "];
+        this.separator = this.getSeparator();
+        this.regexSeparator = this.getRegexSeparator(this.separator);
+        if (this.shouldRun()) {
+            (_a = this.postalCodeField) === null || _a === void 0 ? void 0 : _a.addEventListener("blur", () => this.validate());
+            (_b = this.postalCodeField) === null || _b === void 0 ? void 0 : _b.addEventListener("input", () => this.liveValidate());
+            this._form.onValidate.subscribe(() => {
+                if (!this._form.validate)
+                    return;
+                this.liveValidate();
+                // It seems like we need some delay or EN removes our error message.
+                setTimeout(() => {
+                    this.validate();
+                }, 100);
+                // We dont need to validate the zip code, or it is valid
+                const postalCodeValid = !this.shouldValidateUSZipCode() || this.isValidUSZipCode();
+                this._form.validate = postalCodeValid;
+                if (!postalCodeValid) {
+                    this.logger.log(`Invalid Zip Code ${this.postalCodeField.value}`);
+                    this.postalCodeField.scrollIntoView({ behavior: "smooth" });
+                }
+                return postalCodeValid;
+            });
+        }
+    }
+    shouldRun() {
+        return !!(engrid_ENGrid.getOption("PostalCodeValidator") && this.postalCodeField);
+    }
+    validate() {
+        if (this.shouldValidateUSZipCode() && !this.isValidUSZipCode()) {
+            engrid_ENGrid.setError(".en__field--postcode", `Please enter a valid ZIP Code of ##### or #####${this.separator}####`);
+        }
+        else {
+            engrid_ENGrid.removeError(".en__field--postcode");
+        }
+    }
+    isValidUSZipCode() {
+        var _a, _b;
+        const zipCodeRequired = !!document.querySelector(".en__field--postcode.en__mandatory");
+        // If zip code is not required in EN Form Block and the field is empty, it is valid
+        if (!zipCodeRequired && ((_a = this.postalCodeField) === null || _a === void 0 ? void 0 : _a.value) === "") {
+            return true;
+        }
+        const postalCodeRegex = new RegExp(`^\\d{5}(${this.regexSeparator}\\d{4})?$`);
+        return !!((_b = this.postalCodeField) === null || _b === void 0 ? void 0 : _b.value.match(postalCodeRegex));
+    }
+    /**
+     * Formats the zip code to #####-####  as the user inputs it
+     * The separator is determined by the TidyContact option, but defaults to "-"
+     */
+    liveValidate() {
+        var _a;
+        if (!this.shouldValidateUSZipCode())
+            return;
+        let value = (_a = this.postalCodeField) === null || _a === void 0 ? void 0 : _a.value;
+        // If the value is 5 characters or less, remove all non-numeric characters
+        if (value.length <= 5) {
+            value = value.replace(/\D/g, "");
+        }
+        // If one of the supported separators is endered as the 6th character, replace it with the official separator
+        else if (value.length === 6 &&
+            this.supportedSeparators.includes(value[5])) {
+            // Removing all non-numeric characters
+            value = value.replace(/\D/g, "") + this.separator;
+        }
+        else {
+            // Removing all non-numeric characters
+            value = value.replace(/\D/g, "");
+            // Adding the separator after the 5th character
+            value = value.replace(/(\d{5})(\d)/, `$1${this.separator}$2`);
+        }
+        //set field value with max 10 characters
+        this.postalCodeField.value = value.slice(0, 10);
+    }
+    shouldValidateUSZipCode() {
+        // Validating US zip code only if country is US, country has not yet been selected
+        // or if there is no country field
+        const country = engrid_ENGrid.getField("supporter.country")
+            ? engrid_ENGrid.getFieldValue("supporter.country")
+            : "US";
+        return ["us", "united states", "usa", ""].includes(country.toLowerCase());
+    }
+    getSeparator() {
+        const tidyContact = engrid_ENGrid.getOption("TidyContact");
+        if (tidyContact &&
+            tidyContact.us_zip_divider &&
+            this.supportedSeparators.includes(tidyContact.us_zip_divider)) {
+            return tidyContact.us_zip_divider;
+        }
+        return "-";
+    }
+    getRegexSeparator(separator) {
+        switch (separator) {
+            case "+":
+                return "\\+";
+            case "-":
+                return "-";
+            case " ":
+                return "\\s";
+            default:
+                this.logger.log(`Invalid separator "${separator}" provided to PostalCodeValidator, falling back to "-".`);
+                return "-";
+        }
+    }
+}
+
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/vgs.js
+// This component allows you to customize the VGS theme options
+//
+// It is used in the following way:
+//
+// VGS: {
+// "transaction.ccnumber": {
+//     showCardIcon: true,
+//     placeholder: "•••• •••• •••• ••••",
+//     icons: {
+//        (icons can't be urls, they have to be base64 encoded images)
+//        cardPlaceholder: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' height='24px' viewBox='0 0 24 24' width='24px' fill='%233BBF45'%3E%3Cpath d='M0 0h24v24H0z' fill='none'/%3E%3Cpath d='M21 18v1c0 1.1-.9 2-2 2H5c-1.11 0-2-.9-2-2V5c0-1.1.89-2 2-2h14c1.1 0 2 .9 2 2v1h-9c-1.11 0-2 .9-2 2v8c0 1.1.89 2 2 2h9zm-9-2h10V8H12v8zm4-2.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z'/%3E%3C/svg%3E"
+//        visa: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 384 512'%3E%3Cpath fill='%233BBF45' d='M384 32H0v448h384V32z'/%3E%3Cpath fill='white' d='M128.5 352.5l-32-192h-32l32 192zm96-192l-32 192h-32l32-192z'/%3E%3C/svg%3E",
+//     },
+// },
+// "transaction.ccvv": {
+//     showCardIcon: false,
+//     placeholder: "CVV",
+//     hideValue: false,
+// },
+// },
+//
+// The VGS component can also be set at the page level, if necessary
+//
+
+class VGS {
+    constructor() {
+        this.logger = new EngridLogger("VGS", "black", "pink", "💳");
+        this.vgsField = document.querySelector(".en__field--vgs");
+        this.options = engrid_ENGrid.getOption("VGS");
+        this.paymentTypeField = document.querySelector("#en__field_transaction_paymenttype");
+        this._form = EnForm.getInstance();
+        if (!this.shouldRun())
+            return;
+        this.setPaymentType();
+        this.setDefaults();
+        this.dumpGlobalVar();
+        this._form.onValidate.subscribe(() => {
+            if (this._form.validate) {
+                const isValid = this.validate();
+                this.logger.log(`Form Validation: ${isValid}`);
+                this._form.validate = isValid;
+            }
+        });
+    }
+    shouldRun() {
+        // Only run if the vgs field is present
+        if (!this.vgsField)
+            return false;
+        return true;
+    }
+    setDefaults() {
+        const placeholderStyles = {
+            color: getComputedStyle(document.body).getPropertyValue("--input_placeholder-color") || "#a9a9a9",
+            opacity: getComputedStyle(document.body).getPropertyValue("--input_placeholder-opacity") || "1",
+            fontWeight: getComputedStyle(document.body).getPropertyValue("--input_placeholder-font-weight") || "normal",
+        };
+        const options = this.options;
+        const defaultOptions = {
+            "transaction.ccnumber": {
+                showCardIcon: true,
+                placeholder: "•••• •••• •••• ••••",
+                icons: {
+                    cardPlaceholder: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEwAAABMCAYAAADHl1ErAAAACXBIWXMAABYlAAAWJQFJUiTwAAAB8ElEQVR4nO2c4W3CMBBGz1H/NyNkAzoCo2SDrkI3YJSOABt0g9IJXBnOqUkMyifUqkrek04RlvMjT2c7sc6EGKPBfBpcaSBMBGEiCBNBmAjCRBAmgjARhIkgTARhIggTQZhK2q0Yh5l1ZrYzs0PqsrI4+LN3VTeThkvntUm6Fbuxn2E/LITQmtm7mW08Sb/MbO9tpxhjui6WEMLWzJKDdO3N7Nmf9ZjaYoyn8y8X1o6GXxLV1lJyDeE+9oWPQ/ZRG4b9WkVVpqe+8LLLo7ErM6t248qllZnWBc+uV5+zumGsQjm3f/ic9tb4JGeeXcga4U723rptilVx0avgg2Q3m/JNn+y6zeAm+GSWUi/c7L5yfB77RJhACOHs6WnuLfmGpTI3YditEEGYCMJEECaCMJHZqySvHRfIMBGEiSBMBGEiCBNBmAjCRBAmgjARhIkgTGT2t+R/59EdYXZcfwmEiSBMBGEiCBNZzCr5VzvCZJjIIMxrPKFC6abMsHbaFcZuGq8StqKwDqZkN8emKBbrvawHCtxJ7y1nVxQF34lxUXBupOy8EtWy88jBhknUDjbkPhyd+Xn2l9lHZ8rgcNZVTA5nTYRFjv/dPf7HvzuJ8C0pgjARhIkgTARhIggTQZgIwkQQJoIwEYSJIEwEYQpm9g2Ro5zhLcuLBwAAAABJRU5ErkJggg==",
+                },
+                css: {
+                    "&::placeholder": placeholderStyles,
+                },
+                // Autocomplete is not customizable
+                autoComplete: "cc-number",
+            },
+            "transaction.ccvv": {
+                showCardIcon: false,
+                placeholder: "CVV",
+                hideValue: false,
+                // Autocomplete is not customizable
+                autoComplete: "cc-csc",
+                css: {
+                    "&::placeholder": placeholderStyles,
+                },
+            },
+        };
+        // Deep merge the default options with the options set in the theme
+        this.options = engrid_ENGrid.deepMerge(defaultOptions, options);
+        this.logger.log("Theme Options", options);
+        this.logger.log("Merged Options", this.options);
+    }
+    setPaymentType() {
+        // Because the VGS iFrame Communication doesn't change the value of the payment type field, we have to set it to Visa by default
+        if (this.paymentTypeField) {
+            // Loop through the payment type field options and set the visa card as the default
+            for (let i = 0; i < this.paymentTypeField.options.length; i++) {
+                if (this.paymentTypeField.options[i].value.toLowerCase() === "visa" ||
+                    this.paymentTypeField.options[i].value.toLowerCase() === "vi") {
+                    this.paymentTypeField.selectedIndex = i;
+                    break;
+                }
+            }
+        }
+    }
+    dumpGlobalVar() {
+        // Dump the global variable for the VGS options
+        window.enVGSFields = this.options;
+        // EN is not reading the global variable because their JS file loads before ENgrid, so we're going to HACK TOWN
+        // Clean up the VGS iFrames
+        window.setTimeout(() => {
+            const vgsIElements = document.querySelectorAll(".en__field__input--vgs");
+            if (vgsIElements.length > 0) {
+                // Create a mutation observer that cleans the VGS Elements before anything is rendered
+                const observer = new MutationObserver((mutations) => {
+                    mutations.forEach((mutation) => {
+                        if (mutation.type === "childList" && mutation.addedNodes.length > 0)
+                            mutation.addedNodes.forEach((node) => {
+                                if (node.nodeName === "IFRAME" &&
+                                    mutation.previousSibling &&
+                                    mutation.previousSibling.nodeName === "IFRAME") {
+                                    // Delete the previous sibling
+                                    mutation.previousSibling.remove();
+                                }
+                            });
+                    });
+                });
+                // Observe the VGS Elements
+                vgsIElements.forEach((vgsIElement) => {
+                    observer.observe(vgsIElement, { childList: true });
+                });
+                if (engrid_ENGrid.checkNested(window.EngagingNetworks, "require", "_defined", "enjs", "vgs")) {
+                    window.EngagingNetworks.require._defined.enjs.vgs.init();
+                }
+                else {
+                    this.logger.log("VGS is not defined");
+                }
+            }
+        }, 1000);
+    }
+    validate() {
+        if (this.paymentTypeField.value.toLowerCase() === "visa" ||
+            this.paymentTypeField.value.toLowerCase() === "vi") {
+            const cardContainer = document.querySelector(".en__field--vgs.en__field--ccnumber");
+            const cardEmpty = cardContainer.querySelector(".vgs-collect-container__empty");
+            const cvvContainer = document.querySelector(".en__field--vgs.en__field--ccvv");
+            const cvvEmpty = cvvContainer.querySelector(".vgs-collect-container__empty");
+            if (cardContainer && cardEmpty) {
+                window.setTimeout(() => {
+                    engrid_ENGrid.setError(cardContainer, "Please enter a valid card number");
+                    // Scroll to the error
+                    cardContainer.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+                return false;
+            }
+            if (cvvContainer && cvvEmpty) {
+                window.setTimeout(() => {
+                    engrid_ENGrid.setError(cvvContainer, "Please enter a valid CVV");
+                    // Scroll to the error
+                    cvvContainer.scrollIntoView({ behavior: "smooth" });
+                }, 100);
+                return false;
+            }
+        }
+        return true;
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.16.18";
+const AppVersion = "0.17.9";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
+
+
 
 
 
@@ -21533,6 +21844,7 @@ class DonationMultistepForm {
     this.amount = DonationAmount;
     this.frequency = DonationFrequency;
     this.ipCountry = "";
+    this.subtheme = document.body.dataset.engridSubtheme;
     console.log("DonationMultistepForm: constructor"); // Each EN Row is a Section
 
     this.sections = document.querySelectorAll("form.en__component > .en__component"); // Check if we're on the Thank You page
@@ -21634,8 +21946,14 @@ class DonationMultistepForm {
     this.putArrowUpSVG();
     this.bounceArrow(this.frequency.getInstance().frequency);
     DonationFrequency.getInstance().onFrequencyChange.subscribe(s => this.bounceArrow(s));
-    DonationFrequency.getInstance().onFrequencyChange.subscribe(() => this.changeSubmitButton());
-    DonationAmount.getInstance().onAmountChange.subscribe(() => this.changeSubmitButton());
+    DonationFrequency.getInstance().onFrequencyChange.subscribe(() => {
+      this.changeSubmitButton();
+      this.updateInMemLinkURLParams();
+    });
+    DonationAmount.getInstance().onAmountChange.subscribe(() => {
+      this.changeSubmitButton();
+      this.updateInMemLinkURLParams();
+    });
     this.changeSubmitButton();
     this.sendMessage("status", "loaded"); // Check if theres a color value in the url
 
@@ -21651,7 +21969,21 @@ class DonationMultistepForm {
     } // Add an active class to the first section
 
 
-    this.sections[0].classList.add("active");
+    this.sections[0].classList.add("active"); // Digital wallet handling for new theme
+
+    if (this.subtheme === "embedded-multistep-v2") {
+      const digitalWalletPaymentMethod = ["paypaltouch", "stripedigitalwallet"];
+      const giveBySelect = document.getElementsByName("transaction.giveBySelect");
+      giveBySelect.forEach(element => {
+        element.addEventListener("change", e => {
+          if (digitalWalletPaymentMethod.includes(element.value)) {
+            this.sections[2].classList.add("hide");
+          } else {
+            this.sections[2].classList.remove("hide");
+          }
+        });
+      });
+    }
   } // Send iframe message to parent
 
 
@@ -21699,7 +22031,7 @@ class DonationMultistepForm {
       if (key == 0) {
         sectionNavigation.innerHTML = `
         <button class="section-navigation__next" data-section-id="${key}">
-          <span>Continue</span>
+          <span>Give <span class="live-giving-amount"></span> <span class="live-giving-frequency"></span></span>
           <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 14 14">
               <path fill="currentColor" d="M7.687 13.313c-.38.38-.995.38-1.374 0-.38-.38-.38-.996 0-1.375L10 8.25H1.1c-.608 0-1.1-.493-1.1-1.1 0-.608.492-1.1 1.1-1.1h9.2L6.313 2.062c-.38-.38-.38-.995 0-1.375s.995-.38 1.374 0L14 7l-6.313 6.313z"/>
           </svg>
@@ -21716,6 +22048,7 @@ class DonationMultistepForm {
           <span>Give Now</span>
         </button>
       `;
+        sectionNavigation.classList.add("hideif-stripedigitalwallet-selected", "hideif-paypaltouch-selected");
       } else {
         sectionNavigation.innerHTML = `
         <button class="section-navigation__previous" data-section-id="${key}">
@@ -21733,18 +22066,66 @@ class DonationMultistepForm {
       }
 
       sectionCount.innerHTML = `
-        <span class="section-count__current">${key + 1}</span> of
+        Step <span class="section-count__current">${key + 1}</span> of
         <span class="section-count__total">${sectionTotal}</span>
       `;
       (_sectionNavigation$qu = sectionNavigation.querySelector(".section-navigation__previous")) === null || _sectionNavigation$qu === void 0 ? void 0 : _sectionNavigation$qu.addEventListener("click", e => {
         e.preventDefault();
-        this.scrollToSection(key - 1);
+        const paymentType = document.querySelector("#en__field_transaction_paymenttype").value; // If it's the 3rd section and we don't have digital wallets,
+        // Hide the payment method section and go to the first section
+
+        if (key === 2) {
+          this.sections[1].classList.remove("hide");
+
+          if (!this.digitalWalletsAvailable()) {
+            this.sections[1].classList.add("hide");
+            this.scrollToSection(key - 2);
+          } else {
+            this.scrollToSection(key - 1);
+          }
+
+          return;
+        }
+
+        if (key === 3) {
+          if (paymentType === "paypaltouch" || paymentType === "stripedigitalwallet") {
+            this.scrollToSection(key - 2);
+          } else {
+            this.scrollToSection(key - 1);
+          }
+        } else {
+          this.scrollToSection(key - 1);
+        }
       });
       (_sectionNavigation$qu2 = sectionNavigation.querySelector(".section-navigation__next")) === null || _sectionNavigation$qu2 === void 0 ? void 0 : _sectionNavigation$qu2.addEventListener("click", e => {
         e.preventDefault();
 
         if (this.validateForm(key)) {
-          this.scrollToSection(key + 1);
+          const paymentType = document.querySelector("#en__field_transaction_paymenttype").value; // If it's the first section and we don't have digital wallets,
+          // Hide the payment method section and go to the next section
+
+          if (key === 0) {
+            this.sections[1].classList.remove("hide");
+
+            if (!this.digitalWalletsAvailable()) {
+              this.sections[1].classList.add("hide");
+              this.scrollToSection(key + 2);
+            } else {
+              this.scrollToSection(key + 1);
+            }
+
+            return;
+          }
+
+          if (key === 1) {
+            if (paymentType === "paypaltouch" || paymentType === "stripedigitalwallet") {
+              this.scrollToSection(key + 2);
+            } else {
+              this.scrollToSection(key + 1);
+            }
+          } else {
+            this.scrollToSection(key + 1);
+          }
         }
       });
       (_sectionNavigation$qu3 = sectionNavigation.querySelector(".section-navigation__submit")) === null || _sectionNavigation$qu3 === void 0 ? void 0 : _sectionNavigation$qu3.addEventListener("click", e => {
@@ -21777,7 +22158,22 @@ class DonationMultistepForm {
 
           document.querySelector("form.en__component").submit();
         }
-      });
+      }); // Adding back button for new theme to last section
+
+      if (this.subtheme === "embedded-multistep-v2" && key === this.sections.length - 1) {
+        const backBtnContainer = document.createElement("div");
+        backBtnContainer.classList.add("back-btn-container", "giveBySelect-stripedigitalwallet", "giveBySelect-paypaltouch");
+        const backBtn = document.createElement("span");
+        backBtn.classList.add("back-btn");
+        backBtn.textContent = "Back";
+        backBtnContainer.append(backBtn);
+        section.querySelector(".en__component").append(backBtnContainer);
+        backBtn.addEventListener("click", e => {
+          e.preventDefault();
+          this.scrollToSection(key - 1);
+        });
+      }
+
       section.querySelector(".en__component").append(sectionNavigation);
       section.querySelector(".en__component").append(sectionCount);
     });
@@ -21899,9 +22295,10 @@ class DonationMultistepForm {
     const ccnumber = form.querySelector("#en__field_transaction_ccnumber");
     const ccnumberBlock = form.querySelector(".en__field--ccnumber");
     const ccnumberSection = this.getSectionId(ccnumberBlock);
+    const isDigitalWalletPayment = ["paypal", "paypaltouch", "stripedigitalwallet"].includes(paymentType.value);
     console.log("DonationMultistepForm: validateForm", ccnumberBlock, ccnumberSection);
 
-    if (sectionId === false || sectionId == ccnumberSection) {
+    if (!isDigitalWalletPayment && (sectionId === false || sectionId == ccnumberSection)) {
       if (!paymentType || !paymentType.value) {
         this.scrollToElement(paymentType);
         this.sendMessage("error", "Please add your credit card information");
@@ -21911,66 +22308,54 @@ class DonationMultistepForm {
         }
 
         return false;
-      } // If payment type is not paypal, check credit card expiration and cvv
+      }
 
+      const ccValid = ccnumber instanceof HTMLInputElement ? !!ccnumber.value : ccnumber.classList.contains("vgs-collect-container__valid");
 
-      if (paymentType.value !== "paypal") {
-        if (!ccnumber || !ccnumber.value) {
-          this.scrollToElement(ccnumber);
-          this.sendMessage("error", "Please add your credit card information");
+      if (!ccValid) {
+        this.scrollToElement(ccnumber);
+        this.sendMessage("error", "Please enter a valid credit card number");
 
-          if (ccnumberBlock) {
-            ccnumberBlock.classList.add("has-error");
-          }
-
-          return false;
-        } else {
-          if (ccnumberBlock) {
-            ccnumberBlock.classList.remove("has-error");
-          }
+        if (ccnumberBlock) {
+          ccnumberBlock.classList.add("has-error");
         }
 
-        if (/^\d+$/.test(ccnumber.value) === false) {
-          this.scrollToElement(ccnumber);
-          this.sendMessage("error", "Only numbers are allowed on credit card");
-
-          if (ccnumberBlock) {
-            ccnumberBlock.classList.add("has-error");
-          }
-
-          return false;
-        } else {
-          if (ccnumberBlock) {
-            ccnumberBlock.classList.remove("has-error");
-          }
+        return false;
+      } else {
+        if (ccnumberBlock) {
+          ccnumberBlock.classList.remove("has-error");
         }
+      }
 
-        const ccexpire = form.querySelectorAll("[name='transaction.ccexpire']");
-        const ccexpireBlock = form.querySelector(".en__field--ccexpire");
-        let ccexpireValid = true;
-        ccexpire.forEach(e => {
-          if (!e.value) {
-            this.scrollToElement(ccexpireBlock);
-            this.sendMessage("error", "Please enter a valid expiration date");
+      const ccexpire = form.querySelectorAll("[name='transaction.ccexpire']");
+      const ccexpireBlock = form.querySelector(".en__field--ccexpire");
+      let ccexpireValid = true;
+      ccexpire.forEach(e => {
+        if (!e.value) {
+          this.scrollToElement(ccexpireBlock);
+          this.sendMessage("error", "Please enter a valid expiration date");
 
-            if (ccexpireBlock) {
-              ccexpireBlock.classList.add("has-error");
-            }
-
-            ccexpireValid = false;
-            return false;
-          }
-        });
-
-        if (!ccexpireValid && ccexpireBlock) {
-          return false;
-        } else {
           if (ccexpireBlock) {
-            ccexpireBlock.classList.remove("has-error");
+            ccexpireBlock.classList.add("has-error");
           }
-        }
 
-        const cvv = form.querySelector("#en__field_transaction_ccvv");
+          ccexpireValid = false;
+          return false;
+        }
+      });
+
+      if (!ccexpireValid && ccexpireBlock) {
+        return false;
+      } else {
+        if (ccexpireBlock) {
+          ccexpireBlock.classList.remove("has-error");
+        }
+      } // TODO: add in CVV verification when EN gets back to us
+
+
+      const cvv = form.querySelector("#en__field_transaction_ccvv");
+
+      if (cvv instanceof HTMLInputElement) {
         const cvvBlock = form.querySelector(".en__field--ccvv");
 
         if (!cvv || !cvv.value) {
@@ -22251,9 +22636,31 @@ class DonationMultistepForm {
     return this.checkNested(obj[level], ...rest);
   }
 
+  digitalWalletsAvailable() {
+    if (this.subtheme !== "embedded-multistep-v2") {
+      //Backwards compatibility with old multistep, never skip a section.
+      return true;
+    }
+
+    return document.body.getAttribute("data-engrid-payment-type-option-apple-pay") === "true" || document.body.getAttribute("data-engrid-payment-type-option-google-pay") === "true" || document.body.getAttribute("data-engrid-payment-type-option-paypal-one-touch") === "true" || document.body.getAttribute("data-engrid-payment-type-option-venmo") === "true";
+  }
+
+  updateInMemLinkURLParams() {
+    const amount = this.amount.getInstance().amount;
+    const frequency = this.frequency.getInstance().frequency;
+    const link = document.getElementById("in-mem-link");
+
+    if (link) {
+      const url = new URL(link.getAttribute("href"));
+      url.searchParams.set("transaction.donationAmt", amount);
+      url.searchParams.set("transaction.recurrfreq", frequency.toUpperCase());
+      link.setAttribute("href", url.href);
+    }
+  }
+
 }
 ;// CONCATENATED MODULE: ./src/scripts/main.js
-const customScript = function (App) {
+const customScript = function (App, DonationFrequency) {
   console.log("ENGrid client scripts are executing"); // Use addHtml in engrid.js to add HTML to the page
 
   App.addHtml('<div class="upsell-message"><p class="recurring-frequency-y-show">Thank you! Your monthly does even more to help people who are living with addiction.</p><p class="recurring-frequency-n-show">Giving monthly is the best way to help provide access to quality addiction treatment.</p><span class="arrow"></span></div>', ".insert-upsell-message > div:last-child", "after");
@@ -22320,6 +22727,16 @@ const customScript = function (App) {
       doNotNotifyRadioSelect.checked = true;
       doNotNotifyTextInput.value = "Do not notify";
     }
+  } // When click on the monthly-nudge, set Frequency to monthly
+
+
+  const monthlyNudge = document.querySelector(".monthly-nudge");
+
+  if (monthlyNudge) {
+    const freq = DonationFrequency.getInstance();
+    monthlyNudge.addEventListener("click", function () {
+      if (freq.frequency !== "monthly") freq.setFrequency("monthly");
+    });
   }
 };
 ;// CONCATENATED MODULE: ./src/index.ts
@@ -22356,7 +22773,7 @@ const options = {
 
     window.DonationMultistepForm = DonationMultistepForm;
     new DonationMultistepForm(DonationAmount, DonationFrequency);
-    customScript(App);
+    customScript(App, DonationFrequency);
   },
   onResize: () => console.log("Starter Theme Window Resized")
 };
