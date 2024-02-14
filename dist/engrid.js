@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, February 7, 2024 @ 06:04:03 ET
+ *  Date: Wednesday, February 14, 2024 @ 10:16:39 ET
  *  By: michael
  *  ENGrid styles: v0.17.9
  *  ENGrid scripts: v0.17.9
@@ -22298,7 +22298,7 @@ class DonationMultistepForm {
     const isDigitalWalletPayment = ["paypal", "paypaltouch", "stripedigitalwallet"].includes(paymentType.value);
     console.log("DonationMultistepForm: validateForm", ccnumberBlock, ccnumberSection);
 
-    if (!isDigitalWalletPayment && (sectionId === false || sectionId === ccnumberSection)) {
+    if (!isDigitalWalletPayment && (sectionId === false || sectionId == ccnumberSection)) {
       if (!paymentType || !paymentType.value) {
         this.scrollToElement(paymentType);
         this.sendMessage("error", "Please add your credit card information");
@@ -22310,24 +22310,11 @@ class DonationMultistepForm {
         return false;
       }
 
-      if (!ccnumber || !ccnumber.value) {
+      const ccValid = ccnumber instanceof HTMLInputElement ? !!ccnumber.value : ccnumber.classList.contains("vgs-collect-container__valid");
+
+      if (!ccValid) {
         this.scrollToElement(ccnumber);
-        this.sendMessage("error", "Please add your credit card information");
-
-        if (ccnumberBlock) {
-          ccnumberBlock.classList.add("has-error");
-        }
-
-        return false;
-      } else {
-        if (ccnumberBlock) {
-          ccnumberBlock.classList.remove("has-error");
-        }
-      }
-
-      if (/^\d+$/.test(ccnumber.value) === false) {
-        this.scrollToElement(ccnumber);
-        this.sendMessage("error", "Only numbers are allowed on credit card");
+        this.sendMessage("error", "Please enter a valid credit card number");
 
         if (ccnumberBlock) {
           ccnumberBlock.classList.add("has-error");
@@ -22363,23 +22350,27 @@ class DonationMultistepForm {
         if (ccexpireBlock) {
           ccexpireBlock.classList.remove("has-error");
         }
-      }
+      } // TODO: add in CVV verification when EN gets back to us
+
 
       const cvv = form.querySelector("#en__field_transaction_ccvv");
-      const cvvBlock = form.querySelector(".en__field--ccvv");
 
-      if (!cvv || !cvv.value) {
-        this.scrollToElement(cvv);
-        this.sendMessage("error", "Please enter a valid CVV");
+      if (cvv instanceof HTMLInputElement) {
+        const cvvBlock = form.querySelector(".en__field--ccvv");
 
-        if (cvvBlock) {
-          cvvBlock.classList.add("has-error");
-        }
+        if (!cvv || !cvv.value) {
+          this.scrollToElement(cvv);
+          this.sendMessage("error", "Please enter a valid CVV");
 
-        return false;
-      } else {
-        if (cvvBlock) {
-          cvvBlock.classList.remove("has-error");
+          if (cvvBlock) {
+            cvvBlock.classList.add("has-error");
+          }
+
+          return false;
+        } else {
+          if (cvvBlock) {
+            cvvBlock.classList.remove("has-error");
+          }
         }
       }
     } // Validate Everything else
