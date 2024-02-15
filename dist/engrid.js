@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, February 14, 2024 @ 10:40:48 ET
+ *  Date: Thursday, February 15, 2024 @ 12:56:17 ET
  *  By: michael
  *  ENGrid styles: v0.17.9
- *  ENGrid scripts: v0.17.11
+ *  ENGrid scripts: v0.17.12
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -21701,6 +21701,7 @@ class VGS {
                 },
                 // Autocomplete is not customizable
                 autoComplete: "cc-number",
+                validations: ["required", "validCardNumber"],
             },
             "transaction.ccvv": {
                 showCardIcon: false,
@@ -21708,6 +21709,7 @@ class VGS {
                 hideValue: false,
                 // Autocomplete is not customizable
                 autoComplete: "cc-csc",
+                validations: ["required", "validCardSecurityCode"],
                 css: {
                     "&::placeholder": placeholderStyles,
                 },
@@ -21858,7 +21860,7 @@ class CountryRedirect {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.17.11";
+const AppVersion = "0.17.12";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
@@ -22466,27 +22468,24 @@ class DonationMultistepForm {
         if (ccexpireBlock) {
           ccexpireBlock.classList.remove("has-error");
         }
-      } // TODO: add in CVV verification when EN gets back to us
-
+      }
 
       const cvv = form.querySelector("#en__field_transaction_ccvv");
+      const cvvBlock = form.querySelector(".en__field--ccvv");
+      const cvvValid = cvv instanceof HTMLInputElement ? !!cvv.value : cvv.classList.contains("vgs-collect-container__valid");
 
-      if (cvv instanceof HTMLInputElement) {
-        const cvvBlock = form.querySelector(".en__field--ccvv");
+      if (!cvvValid) {
+        this.scrollToElement(cvv);
+        this.sendMessage("error", "Please enter a valid CVV");
 
-        if (!cvv || !cvv.value) {
-          this.scrollToElement(cvv);
-          this.sendMessage("error", "Please enter a valid CVV");
+        if (cvvBlock) {
+          cvvBlock.classList.add("has-error");
+        }
 
-          if (cvvBlock) {
-            cvvBlock.classList.add("has-error");
-          }
-
-          return false;
-        } else {
-          if (cvvBlock) {
-            cvvBlock.classList.remove("has-error");
-          }
+        return false;
+      } else {
+        if (cvvBlock) {
+          cvvBlock.classList.remove("has-error");
         }
       }
     } // Validate Everything else

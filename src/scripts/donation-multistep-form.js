@@ -578,22 +578,23 @@ export default class DonationMultistepForm {
         }
       }
 
-      // TODO: add in CVV verification when EN gets back to us
-
       const cvv = form.querySelector("#en__field_transaction_ccvv");
-      if (cvv instanceof HTMLInputElement) {
-        const cvvBlock = form.querySelector(".en__field--ccvv");
-        if (!cvv || !cvv.value) {
-          this.scrollToElement(cvv);
-          this.sendMessage("error", "Please enter a valid CVV");
-          if (cvvBlock) {
-            cvvBlock.classList.add("has-error");
-          }
-          return false;
-        } else {
-          if (cvvBlock) {
-            cvvBlock.classList.remove("has-error");
-          }
+      const cvvBlock = form.querySelector(".en__field--ccvv");
+      const cvvValid =
+        cvv instanceof HTMLInputElement
+          ? !!cvv.value
+          : cvv.classList.contains("vgs-collect-container__valid");
+
+      if (!cvvValid) {
+        this.scrollToElement(cvv);
+        this.sendMessage("error", "Please enter a valid CVV");
+        if (cvvBlock) {
+          cvvBlock.classList.add("has-error");
+        }
+        return false;
+      } else {
+        if (cvvBlock) {
+          cvvBlock.classList.remove("has-error");
         }
       }
     }
