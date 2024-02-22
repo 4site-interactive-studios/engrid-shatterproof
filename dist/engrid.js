@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, February 15, 2024 @ 12:56:17 ET
- *  By: michael
- *  ENGrid styles: v0.17.9
- *  ENGrid scripts: v0.17.12
+ *  Date: Wednesday, February 21, 2024 @ 20:33:12 ET
+ *  By: fernando
+ *  ENGrid styles: v0.17.13
+ *  ENGrid scripts: v0.17.14
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -11836,6 +11836,7 @@ const OptionsDefaults = {
     VGS: false,
     PostalCodeValidator: false,
     CountryRedirect: false,
+    WelcomeBack: false,
     PageLayouts: [
         "leftleft1col",
         "centerleft1col",
@@ -13397,6 +13398,7 @@ class App extends engrid_ENGrid {
         new PostalCodeValidator();
         // Very Good Security
         new VGS();
+        new WelcomeBack();
         //Debug panel
         let showDebugPanel = this.options.Debug;
         try {
@@ -21744,7 +21746,9 @@ class VGS {
                 // Create a mutation observer that cleans the VGS Elements before anything is rendered
                 const observer = new MutationObserver((mutations) => {
                     mutations.forEach((mutation) => {
-                        if (mutation.type === "childList" && mutation.addedNodes.length > 0)
+                        var _a;
+                        if (mutation.type === "childList" &&
+                            mutation.addedNodes.length > 0) {
                             mutation.addedNodes.forEach((node) => {
                                 if (node.nodeName === "IFRAME" &&
                                     mutation.previousSibling &&
@@ -21753,11 +21757,25 @@ class VGS {
                                     mutation.previousSibling.remove();
                                 }
                             });
+                        }
+                        // Check if the VGS Element is valid, and remove any validation classes and errors
+                        if (mutation.type === "attributes" &&
+                            mutation.attributeName === "class") {
+                            const target = mutation.target;
+                            if (target.classList.contains("vgs-collect-container__valid")) {
+                                const fieldWrapper = target.closest(".en__field--vgs");
+                                fieldWrapper === null || fieldWrapper === void 0 ? void 0 : fieldWrapper.classList.remove("en__field--validationFailed");
+                                (_a = fieldWrapper === null || fieldWrapper === void 0 ? void 0 : fieldWrapper.querySelector(".en__field__error")) === null || _a === void 0 ? void 0 : _a.remove();
+                            }
+                        }
                     });
                 });
                 // Observe the VGS Elements
                 vgsIElements.forEach((vgsIElement) => {
-                    observer.observe(vgsIElement, { childList: true });
+                    observer.observe(vgsIElement, {
+                        childList: true,
+                        attributeFilter: ["class"],
+                    });
                 });
                 if (engrid_ENGrid.checkNested(window.EngagingNetworks, "require", "_defined", "enjs", "vgs")) {
                     window.EngagingNetworks.require._defined.enjs.vgs.init();
@@ -21859,11 +21877,126 @@ class CountryRedirect {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/welcome-back.js
+/**
+ * This component adds a welcome back message and a personal details summary to the page.
+ * It depends on the "fast-personal-details" functionality from the FastFormFill component.
+ * The component will only run, when the "WelcomeBack" option is set,
+ * if the "fast-personal-details" class is present on the page and the FastFormFill conditions
+ * are met (all mandatory inputs in that block are filled).
+ *
+ * All the text content and positioning is configurable through the "WelcomeBack" option.
+ */
+
+
+class WelcomeBack {
+    constructor() {
+        var _a;
+        this.supporterDetails = {};
+        this.options = (_a = engrid_ENGrid.getOption("WelcomeBack")) !== null && _a !== void 0 ? _a : false;
+        if (this.shouldRun()) {
+            this.supporterDetails = {
+                firstName: engrid_ENGrid.getFieldValue("supporter.firstName"),
+                lastName: engrid_ENGrid.getFieldValue("supporter.lastName"),
+                emailAddress: engrid_ENGrid.getFieldValue("supporter.emailAddress"),
+                address1: engrid_ENGrid.getFieldValue("supporter.address1"),
+                address2: engrid_ENGrid.getFieldValue("supporter.address2"),
+                city: engrid_ENGrid.getFieldValue("supporter.city"),
+                region: engrid_ENGrid.getFieldValue("supporter.region"),
+                postcode: engrid_ENGrid.getFieldValue("supporter.postcode"),
+                country: engrid_ENGrid.getFieldValue("supporter.country"),
+            };
+            this.addWelcomeBack();
+            this.addPersonalDetailsSummary();
+            this.addEventListeners();
+        }
+    }
+    shouldRun() {
+        return (!!document.querySelector(".fast-personal-details") &&
+            this.options !== false);
+    }
+    addWelcomeBack() {
+        var _a;
+        if (typeof this.options !== "object" ||
+            !this.options.welcomeBackMessage.display)
+            return;
+        const options = this.options.welcomeBackMessage;
+        const welcomeBack = document.createElement("div");
+        welcomeBack.classList.add("engrid-welcome-back", "showif-fast-personal-details");
+        const title = options.title.replace("{firstName}", this.supporterDetails["firstName"]);
+        welcomeBack.innerHTML = `<p>
+      ${title}
+      <span class="engrid-reset-welcome-back">${options.editText}</span>
+    </p>`;
+        (_a = document
+            .querySelector(options.anchor)) === null || _a === void 0 ? void 0 : _a.insertAdjacentElement(options.placement, welcomeBack);
+    }
+    resetWelcomeBack() {
+        const inputs = document.querySelectorAll(".fast-personal-details .en__field__input");
+        inputs.forEach((input) => {
+            if (input.type === "checkbox" || input.type === "radio") {
+                input.checked = false;
+            }
+            else {
+                input.value = "";
+            }
+        });
+        this.supporterDetails = {};
+        engrid_ENGrid.setBodyData("hide-fast-personal-details", false);
+        remove("engrid-autofill");
+    }
+    addPersonalDetailsSummary() {
+        var _a;
+        if (typeof this.options !== "object" ||
+            !this.options.personalDetailsSummary.display)
+            return;
+        let options = this.options.personalDetailsSummary;
+        const personalDetailsSummary = document.createElement("div");
+        personalDetailsSummary.classList.add("engrid-personal-details-summary", "showif-fast-personal-details");
+        personalDetailsSummary.innerHTML = `<h3>${options.title}</h3>`;
+        personalDetailsSummary.insertAdjacentHTML("beforeend", `
+     <p>
+        ${this.supporterDetails["firstName"]} ${this.supporterDetails["lastName"]}
+        <br>
+        ${this.supporterDetails["emailAddress"]}
+     </p>
+    `);
+        if (this.supporterDetails["address1"] &&
+            this.supporterDetails["city"] &&
+            this.supporterDetails["region"] &&
+            this.supporterDetails["postcode"]) {
+            personalDetailsSummary.insertAdjacentHTML("beforeend", `
+        <p>
+          ${this.supporterDetails["address1"]} ${this.supporterDetails["address2"]}
+          <br>
+          ${this.supporterDetails["city"]}, ${this.supporterDetails["region"]} 
+          ${this.supporterDetails["postcode"]}
+        </p>
+      `);
+        }
+        personalDetailsSummary.insertAdjacentHTML("beforeend", `
+      <p class="engrid-welcome-back-clear setattr--data-engrid-hide-fast-personal-details--false">${options.editText}<svg viewbox="0 0 528.899 528.899" xmlns="http://www.w3.org/2000/svg"> <g> <path d="M328.883,89.125l107.59,107.589l-272.34,272.34L56.604,361.465L328.883,89.125z M518.113,63.177l-47.981-47.981 c-18.543-18.543-48.653-18.543-67.259,0l-45.961,45.961l107.59,107.59l53.611-53.611 C532.495,100.753,532.495,77.559,518.113,63.177z M0.3,512.69c-1.958,8.812,5.998,16.708,14.811,14.565l119.891-29.069 L27.473,390.597L0.3,512.69z"></path></g></svg></p>
+    `);
+        (_a = document
+            .querySelector(options.anchor)) === null || _a === void 0 ? void 0 : _a.insertAdjacentElement(options.placement, personalDetailsSummary);
+    }
+    addEventListeners() {
+        document
+            .querySelectorAll(".engrid-reset-welcome-back")
+            .forEach((element) => {
+            element.addEventListener("click", () => {
+                this.resetWelcomeBack();
+            });
+        });
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.17.12";
+const AppVersion = "0.17.14";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
 
 
 
