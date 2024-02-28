@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, February 21, 2024 @ 20:33:12 ET
- *  By: fernando
- *  ENGrid styles: v0.17.13
- *  ENGrid scripts: v0.17.14
+ *  Date: Wednesday, February 28, 2024 @ 10:41:37 ET
+ *  By: michael
+ *  ENGrid styles: v0.17.16
+ *  ENGrid scripts: v0.17.16
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -11938,7 +11938,7 @@ const ExitIntentOptionsDefaults = {
     triggers: {
         visibilityState: true,
         mousePosition: true,
-    }
+    },
 };
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/loader.js
@@ -14945,7 +14945,7 @@ class UpsellLightbox {
         this.options = Object.assign(Object.assign({}, UpsellOptionsDefaults), options);
         //Disable for "applepay" via Vantiv payment method. Adding it to the array like this so it persists
         //even if the client provides custom options.
-        this.options.disablePaymentMethods.push('applepay');
+        this.options.disablePaymentMethods.push("applepay");
         if (!this.shouldRun()) {
             this.logger.log("Upsell script should NOT run");
             // If we're not on a Donation Page, get out
@@ -18006,7 +18006,8 @@ class AddNameToMessage {
         let addedFirstName = false;
         let addedLastName = false;
         if (message) {
-            if (message.value.includes("{user_data~First Name") || message.value.includes("{user_data~Last Name")) {
+            if (message.value.includes("{user_data~First Name") ||
+                message.value.includes("{user_data~Last Name")) {
                 return;
             }
             else {
@@ -19643,16 +19644,14 @@ class EventTickets {
             const ticketCurrencyElement = ticketCostElement.getElementsByClassName("en__ticket__currency")[0];
             const formatterOptions = {
                 style: "currency",
-                currency: ticketCurrencyElement.innerText
+                currency: ticketCurrencyElement.innerText,
             };
-            let ticketAmountAsCurrency = Intl.NumberFormat(undefined, formatterOptions)
-                .format(Number(ticketAmountElement.innerText));
-            if (ticketAmountAsCurrency.slice(-3) === '.00') {
+            let ticketAmountAsCurrency = Intl.NumberFormat(undefined, formatterOptions).format(Number(ticketAmountElement.innerText));
+            if (ticketAmountAsCurrency.slice(-3) === ".00") {
                 ticketAmountAsCurrency = ticketAmountAsCurrency.slice(0, -3);
             }
             ticketAmountElement.innerText = ticketAmountAsCurrency;
         }
-        ;
     }
 }
 
@@ -21992,7 +21991,7 @@ class WelcomeBack {
 }
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.17.14";
+const AppVersion = "0.17.16";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
