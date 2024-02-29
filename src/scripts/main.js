@@ -65,6 +65,37 @@ export const customScript = function (App, DonationFrequency) {
         "input",
         updateHasPersonalMessageField
       );
+      // Add a 255 character limit to the textarea
+      personalMessageTextarea.setAttribute("maxlength", "255");
+      // Add a character counter after the textarea
+      App.addHtml(
+        '<div class="char-counter"><span>0</span><span>/</span><span>255</span></div>',
+        "textarea[name='transaction.gftrsn']",
+        "after"
+      );
+      const charCounter = document.querySelector(".char-counter");
+      const charCounterNumber = charCounter.querySelector("span");
+      personalMessageTextarea.addEventListener("input", function () {
+        charCounterNumber.textContent = personalMessageTextarea.value.length;
+        if (personalMessageTextarea.value.length === 255) {
+          charCounter.classList.add("error");
+        } else if (personalMessageTextarea.value.length === 0) {
+          charCounter.classList.remove("error");
+          charCounter.classList.remove("active");
+          personalMessageTextarea.style.height = "auto";
+        } else {
+          charCounter.classList.add("active");
+          charCounter.classList.remove("error");
+        }
+        // Auto expand the textarea as the user types
+        if (
+          personalMessageTextarea.scrollHeight >
+          personalMessageTextarea.clientHeight
+        ) {
+          personalMessageTextarea.style.height =
+            personalMessageTextarea.scrollHeight + 20 + "px";
+        }
+      });
     }
   }
 

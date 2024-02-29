@@ -19,10 +19,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, February 28, 2024 @ 10:41:37 ET
- *  By: michael
+ *  Date: Thursday, February 29, 2024 @ 15:45:39 ET
+ *  By: fernando
  *  ENGrid styles: v0.17.16
- *  ENGrid scripts: v0.17.16
+ *  ENGrid scripts: v0.17.18
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -7830,6 +7830,24 @@ body[data-engrid-debug]:before{
   background-size:contain;
   flex-basis:32px;
   position:relative;
+}
+[data-engrid-theme=shatterproof] .char-counter{
+  display:none;
+  font-size:.75rem;
+  gap:.2rem;
+  justify-content:flex-end;
+  margin-right:.5rem;
+  margin-top:-2.5rem;
+  position:relative;
+  text-align:right;
+  width:100%;
+  z-index:1;
+}
+[data-engrid-theme=shatterproof] .char-counter.active{
+  display:flex;
+}
+[data-engrid-theme=shatterproof] .char-counter.error{
+  color:var(--error__colorr);
 }
 
 @media only screen and (max-width:340px){

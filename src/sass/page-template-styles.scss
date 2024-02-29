@@ -411,4 +411,22 @@
       background-position: center;
     }
   }
+  .char-counter {
+    position: relative;
+    display: none;
+    font-size: 0.75rem;
+    text-align: right;
+    margin-top: -2.5rem;
+    margin-right: 0.5rem;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 0.2rem;
+    z-index: 1;
+    &.active {
+      display: flex;
+    }
+    &.error {
+      color: var(--error__colorr);
+    }
+  }
 }
