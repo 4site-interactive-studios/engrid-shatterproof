@@ -91,7 +91,7 @@ export default class DonationMultistepForm {
       ) {
         console.log("DonationMultistepForm: Submission Failed");
         // Submission failed
-        if (this.validateForm()) {
+        if (this.validateForm(false, false)) {
           // Front-End Validation Passed, get first Error Message
           const error = document.querySelector("li.en__error");
           if (error) {
@@ -375,7 +375,24 @@ export default class DonationMultistepForm {
               });
               document.querySelector("form.en__component").target = "_blank";
             }
-            document.querySelector("form.en__component").submit();
+            if (
+              this.checkNested(
+                window.EngagingNetworks,
+                "require",
+                "_defined",
+                "enDefaults",
+                "validation",
+                "_getSubmitPromise"
+              )
+            ) {
+              window.EngagingNetworks.require._defined.enDefaults.validation
+                ._getSubmitPromise()
+                .then(function () {
+                  document.querySelector("form.en__component").submit();
+                });
+            } else {
+              document.querySelector("form.en__component").requestSubmit();
+            }
           }
         });
 
@@ -444,7 +461,7 @@ export default class DonationMultistepForm {
   }
 
   // Validate the form
-  validateForm(sectionId = false) {
+  validateForm(sectionId = false, checkCard = true) {
     const form = document.querySelector("form.en__component");
 
     // Validate Frequency
@@ -527,7 +544,8 @@ export default class DonationMultistepForm {
     );
     if (
       !isDigitalWalletPayment &&
-      (sectionId === false || sectionId == ccnumberSection)
+      (sectionId === false || sectionId == ccnumberSection) &&
+      checkCard
     ) {
       if (!paymentType || !paymentType.value) {
         this.scrollToElement(paymentType);
