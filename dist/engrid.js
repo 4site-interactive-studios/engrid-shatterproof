@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, March 21, 2024 @ 16:00:19 ET
+ *  Date: Thursday, April 18, 2024 @ 17:16:21 ET
  *  By: fernando
- *  ENGrid styles: v0.18.1
- *  ENGrid scripts: v0.18.1
+ *  ENGrid styles: v0.18.6
+ *  ENGrid scripts: v0.18.7
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -10816,6 +10816,7 @@ const UpsellOptionsDefaults = {
     annual: false,
     disablePaymentMethods: [],
     skipUpsell: false,
+    conversionField: "",
 };
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/interfaces/translate-options.js
@@ -12228,7 +12229,7 @@ class App extends engrid_ENGrid {
         // about 20% of the time and we get a race condition if the client is also using the SwapAmounts feature
         window.setTimeout(() => {
             this._frequency.load();
-        }, 150);
+        }, 1000);
         // Fast Form Fill
         new FastFormFill();
         // Currency Related Components
@@ -12335,6 +12336,7 @@ class App extends engrid_ENGrid {
         new VGS();
         new WelcomeBack();
         new EcardToTarget();
+        new UsOnlyForm();
         //Debug panel
         let showDebugPanel = this.options.Debug;
         try {
@@ -13597,6 +13599,7 @@ class UpsellLightbox {
         this._fees = ProcessingFees.getInstance();
         this._frequency = DonationFrequency.getInstance();
         this._dataLayer = DataLayer.getInstance();
+        this._suggestAmount = 0;
         this.logger = new EngridLogger("UpsellLightbox", "black", "pink", "🪟");
         let options = "EngridUpsell" in window ? window.EngridUpsell : {};
         this.options = Object.assign(Object.assign({}, UpsellOptionsDefaults), options);
@@ -13709,7 +13712,6 @@ class UpsellLightbox {
     }
     // Should we run the script?
     shouldRun() {
-        // const hideModal = cookie.get("hideUpsell"); // Get cookie
         // if it's a first page of a Donation page
         return (
         // !hideModal &&
@@ -13781,6 +13783,7 @@ class UpsellLightbox {
     shouldOpen() {
         const upsellAmount = this.getUpsellAmount();
         const paymenttype = engrid_ENGrid.getFieldValue("transaction.paymenttype") || "";
+        this._suggestAmount = upsellAmount;
         // If frequency is not onetime or
         // the modal is already opened or
         // there's no suggestion for this donation amount,
@@ -13875,22 +13878,24 @@ class UpsellLightbox {
             this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL", true);
             this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_ORIGINAL_AMOUNT", originalAmount);
             this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_DONATION_FREQUENCY", "MONTHLY");
+            this.renderConversionField("upsellSuccess", "onetime", originalAmount, "monthly", this._suggestAmount, "monthly", upsoldAmount);
         }
         else {
             this.setOriginalAmount("");
             window.sessionStorage.removeItem("original");
             this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL", false);
             this._dataLayer.addEndOfGiftProcessVariable("ENGRID_UPSELL_DONATION_FREQUENCY", "ONE-TIME");
+            this.renderConversionField("upsellFail", this._frequency.frequency, this._amount.amount, "monthly", this._suggestAmount, this._frequency.frequency, this._amount.amount);
         }
         this._form.submitForm();
     }
-    // Close the lightbox (no cookies)
+    // Close the lightbox
     close(e) {
         e.preventDefault();
-        // cookie.set("hideUpsell", "1", { expires: 1 }); // Create one day cookie
         this.overlay.classList.add("is-hidden");
         engrid_ENGrid.setBodyData("has-lightbox", false);
         if (this.options.submitOnClose) {
+            this.renderConversionField("upsellFail", this._frequency.frequency, this._amount.amount, "monthly", this._suggestAmount, this._frequency.frequency, this._amount.amount);
             this._form.submitForm();
         }
         else {
@@ -13925,6 +13930,26 @@ class UpsellLightbox {
                 otherInput.classList.add("is-invalid");
             }
         }
+    }
+    renderConversionField(event, // The event that triggered the conversion
+    freq, // The frequency of the donation (onetime, monthly, annual)
+    amt, // The original amount of the donation (before the upsell)
+    sugFreq, // The suggested frequency of the upsell (monthly)
+    sugAmt, // The suggested amount of the upsell
+    subFreq, // The submitted frequency of the upsell (onetime, monthly, annual)
+    subAmt // The submitted amount of the upsell
+    ) {
+        if (this.options.conversionField === "")
+            return;
+        const conversionField = document.querySelector("input[name='" + this.options.conversionField + "']") ||
+            engrid_ENGrid.createHiddenInput(this.options.conversionField);
+        if (!conversionField) {
+            this.logger.error("Could not find or create the conversion field");
+            return;
+        }
+        const conversionValue = `event:${event},freq:${freq},amt:${amt},sugFreq:${sugFreq},sugAmt:${sugAmt},subFreq:${subFreq},subAmt:${subAmt}`;
+        conversionField.value = conversionValue;
+        this.logger.log(`Conversion Field ${event}`, conversionValue);
     }
 }
 
@@ -14134,6 +14159,10 @@ class TranslateFields {
         this.countriesSelect = document.querySelectorAll('select[name="supporter.country"], select[name="transaction.shipcountry"], select[name="supporter.billingCountry"], select[name="transaction.infcountry"]');
         let options = "EngridTranslate" in window ? window.EngridTranslate : {};
         this.options = TranslateOptionsDefaults;
+        // Don't run this for US-only forms.
+        if (document.querySelector(".en__component--formblock.us-only-form .en__field--country")) {
+            return;
+        }
         if (options) {
             for (let key in options) {
                 this.options[key] = this.options[key]
@@ -17262,6 +17291,20 @@ class TidyContact {
         }
         // Add event listener to submit
         this._form.onSubmit.subscribe(this.callAPI.bind(this));
+        // Attach the API call event to the Give By Select to anticipate the use of Digital Wallets
+        const transactionGiveBySelect = document.getElementsByName("transaction.giveBySelect");
+        if (transactionGiveBySelect) {
+            transactionGiveBySelect.forEach((giveBySelect) => {
+                giveBySelect.addEventListener("change", () => {
+                    if (["stripedigitalwallet", "paypaltouch"].includes(giveBySelect.value.toLowerCase())) {
+                        this.logger.log("Clicked Digital Wallet Button");
+                        window.setTimeout(() => {
+                            this.callAPI();
+                        }, 500);
+                    }
+                });
+            });
+        }
     }
     checkSum(str) {
         return tidycontact_awaiter(this, void 0, void 0, function* () {
@@ -17428,6 +17471,7 @@ class TidyContact {
         if (country && address1) {
             return (city && region) || postalCode;
         }
+        this.logger.log("API cannot be used");
         return false;
     }
     canUsePhoneAPI() {
@@ -17439,6 +17483,7 @@ class TidyContact {
             const countryPhone = !!engrid_ENGrid.getFieldValue("tc.phone.country");
             return phone && countryPhone;
         }
+        this.logger.log("Phone API is not enabled");
         return false;
     }
     getCountry() {
@@ -19179,6 +19224,7 @@ class DigitalWallets {
             engrid_ENGrid.setBodyData("payment-type-option-google-pay", "false");
             engrid_ENGrid.setBodyData("payment-type-option-paypal-one-touch", "false");
             engrid_ENGrid.setBodyData("payment-type-option-venmo", "false");
+            engrid_ENGrid.setBodyData("payment-type-option-daf", "false");
             return;
         }
         // Add giveBySelect classes to the separate wallet containers
@@ -19194,6 +19240,11 @@ class DigitalWallets {
             paypalTouchButtons.classList.add("giveBySelect-paypaltouch");
             paypalTouchButtons.classList.add("showif-paypaltouch-selected");
             // paypalTouchButtons.style.display = "none";
+        }
+        const donorAdvisedFundButtonContainer = document.getElementById("en__digitalWallet__chariot__container");
+        if (donorAdvisedFundButtonContainer) {
+            donorAdvisedFundButtonContainer.classList.add("giveBySelect-daf");
+            donorAdvisedFundButtonContainer.classList.add("showif-daf-selected");
         }
         /**
          * Check for presence of elements that indicated Stripe digital wallets
@@ -19229,6 +19280,20 @@ class DigitalWallets {
                 this.checkForWalletsBeingAdded(paypalContainer, "paypalTouch");
             }
         }
+        /**
+         * Check for presence of elements that indicate DAF is present, and add functionality for it.
+         * If it hasn't loaded yet, set up a Mutation Observer to check for when it does.
+         */
+        if (document.querySelector("#en__digitalWallet__chariot__container > *")) {
+            this.addDAF();
+        }
+        else {
+            engrid_ENGrid.setBodyData("payment-type-option-daf", "false");
+            const donorAdvisedFundButtonContainer = document.getElementById("en__digitalWallet__chariot__container");
+            if (donorAdvisedFundButtonContainer) {
+                this.checkForWalletsBeingAdded(donorAdvisedFundButtonContainer, "daf");
+            }
+        }
     }
     addStripeDigitalWallets() {
         this.addOptionToPaymentTypeField("stripedigitalwallet", "GooglePay / ApplePay");
@@ -19239,6 +19304,10 @@ class DigitalWallets {
         this.addOptionToPaymentTypeField("paypaltouch", "Paypal / Venmo");
         engrid_ENGrid.setBodyData("payment-type-option-paypal-one-touch", "true");
         engrid_ENGrid.setBodyData("payment-type-option-venmo", "true");
+    }
+    addDAF() {
+        this.addOptionToPaymentTypeField("daf", "Donor Advised Fund");
+        engrid_ENGrid.setBodyData("payment-type-option-daf", "true");
     }
     addOptionToPaymentTypeField(value, label) {
         const paymentTypeField = document.querySelector('[name="transaction.paymenttype"]');
@@ -19260,6 +19329,9 @@ class DigitalWallets {
                     }
                     else if (walletType === "paypalTouch") {
                         this.addPaypalTouchDigitalWallets();
+                    }
+                    else if (walletType === "daf") {
+                        this.addDAF();
                     }
                     //Disconnect observer to prevent multiple additions
                     observer.disconnect();
@@ -19658,6 +19730,12 @@ class GiveBySelect {
                 this.paymentTypeField.options[i].value.toLowerCase() === "visa" ||
                 this.paymentTypeField.options[i].value.toLowerCase() === "vi") {
                 this.paymentTypeField.selectedIndex = i;
+                // Trigger the change event
+                const event = new Event("change", {
+                    bubbles: true,
+                    cancelable: true,
+                });
+                this.paymentTypeField.dispatchEvent(event);
                 break;
             }
         }
@@ -20821,11 +20899,44 @@ class EcardToTarget {
     }
 }
 
+;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/us-only-form.js
+/*
+ * This class disables the country field and fixes the country to "United States"
+ */
+
+class UsOnlyForm {
+    constructor() {
+        if (!this.shouldRun())
+            return;
+        if (!document.querySelector(".en__field--country .en__field__notice")) {
+            engrid_ENGrid.addHtml('<div class="en__field__notice"><em>Note: This action is limited to U.S. addresses.</em></div>', ".us-only-form .en__field--country .en__field__element", "after");
+        }
+        const countrySelect = engrid_ENGrid.getField("supporter.country");
+        countrySelect.setAttribute("disabled", "disabled");
+        let countryValue = "United States";
+        if ([...countrySelect.options].some((o) => o.value === "US")) {
+            countryValue = "US";
+        }
+        else if ([...countrySelect.options].some((o) => o.value === "USA")) {
+            countryValue = "USA";
+        }
+        engrid_ENGrid.setFieldValue("supporter.country", countryValue);
+        engrid_ENGrid.createHiddenInput("supporter.country", countryValue);
+        countrySelect.addEventListener("change", () => {
+            countrySelect.value = countryValue;
+        });
+    }
+    shouldRun() {
+        return !!document.querySelector(".en__component--formblock.us-only-form .en__field--country");
+    }
+}
+
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/version.js
-const AppVersion = "0.18.1";
+const AppVersion = "0.18.7";
 
 ;// CONCATENATED MODULE: ./node_modules/@4site/engrid-common/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
+
 
 
 
