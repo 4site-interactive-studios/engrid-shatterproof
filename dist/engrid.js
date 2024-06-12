@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, June 12, 2024 @ 18:07:41 ET
+ *  Date: Wednesday, June 12, 2024 @ 18:12:54 ET
  *  By: fernando
  *  ENGrid styles: v0.18.14
  *  ENGrid scripts: v0.18.14
@@ -21611,8 +21611,6 @@ class DonationMultistepForm {
   buildSectionNavigation() {
     console.log("DonationMultistepForm: buildSectionNavigation");
     this.sections.forEach((section, key) => {
-      var _sectionNavigation$qu, _sectionNavigation$qu2, _sectionNavigation$qu3;
-
       section.dataset.sectionId = key;
       const sectionNavigation = document.createElement("div");
       sectionNavigation.classList.add("section-navigation");
@@ -21661,7 +21659,7 @@ class DonationMultistepForm {
         Step <span class="section-count__current">${key + 1}</span> of
         <span class="section-count__total">${sectionTotal}</span>
       `;
-      (_sectionNavigation$qu = sectionNavigation.querySelector(".section-navigation__previous")) === null || _sectionNavigation$qu === void 0 ? void 0 : _sectionNavigation$qu.addEventListener("click", e => {
+      sectionNavigation.querySelector(".section-navigation__previous")?.addEventListener("click", e => {
         e.preventDefault();
         const paymentType = document.querySelector("#en__field_transaction_paymenttype").value; // If it's the 3rd section and we don't have digital wallets,
         // Hide the payment method section and go to the first section
@@ -21689,7 +21687,7 @@ class DonationMultistepForm {
           this.scrollToSection(key - 1);
         }
       });
-      (_sectionNavigation$qu2 = sectionNavigation.querySelector(".section-navigation__next")) === null || _sectionNavigation$qu2 === void 0 ? void 0 : _sectionNavigation$qu2.addEventListener("click", e => {
+      sectionNavigation.querySelector(".section-navigation__next")?.addEventListener("click", e => {
         e.preventDefault();
 
         if (this.validateForm(key)) {
@@ -21720,7 +21718,7 @@ class DonationMultistepForm {
           }
         }
       });
-      (_sectionNavigation$qu3 = sectionNavigation.querySelector(".section-navigation__submit")) === null || _sectionNavigation$qu3 === void 0 ? void 0 : _sectionNavigation$qu3.addEventListener("click", e => {
+      sectionNavigation.querySelector(".section-navigation__submit")?.addEventListener("click", e => {
         e.preventDefault(); // Validate the entire form again
 
         if (this.validateForm()) {
