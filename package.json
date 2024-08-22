@@ -55,7 +55,7 @@
     "webpack-merge": "^5.8.0"
   },
   "dependencies": {
-    "@babel/runtime": "^7.17.2",
+    "@babel/runtime": "^7.25.4",
     "babel": "^6.23.0",
     "clean-webpack-plugin": "^4.0.0",
     "sanitize.css": "^13.0.0",
