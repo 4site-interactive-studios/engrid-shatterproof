@@ -1,15 +1,15 @@
-import {
-  Options,
-  App,
-  DonationAmount,
-  DonationFrequency,
-} from "@4site/engrid-scripts"; // Uses ENGrid via NPM
 // import {
 //   Options,
 //   App,
 //   DonationAmount,
 //   DonationFrequency,
-// } from "../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
+// } from "@4site/engrid-scripts"; // Uses ENGrid via NPM
+import {
+  Options,
+  App,
+  DonationAmount,
+  DonationFrequency,
+} from "../../engrid-scripts/packages/common"; // Uses ENGrid via Visual Studio Workspace
 
 document
   .getElementsByTagName("body")[0]
