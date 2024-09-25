@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, August 26, 2024 @ 15:17:06 ET
- *  By: fernando
+ *  Date: Wednesday, September 25, 2024 @ 12:59:20 ET
+ *  By: michael
  *  ENGrid styles: v0.19.2
  *  ENGrid scripts: v0.19.2
  *
@@ -22378,7 +22378,7 @@ class DonationMultistepForm {
 const customScript = function (App, DonationFrequency) {
   console.log("ENGrid client scripts are executing"); // Use addHtml in engrid.js to add HTML to the page
 
-  App.addHtml('<div class="upsell-message"><p class="recurring-frequency-y-show">Thank you! Your monthly does even more to help people who are living with addiction.</p><p class="recurring-frequency-n-show">Giving monthly is the best way to help provide access to quality addiction treatment.</p><span class="arrow"></span></div>', ".insert-upsell-message > div:last-child", "after");
+  App.addHtml('<div class="upsell-message"><p class="recurring-frequency-y-show"><strong><em>Thank you!</em></strong> Your monthly does even more to help people who are living with addiction.</p><p class="recurring-frequency-n-show"><em>Giving monthly</em> is the <strong>best way</strong> to help provide access to quality addiction treatment.</p><span class="arrow"></span></div>', ".insert-upsell-message > div:last-child", "after");
   /**
    * This function, updateHasPersonalMessageField, monitors the "transaction.gftrsn" textarea for changes
    * and updates the value of the "supporter.NOT_TAGGED_32" hidden input field accordingly. If the
