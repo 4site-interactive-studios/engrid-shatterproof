@@ -168,6 +168,25 @@
     --click-to-expand__cta-image_width: 0px;
     --click-to-expand__cta-image_height: 0px;
 
+    &#en__pagebuilder {
+      --pagebuilder__background-color: var(--color_white);
+
+      // Hiding unused sections in page builder
+      .page-alert,
+      .body-headerOutside,
+      .body-header,
+      .body-bannerOverlay,
+      .body-banner,
+      .body-bottom,
+      .body-footer,
+      .body-footerOutside,
+      .content-footerSpacer,
+      .content-preFooter,
+      .page-backgroundImageOverlay {
+        display: none;
+      }
+    }
+
     .en__errorList {
       z-index: 100;
       position: relative;

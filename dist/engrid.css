@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, September 25, 2024 @ 12:59:20 ET
+ *  Date: Wednesday, September 25, 2024 @ 13:10:03 ET
  *  By: michael
  *  ENGrid styles: v0.19.2
  *  ENGrid scripts: v0.19.2
@@ -9154,6 +9154,12 @@ body[data-engrid-debug]:before{
   --click-to-expand__cta-image_url:none;
   --click-to-expand__cta-image_width:0px;
   --click-to-expand__cta-image_height:0px;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]#en__pagebuilder{
+  --pagebuilder__background-color:var(--color_white);
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]#en__pagebuilder .body-banner,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]#en__pagebuilder .body-bannerOverlay,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]#en__pagebuilder .body-bottom,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]#en__pagebuilder .body-footer,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]#en__pagebuilder .body-footerOutside,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]#en__pagebuilder .body-header,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]#en__pagebuilder .body-headerOutside,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]#en__pagebuilder .content-footerSpacer,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]#en__pagebuilder .content-preFooter,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]#en__pagebuilder .page-alert,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]#en__pagebuilder .page-backgroundImageOverlay{
+  display:none;
 }
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__errorList{
   max-width:640px;
