@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, September 25, 2024 @ 13:10:03 ET
+ *  Date: Thursday, September 26, 2024 @ 14:13:58 ET
  *  By: michael
  *  ENGrid styles: v0.19.2
  *  ENGrid scripts: v0.19.2
@@ -9113,6 +9113,9 @@ body[data-engrid-debug]:before{
   --button_color_checked:var(--color_white);
   --button_background-color_checked:var(--color_navy);
   --button_border-color_checked:var(--color_navy);
+  --donation-amount__button_font-size:40px;
+  --donation-amount__button_line-height:1;
+  --donation-amount__button_padding:19px 5px;
   --submit__button_border-color:var(--button_background-color_checked);
   --submit__button_background-color:var(--button_background-color_checked);
   --submit__button_color:var(--button_color_checked);
@@ -9277,10 +9280,29 @@ body[data-engrid-debug]:before{
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__element .en__field__item{
   padding:3px;
 }
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__element .en__field__item label{
+  align-items:center;
+  display:flex;
+  letter-spacing:-1.2px;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__element .en__field__item label .engrid-currency-symbol{
+  align-self:flex-start;
+  font-size:.6em;
+  margin-top:4px;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__element .en__field__item label:after{
+  align-self:flex-end;
+  font-size:18px;
+  margin-bottom:4px;
+  margin-left:0;
+  opacity:1;
+}
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__element .en__field__item input:focus+label{
   outline:none;
 }
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__element .en__field__item--other{
+  --input_placeholder-opacity:1;
+  --input_font-size:24px;
   flex-basis:66.6666%;
 }
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__element .en__field__input--other[type=text]{
@@ -9310,11 +9332,26 @@ body[data-engrid-debug]:before{
   border-radius:10px;
   margin-bottom:17px;
   padding:14px 10px;
+  position:relative;
 }
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .upsell-message>p{
   font-size:16px;
   line-height:22px;
   margin:0;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .upsell-message .arrow{
+  background-color:var(--color_light-purple);
+  border:2px solid #000;
+  border-bottom:none;
+  border-right:none;
+  border-top-left-radius:6px;
+  display:block;
+  height:25px;
+  left:73%;
+  position:absolute;
+  top:-14px;
+  transform:rotate(45deg);
+  width:25px;
 }
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]:not(#en__pagebuilder) .click-to-expand:not(.expanded){
   max-height:26px;
@@ -9333,6 +9370,37 @@ body[data-engrid-debug]:before{
   font-weight:400;
   line-height:16px;
   text-decoration-line:underline;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__field--give-by-select .en__field__item>label{
+  align-items:center;
+  height:80px;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__field--give-by-select .en__field__item.paypaltouch img{
+  height:24px;
+  margin:0;
+  width:auto;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__field--give-by-select .en__field__item.paypaltouch .venmo-logo{
+  height:17px;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__field--give-by-select .en__field__item.paypaltouch span{
+  margin:0 15px;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__field--give-by-select .en__field__item.stripedigitalwallet img{
+  height:24px;
+  margin:0;
+  width:auto;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__field--give-by-select .en__field__item.stripedigitalwallet .gpay-1{
+  height:20px;
+  margin-bottom:5px;
+  margin-right:5px;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__field--give-by-select .en__field__item.stripedigitalwallet .apple-pay-logo{
+  margin-left:15px;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__field--give-by-select .en__field__item input:checked+label img:not(.gpay-1),[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__field--give-by-select .en__field__item:hover label img:not(.gpay-1){
+  filter:brightness(0) invert(1);
 }
 @media screen and (min-width:800px){
   [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]:not(#en__pagebuilder) .page-backgroundImage{
