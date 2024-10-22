@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, September 26, 2024 @ 14:13:58 ET
+ *  Date: Tuesday, October 22, 2024 @ 12:24:05 ET
  *  By: michael
  *  ENGrid styles: v0.19.2
  *  ENGrid scripts: v0.19.2
@@ -22506,7 +22506,72 @@ const options = {
   SkipToMainContentLink: true,
   SrcDefer: true,
   ProgressBar: true,
-  Debug: App.getUrlParameter("debug") == "true" ? true : false,
+  Debug: App.getUrlParameter("debug") === "true",
+  VGS: {
+    "transaction.ccnumber": {
+      placeholder: "• • • •   • • • •   • • • •   • • • •",
+      css: {
+        "@font-face": {
+          "font-family": "museo-sans",
+          src: "url(https://use.typekit.net/af/620bf8/00000000000000000000e7fe/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3)"
+        },
+        fontFamily: "museo-sans, sans-serif",
+        borderRadius: "10px 10px 0 0",
+        borderBottom: "2px solid #000000",
+        boxSizing: "border-box",
+        transition: "border-width 0.1s linear, padding-bottom 0.1s linear",
+        "&::placeholder": {
+          fontWeight: "normal",
+          fontSize: "16px"
+        },
+        "&:focus": {
+          outline: "none",
+          borderColor: "#9543ff"
+        },
+        "&:hover": {
+          borderWidth: "4px",
+          paddingBottom: "14px",
+          borderColor: "#9543ff"
+        },
+        "&:focus:hover": {
+          borderWidth: "2px",
+          paddingBottom: "16px",
+          borderColor: "#9543ff"
+        }
+      }
+    },
+    "transaction.ccvv": {
+      css: {
+        "@font-face": {
+          "font-family": "museo-sans",
+          src: "url(https://use.typekit.net/af/620bf8/00000000000000000000e7fe/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3)"
+        },
+        fontFamily: "museo-sans, sans-serif",
+        borderRadius: "10px 10px 0 0",
+        borderBottom: "2px solid #000000",
+        boxSizing: "border-box",
+        transition: "border-width 0.1s linear, padding-bottom 0.1s linear",
+        "&::placeholder": {
+          fontWeight: "normal",
+          fontSize: "20px"
+        },
+        "&:focus": {
+          outline: "none",
+          borderColor: "#9543ff"
+        },
+        "&:hover": {
+          borderWidth: "4px",
+          paddingBottom: "14px",
+          borderColor: "#9543ff"
+        },
+        "&:focus:hover": {
+          borderWidth: "2px",
+          paddingBottom: "16px",
+          borderColor: "#9543ff"
+        }
+      }
+    }
+  },
   onLoad: () => {
     console.log("Starter Theme Loaded");
     /*dataCapture();*/

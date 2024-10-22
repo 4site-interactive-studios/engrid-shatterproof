@@ -28,6 +28,8 @@
   --h1_font-weight: 600;
   --h1_font-size: 32px;
   --h1_line-height: 32px;
+  --h2_font-size: 28px;
+  --h2_font-weight: 600;
 
   // P
   --p_font-size: var(--default_font-size);
@@ -44,6 +46,7 @@
   // LABEL
   --label_font-size: 16px;
   --label_font-weight: 400;
+  --label_color: var(--color_navy);
   // INPUT
   --fields_spacing-block: 10px;
   --input_placeholder-color: var(--color_navy);
@@ -76,6 +79,7 @@
   --radio_color: var(--color_navy);
   --radio_background-color: var(--color_white);
   --radio_border-color: var(--color_navy);
+  --radio_font-weight: 600;
   // RADIO:HOVER
   --radio_background-color_hover: var(--color_white);
   --radio_border-color_hover: var(--color_purple);
@@ -123,13 +127,13 @@
   --donation-amount__button_padding: 19px 5px;
 
   // SUBMIT BUTTON
-  --submit__button_border-color: var(--button_background-color_checked);
-  --submit__button_background-color: var(--button_background-color_checked);
-  --submit__button_color: var(--button_color_checked);
-  --submit__button_font-size: 125%;
+  --submit__button_border-color: var(--color_purple);
+  --submit__button_background-color: var(--color_purple);
+  --submit__button_color: var(--color_white);
+  --submit__button_font-size: 28px;
   // SUBMIT BUTTON:HOVER
-  --submit__button_border-color_hover: #d54f0d;
-  --submit__button_background-color_hover: #d54f0d;
+  --submit__button_border-color_hover: var(--color_navy);
+  --submit__button_background-color_hover: var(--color_navy);
   --submit__button_color_hover: #ffffff;
 
   // MEDIA ATTRIBUTION
@@ -272,9 +276,9 @@
     select.en__field__input--select,
     select.en__field__input--splitselect,
     select.en__field__input--tripleselect,
-    .en__field__input--vgs,
     .en__contactMessage__plainText,
     .en__field__input--textarea,
+    .dtd-plugin .dtd-search-input,
     textarea {
       border-top: none;
       border-left: none;
@@ -295,6 +299,19 @@
         border-width: 2px;
         padding-bottom: 16px;
       }
+    }
+
+    // Reset these, handle it in VGS options
+    .en__field__input--vgs {
+      --en-vgs-borderWidth: 0;
+      --en-vgs-borderStyle: none;
+      --en-vgs-borderColor: none;
+      --en-vgs-borderRadius: 10px 10px 0 0;
+      transition: box-shadow .25s,border-color .25s ease-in-out,border-width 0.1s linear, padding-bottom 0.1s linear;
+    }
+
+    .vgs-collect-container__focused {
+      outline: none;
     }
 
     [class*=validationFail] label {
@@ -469,6 +486,7 @@
         > label {
           height: 80px;
           align-items: center;
+          flex-wrap: nowrap;
         }
 
         &.paypaltouch {
@@ -512,6 +530,55 @@
       }
     }
 
+    label:not(.en__field__label--item) {
+      --label_color: var(--color_black);
+    }
+
+    .en__submit {
+      .live-variable-frequency {
+        text-transform: capitalize;
+        font-style: italic;
+        font-weight: 300;
+      }
+    }
+
+    &[data-engrid-transaction-recurring-frequency="onetime"] {
+      .en__submit {
+        .live-variable-frequency:after {
+          content: "Once";
+        }
+      }
+    }
+
+    .en__component--socialshareblock {
+      margin-top: 10px;
+
+      &:before {
+        display: none;
+      }
+    }
+
+
+    .en__component--dd360confirmation {
+      margin-top: 30px;
+    }
+
+    .dtd-plugin button,
+    .mg-forms-button,
+    .mg-guidelines-button {
+      font-size: 20px!important;
+    }
+
+    #dd-input,
+    .dtd-search-input {
+      border-top: none!important;
+      border-left: none!important;
+      border-right: none!important;
+    }
+
+    .cell.medium-4:has(.lets-check) {
+      width: 100% !important;
+    }
 
     @media screen and (min-width: $leftleft1col_content-column_min-width) {
       // Background image positioning
@@ -559,21 +626,103 @@
     }
 
     @media screen and (max-width: $leftleft1col_content-column_min-width_minus-1px) {
-      .en__component--advrow > div {
-        width: 100%;
-        max-width: $leftleft1col_body-column_max-width;
-        margin: 0 auto;
+      #engrid > .en__component--advrow,
+      form > .en__component--advrow {
+        grid-template-rows:
+                [page-start page-alert-start] min-content
+                [page-alert-end body-banner-start] min-content
+                [body-banner-end body-bannerOverlay-start] min-content
+                [body-bannerOverlay-end content-header-start] min-content
+                [content-header-end body-headerOutside-start] min-content
+                [body-headerOutside-end body-header-start] min-content
+                [body-header-end body-title-start] min-content
+                [body-title-end body-top-start] min-content
+                [body-top-end body-side-start] min-content
+                [body-side-end body-main-start] min-content
+                [body-main-end body-bottom-start] min-content
+                [body-bottom-end body-footer-start] min-content
+                [body-footer-end body-footerOutside-start] min-content
+                [body-footerOutside-end content-footerSpacer-start] minmax(0, 1fr)
+                [content-footerSpacer-end content-preFooter-start] min-content
+                [content-preFooter-end content-footer-start] min-content
+                [content-footer-end page-backgroundImage-start] min-content
+                [page-backgroundImage-end page-backgroundImageOverlay-start] min-content
+                [page-backgroundImageOverlay-end page-end page-customCode-start] min-content
+                [page-customCode-end];
+      }
+
+      &[data-replace-banner-with-background="if-banner-empty"][data-engrid-body-banner="empty"][data-engrid-page-background="image"] {
+        .page-backgroundImage {
+          margin: 8px 8px 0;
+          border-radius: 10px;
+
+          figure.media-with-attribution {
+            position: static!important;
+            height: auto;
+            background-image: none;
+            aspect-ratio: initial;
+          }
+
+          figattribution {
+            display: none;
+          }
+        }
       }
     }
 
     @media screen
       and (min-width: $leftleft1col_body-column_max-width)
       and (max-width: $leftleft1col_content-column_min-width_minus-1px) {
-      --engrid__page_background-color: var(--color_light-blue);
+      //--engrid__page_background-color: var(--color_light-blue);
     }
 
     @media screen and (max-width: $leftleft1col_body-column_max-width) {
       --engrid__body_padding: 0 20px;
+      --engrid__body-main_padding: 40px 20px 0;
+      --engrid__content-header_padding: 25px 10px 0px;
+      --engrid__content-footer_padding: 40px 20px 60px;
+      --engrid__body-title_padding: 36px 20px 16px;
+      --engrid__body-top_padding: 0 20px 9px;
+      --engrid__content-header_margin: 0;
+      --engrid__content-footer_margin: 40px 0 0;
+      --engrid__body-title_margin: 0;
+      --engrid__body-top_margin: 0;
+      --recurring-frequency__button_font-size: 24px;
+      --donation-amount__button_count: 2;
+
+      .en__field--donationAmt .en__field__element {
+        justify-content: flex-start;
+      }
+
+      .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__element .en__field__item--other {
+        flex-basis: 100%;
+      }
+
+      .body-top,
+      .content-header,
+      .content-footer {
+        border-radius: 0;
+      }
+
+      .header-logo {
+        max-width: 240px;
+      }
+
+      .en__component--formblock:has(.radio-to-buttons_recurrfreq) {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .en__field--give-by-select .en__field__item.paypaltouch span {
+        font-size: 18px;
+      }
+
+      &[data-replace-banner-with-background="if-banner-empty"][data-engrid-body-banner="empty"][data-engrid-page-background="image"] {
+        .page-backgroundImage {
+          margin: 0;
+          border-radius: 0;
+        }
+      }
     }
   }
 }
