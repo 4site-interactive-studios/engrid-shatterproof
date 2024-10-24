@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Tuesday, October 22, 2024 @ 12:24:05 ET
+ *  Date: Thursday, October 24, 2024 @ 09:37:59 ET
  *  By: michael
  *  ENGrid styles: v0.19.2
  *  ENGrid scripts: v0.19.2
@@ -9112,14 +9112,22 @@ body[data-engrid-debug]:before{
   --button_background-color:var(--color_light-blue);
   --button_border-radius:10px;
   --button_color_hover:var(--color_white);
-  --button_background-color_hover:var(--color_navy);
-  --button_border-color_hover:var(--color_navy);
+  --button_background-color_hover:var(--color_purple);
+  --button_border-color_hover:var(--color_purple);
   --button_color_checked:var(--color_white);
   --button_background-color_checked:var(--color_navy);
   --button_border-color_checked:var(--color_navy);
+  --recurring-frequency__button_border-color_checked:var(--color_navy);
+  --recurring-frequency__button_background-color_checked:var(--color_navy);
+  --give-by-select__button_background-color_hover:var(--color_navy);
+  --give-by-select__button_border-color_hover:var(--color_navy);
+  --give-by-select__button_background-color_checked:var(--color_navy);
+  --give-by-select__button_border-color_checked:var(--color_navy);
   --donation-amount__button_font-size:40px;
   --donation-amount__button_line-height:1;
   --donation-amount__button_padding:19px 5px;
+  --donation-amount__button_border-color_checked:var(--color_navy);
+  --donation-amount__button_background-color_checked:var(--color_navy);
   --submit__button_border-color:var(--color_purple);
   --submit__button_background-color:var(--color_purple);
   --submit__button_color:var(--color_white);
@@ -9307,6 +9315,7 @@ body[data-engrid-debug]:before{
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__element .en__field__item label:after{
   align-self:flex-end;
   font-size:18px;
+  font-weight:400;
   margin-bottom:4px;
   margin-left:0;
   opacity:1;
@@ -9317,19 +9326,20 @@ body[data-engrid-debug]:before{
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__element .en__field__item--other{
   --input_placeholder-opacity:1;
   --input_font-size:24px;
-  flex-basis:66.6666%;
+  flex:1;
 }
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__element .en__field__input--other[type=text]{
   border-radius:var(--recurring-frequency__button_border-radius) var(--recurring-frequency__button_border-radius) 0 0;
   border-width:var(--input_border-width);
+  padding:21px 24px;
 }
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__element .en__field__input--other[type=text]:hover{
   border-width:4px;
-  padding-bottom:14px;
+  padding-bottom:19px;
 }
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__element .en__field__input--other[type=text]:focus:hover{
   border-width:2px;
-  padding-bottom:16px;
+  padding-bottom:21px;
 }
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .insert-upsell-message>*{
   order:3;
@@ -9448,6 +9458,37 @@ body[data-engrid-debug]:before{
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .cell.medium-4:has(.lets-check){
   width:100% !important;
 }
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__field--give-by-select.en__field--radio input[type=radio]+label,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__field--give-by-select.en__field--radio input[type=radio]+label:hover,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio input[type=radio]+label,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio input[type=radio]+label:hover,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio input[type=radio]+label,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio input[type=radio]+label:hover,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] button,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] button:hover{
+  transition:background-color .1s ease-in,border-color .1s ease-in;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] [class*=validationFail]:not(.has-focus):not(.has-value){
+  --input_placeholder-color:var(--color_navy);
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .loader{
+  margin-right:12px;
+  margin-top:7px;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] input:-webkit-autofill{
+  -webkit-box-shadow:inset 0 0 0 9999px var(--input_background-color);
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio input[type=radio]+label{
+  transition:padding .15s ease-in-out;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio input[type=radio]+label:hover{
+  padding-bottom:22px;
+  padding-top:16px;
+  transition:padding .15s ease-in-out;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__submit button{
+  margin-bottom:0;
+  transition:padding .15s ease-in-out;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__submit button:hover{
+  margin-bottom:2px;
+  padding-bottom:19px;
+  padding-top:15px;
+  transition:padding .15s ease-in-out;
+}
 @media screen and (min-width:800px){
   [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]:not(#en__pagebuilder) .page-backgroundImage{
     background-color:var(--color_white);
@@ -9500,7 +9541,12 @@ body[data-engrid-debug]:before{
     position:static !important;
   }
   [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col][data-replace-banner-with-background=if-banner-empty][data-engrid-body-banner=empty][data-engrid-page-background=image] .page-backgroundImage figattribution{
-    display:none;
+    border-radius:24px;
+    font-size:12px;
+    left:0;
+    margin:0 0 5px 5px;
+    right:auto;
+    text-align:left;
   }
 }
 @media screen and (max-width:640px){
@@ -9520,9 +9566,6 @@ body[data-engrid-debug]:before{
   }
   [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__field--donationAmt .en__field__element{
     justify-content:flex-start;
-  }
-  [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio .en__field__element .en__field__item--other{
-    flex-basis:100%;
   }
   [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .body-top,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .content-footer,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .content-header{
     border-radius:0;
