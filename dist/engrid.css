@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, October 24, 2024 @ 09:37:59 ET
+ *  Date: Thursday, October 24, 2024 @ 10:00:56 ET
  *  By: michael
  *  ENGrid styles: v0.19.2
  *  ENGrid scripts: v0.19.2
@@ -9488,6 +9488,9 @@ body[data-engrid-debug]:before{
   padding-bottom:19px;
   padding-top:15px;
   transition:padding .15s ease-in-out;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__field--donationAmt .en__field__item:not([data-engrid-currency-symbol-updated=true]) label{
+  color:#0000 !important;
 }
 @media screen and (min-width:800px){
   [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col]:not(#en__pagebuilder) .page-backgroundImage{

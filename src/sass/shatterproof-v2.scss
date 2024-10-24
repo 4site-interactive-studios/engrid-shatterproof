@@ -641,6 +641,9 @@
       margin-bottom: 0;
     }
 
+    .en__field--donationAmt .en__field__item:not([data-engrid-currency-symbol-updated="true"]) label {
+      color: transparent !important;
+    }
 
     @media screen and (min-width: $leftleft1col_content-column_min-width) {
       // Background image positioning
