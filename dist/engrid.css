@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, October 24, 2024 @ 10:00:56 ET
+ *  Date: Tuesday, October 29, 2024 @ 09:18:08 ET
  *  By: michael
  *  ENGrid styles: v0.19.2
  *  ENGrid scripts: v0.19.2
@@ -9341,6 +9341,19 @@ body[data-engrid-debug]:before{
   border-width:2px;
   padding-bottom:21px;
 }
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col][data-engrid-currency-code=USD] .radio-to-buttons_donationAmt label .engrid-currency-symbol{
+  color:#0000;
+  height:25px;
+  width:12px;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col][data-engrid-currency-code=USD] .radio-to-buttons_donationAmt label .engrid-currency-symbol:before{
+  content:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='21'%3E%3Cpath d='M11.13 14.223c0 1.95-1.144 4.309-4.713 4.525v2.142H5.384v-2.118c-2.267-.12-3.973-1.155-5.05-2.551l.83-1.035c.875 1.107 2.312 2.166 4.22 2.31v-6.762C3.117 10.06.804 9.29.804 6.45c0-2.503 2.021-4.14 4.58-4.26V0h1.033v2.214c1.908.145 3.344.963 4.377 2.214L9.94 5.44c-.898-1.18-2.133-1.805-3.524-1.95V9.53c2.334.698 4.713 1.589 4.713 4.694ZM2.152 6.378c0 1.708 1.481 2.31 3.232 2.84V3.442c-1.84.096-3.232 1.275-3.232 2.936Zm4.265 4.669v6.425c2.626-.192 3.367-1.877 3.367-3.152 0-1.998-1.572-2.72-3.367-3.273Z' fill='%23041E42'/%3E%3C/svg%3E");
+  position:relative;
+  top:2px;
+}
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col][data-engrid-currency-code=USD] .radio-to-buttons_donationAmt input:checked+label .engrid-currency-symbol:before,[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col][data-engrid-currency-code=USD] .radio-to-buttons_donationAmt label:hover .engrid-currency-symbol:before{
+  content:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='21'%3E%3Cpath d='M11.13 14.223c0 1.95-1.144 4.309-4.713 4.525v2.142H5.384v-2.118c-2.267-.12-3.973-1.155-5.05-2.551l.83-1.035c.875 1.107 2.312 2.166 4.22 2.31v-6.762C3.117 10.06.804 9.29.804 6.45c0-2.503 2.021-4.14 4.58-4.26V0h1.033v2.214c1.908.145 3.344.963 4.377 2.214L9.94 5.44c-.898-1.18-2.133-1.805-3.524-1.95V9.53c2.334.698 4.713 1.589 4.713 4.694ZM2.152 6.378c0 1.708 1.481 2.31 3.232 2.84V3.442c-1.84.096-3.232 1.275-3.232 2.936Zm4.265 4.669v6.425c2.626-.192 3.367-1.877 3.367-3.152 0-1.998-1.572-2.72-3.367-3.273Z' fill='%23FFF'/%3E%3C/svg%3E");
+}
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .insert-upsell-message>*{
   order:3;
 }
@@ -9363,13 +9376,19 @@ body[data-engrid-debug]:before{
   line-height:22px;
   margin:0;
 }
+[data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .upsell-message:after{
+  content:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='22' fill='none'%3E%3Cmask id='a' style='mask-type:alpha' maskUnits='userSpaceOnUse' x='0' y='0' width='60' height='22'%3E%3Cpath fill='%23D9D9D9' d='M0 0h60v22H0z'/%3E%3C/mask%3E%3Cg mask='url(%23a)'%3E%3Cmask id='b' fill='%23fff'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M38.109 9.21c4.861 4.861 7.292 7.292 10.29 8.758.743.363 1.508.68 2.29.948C53.847 20 57.285 20 64.16 20h19.998C93.459 20 101 27.54 101 36.843c0 9.496 0 14.243-2.957 17.177-2.956 2.934-7.704 2.897-17.2 2.822L-9.07 56.14C-18.995 56.062-27 47.995-27 38.07-27 28.09-18.91 20-8.93 20h8.871c2.827 0 4.24 0 5.592-.186a20 20 0 0 0 9.373-3.882c1.087-.825 2.086-1.824 4.085-3.823L25.05 6.05a7 7 0 0 1 9.9 0l3.159 3.16Z'/%3E%3C/mask%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M38.109 9.21c4.861 4.861 7.292 7.292 10.29 8.758.743.363 1.508.68 2.29.948C53.847 20 57.285 20 64.16 20h19.998C93.459 20 101 27.54 101 36.843c0 9.496 0 14.243-2.957 17.177-2.956 2.934-7.704 2.897-17.2 2.822L-9.07 56.14C-18.995 56.062-27 47.995-27 38.07-27 28.09-18.91 20-8.93 20h8.871c2.827 0 4.24 0 5.592-.186a20 20 0 0 0 9.373-3.882c1.087-.825 2.086-1.824 4.085-3.823L25.05 6.05a7 7 0 0 1 9.9 0l3.159 3.16Z' fill='%23CAA1FF'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M38.109 9.21c4.861 4.861 7.292 7.292 10.29 8.758.743.363 1.508.68 2.29.948C53.847 20 57.285 20 64.16 20h19.998C93.459 20 101 27.54 101 36.843c0 9.496 0 14.243-2.957 17.177-2.956 2.934-7.704 2.897-17.2 2.822L-9.07 56.14C-18.995 56.062-27 47.995-27 38.07-27 28.09-18.91 20-8.93 20h8.871c2.827 0 4.24 0 5.592-.186a20 20 0 0 0 9.373-3.882c1.087-.825 2.086-1.824 4.085-3.823L25.05 6.05a7 7 0 0 1 9.9 0l3.159 3.16Z' fill='%23fff' fill-opacity='.7'/%3E%3Cpath d='m98.043 54.02-1.408-1.42 1.408 1.42Zm-17.2 2.822.016-2-.015 2ZM25.05 6.05l1.414 1.414L25.05 6.05Zm9.9 0-1.415 1.414L34.95 6.05ZM5.532 19.814l-.271-1.981.271 1.981ZM-9.07 56.14l-.015 2 .015-2Zm59.76-37.224-.648 1.892.649-1.892ZM38.11 9.21l-1.415 1.415 1.415-1.415Zm10.29 8.759.879-1.797-.879 1.797ZM64.159 22h19.998v-4H64.159v4ZM99 36.843c0 4.805-.004 8.206-.352 10.782-.34 2.518-.973 3.943-2.013 4.975l2.817 2.84c1.916-1.901 2.761-4.317 3.16-7.28.392-2.906.388-6.626.388-11.317h-4ZM96.635 52.6c-1.04 1.033-2.47 1.655-4.991 1.975-2.579.327-5.98.305-10.785.267l-.03 4c4.69.037 8.41.07 11.318-.299 2.966-.376 5.389-1.202 7.305-3.103l-2.817-2.84Zm-15.776 2.242-89.914-.702-.031 4 89.914.702.031-4ZM-8.93 22h8.871v-4h-8.87v4Zm29.335-8.477 6.06-6.059-2.83-2.828-6.058 6.059 2.828 2.828Zm6.06-6.059a5 5 0 0 1 7.07 0l2.829-2.828a9 9 0 0 0-12.728 0l2.828 2.828Zm7.07 0 3.16 3.16 2.828-2.829-3.16-3.159-2.828 2.828ZM-.059 22c2.772 0 4.345.004 5.864-.204l-.543-3.963C4.076 17.996 2.822 18-.06 18v4Zm17.636-11.305c-2.037 2.037-2.927 2.92-3.88 3.644l2.418 3.187c1.221-.927 2.33-2.043 4.29-4.003l-2.828-2.828Zm-11.772 11.1a22 22 0 0 0 10.31-4.27l-2.418-3.186a18 18 0 0 1-8.435 3.494l.543 3.963ZM-25 38.07C-25 29.195-17.805 22-8.93 22v-4C-20.014 18-29 26.986-29 38.07h4ZM84.157 22C92.355 22 99 28.645 99 36.843h4C103 26.436 94.564 18 84.157 18v4ZM-9.055 54.14C-17.881 54.071-25 46.897-25 38.07h-4c0 11.024 8.89 19.984 19.914 20.07l.03-4ZM64.159 18c-7.01 0-10.052-.025-12.82-.975l-1.298 3.783C53.586 22.025 57.42 22 64.159 22v-4Zm-27.465-7.376c4.766 4.765 7.459 7.494 10.827 9.14l1.757-3.593c-2.629-1.285-4.798-3.418-9.755-8.376l-2.829 2.829Zm14.645 6.4a18 18 0 0 1-2.061-.853l-1.757 3.593c.817.4 1.659.749 2.52 1.044l1.298-3.783Z' fill='%23041E42' mask='url(%23b)'/%3E%3C/g%3E%3C/svg%3E");
+  left:68%;
+  position:absolute;
+  top:-22px;
+}
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .upsell-message .arrow{
   background-color:var(--color_light-purple);
   border:2px solid #000;
   border-bottom:none;
   border-right:none;
   border-top-left-radius:6px;
-  display:block;
+  display:none;
   height:25px;
   left:73%;
   position:absolute;
@@ -9480,13 +9499,11 @@ body[data-engrid-debug]:before{
   transition:padding .15s ease-in-out;
 }
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__submit button{
-  margin-bottom:0;
   transition:padding .15s ease-in-out;
 }
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__submit button:hover{
-  margin-bottom:2px;
-  padding-bottom:19px;
-  padding-top:15px;
+  padding-bottom:1.1ch;
+  padding-top:.9ch;
   transition:padding .15s ease-in-out;
 }
 [data-engrid-theme=shatterproof-v2][data-engrid-layout=leftleft1col] .en__field--donationAmt .en__field__item:not([data-engrid-currency-symbol-updated=true]) label{
