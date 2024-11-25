@@ -17,7 +17,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, November 25, 2024 @ 08:10:42 ET
+ *  Date: Monday, November 25, 2024 @ 08:19:01 ET
  *  By: michael
  *  ENGrid styles: v0.19.9
  *  ENGrid scripts: v0.19.9
@@ -22598,7 +22598,19 @@ const options = {
   SrcDefer: true,
   ProgressBar: true,
   Debug: App.getUrlParameter("debug") === "true",
-  VGS: {
+  onLoad: () => {
+    console.log("Starter Theme Loaded");
+    /*dataCapture();*/
+
+    window.DonationMultistepForm = DonationMultistepForm;
+    new DonationMultistepForm(App, DonationAmount, DonationFrequency);
+    customScript(App, DonationFrequency);
+  },
+  onResize: () => console.log("Starter Theme Window Resized")
+};
+
+if (document.body.getAttribute("data-engrid-theme") === "shatterproof-v2") {
+  options.VGS = {
     "transaction.ccnumber": {
       placeholder: "• • • •   • • • •   • • • •   • • • •",
       css: {
@@ -22662,17 +22674,9 @@ const options = {
         }
       }
     }
-  },
-  onLoad: () => {
-    console.log("Starter Theme Loaded");
-    /*dataCapture();*/
+  };
+}
 
-    window.DonationMultistepForm = DonationMultistepForm;
-    new DonationMultistepForm(App, DonationAmount, DonationFrequency);
-    customScript(App, DonationFrequency);
-  },
-  onResize: () => console.log("Starter Theme Window Resized")
-};
 new App(options);
 document.getElementsByTagName("body")[0].setAttribute("data-engrid-client-js-loading", "finished");
 })();

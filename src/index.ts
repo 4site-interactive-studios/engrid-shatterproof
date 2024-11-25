@@ -34,7 +34,17 @@ const options: Options = {
   SrcDefer: true,
   ProgressBar: true,
   Debug: App.getUrlParameter("debug") === "true",
-  VGS: {
+  onLoad: () => {
+    console.log("Starter Theme Loaded"); /*dataCapture();*/
+    (<any>window).DonationMultistepForm = DonationMultistepForm;
+    new DonationMultistepForm(App, DonationAmount, DonationFrequency);
+    customScript(App, DonationFrequency);
+  },
+  onResize: () => console.log("Starter Theme Window Resized"),
+};
+
+if (document.body.getAttribute("data-engrid-theme") === "shatterproof-v2") {
+  options.VGS = {
     "transaction.ccnumber": {
       placeholder: "• • • •   • • • •   • • • •   • • • •",
       css: {
@@ -98,15 +108,9 @@ const options: Options = {
         },
       },
     },
-  },
-  onLoad: () => {
-    console.log("Starter Theme Loaded"); /*dataCapture();*/
-    (<any>window).DonationMultistepForm = DonationMultistepForm;
-    new DonationMultistepForm(App, DonationAmount, DonationFrequency);
-    customScript(App, DonationFrequency);
-  },
-  onResize: () => console.log("Starter Theme Window Resized"),
-};
+  };
+}
+
 new App(options);
 
 document
