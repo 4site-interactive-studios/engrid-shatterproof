@@ -17,8 +17,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Monday, October 21, 2024 @ 11:04:46 ET
- *  By: fernando
+ *  Date: Monday, November 25, 2024 @ 08:10:42 ET
+ *  By: michael
  *  ENGrid styles: v0.19.9
  *  ENGrid scripts: v0.19.9
  *
@@ -22469,7 +22469,7 @@ class DonationMultistepForm {
 const customScript = function (App, DonationFrequency) {
   console.log("ENGrid client scripts are executing"); // Use addHtml in engrid.js to add HTML to the page
 
-  App.addHtml('<div class="upsell-message"><p class="recurring-frequency-y-show">Thank you! Your monthly does even more to help people who are living with addiction.</p><p class="recurring-frequency-n-show">Giving monthly is the best way to help provide access to quality addiction treatment.</p><span class="arrow"></span></div>', ".insert-upsell-message > div:last-child", "after");
+  App.addHtml('<div class="upsell-message"><p class="recurring-frequency-y-show"><strong><em>Thank you!</em></strong> Your monthly does even more to help people who are living with addiction.</p><p class="recurring-frequency-y-hide"><em>Giving monthly</em> is the <strong>best way</strong> to help provide access to quality addiction treatment.</p><span class="arrow"></span></div>', ".insert-upsell-message > div:last-child", "after");
   /**
    * This function, updateHasPersonalMessageField, monitors the "transaction.gftrsn" textarea for changes
    * and updates the value of the "supporter.NOT_TAGGED_32" hidden input field accordingly. If the
@@ -22597,7 +22597,72 @@ const options = {
   SkipToMainContentLink: true,
   SrcDefer: true,
   ProgressBar: true,
-  Debug: App.getUrlParameter("debug") == "true" ? true : false,
+  Debug: App.getUrlParameter("debug") === "true",
+  VGS: {
+    "transaction.ccnumber": {
+      placeholder: "• • • •   • • • •   • • • •   • • • •",
+      css: {
+        "@font-face": {
+          "font-family": "museo-sans",
+          src: "url(https://use.typekit.net/af/620bf8/00000000000000000000e7fe/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3)"
+        },
+        fontFamily: "museo-sans, sans-serif",
+        borderRadius: "10px 10px 0 0",
+        borderBottom: "2px solid #000000",
+        boxSizing: "border-box",
+        transition: "border-width 0.1s linear, padding-bottom 0.1s linear",
+        "&::placeholder": {
+          fontWeight: "normal",
+          fontSize: "16px"
+        },
+        "&:focus": {
+          outline: "none",
+          borderColor: "#9543ff"
+        },
+        "&:hover": {
+          borderWidth: "4px",
+          paddingBottom: "14px",
+          borderColor: "#9543ff"
+        },
+        "&:focus:hover": {
+          borderWidth: "2px",
+          paddingBottom: "16px",
+          borderColor: "#9543ff"
+        }
+      }
+    },
+    "transaction.ccvv": {
+      css: {
+        "@font-face": {
+          "font-family": "museo-sans",
+          src: "url(https://use.typekit.net/af/620bf8/00000000000000000000e7fe/27/l?primer=7cdcb44be4a7db8877ffa5c0007b8dd865b3bbc383831fe2ea177f62257a9191&fvd=n3&v=3)"
+        },
+        fontFamily: "museo-sans, sans-serif",
+        borderRadius: "10px 10px 0 0",
+        borderBottom: "2px solid #000000",
+        boxSizing: "border-box",
+        transition: "border-width 0.1s linear, padding-bottom 0.1s linear",
+        "&::placeholder": {
+          fontWeight: "normal",
+          fontSize: "20px"
+        },
+        "&:focus": {
+          outline: "none",
+          borderColor: "#9543ff"
+        },
+        "&:hover": {
+          borderWidth: "4px",
+          paddingBottom: "14px",
+          borderColor: "#9543ff"
+        },
+        "&:focus:hover": {
+          borderWidth: "2px",
+          paddingBottom: "16px",
+          borderColor: "#9543ff"
+        }
+      }
+    }
+  },
   onLoad: () => {
     console.log("Starter Theme Loaded");
     /*dataCapture();*/

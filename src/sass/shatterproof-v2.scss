@@ -1,0 +1,819 @@
+[data-engrid-theme="shatterproof-v2"] {
+  -webkit-font-smoothing: antialiased;
+
+  // COLORS
+  --color_navy: #041E42;
+  --color_light-blue: #DAE3F6;
+  --color_light-blue-faded: #F2F5FC;
+  --color_purple: #9543FF;
+  --color_light-purple: #efe3ff;
+  --color_turquoise: #2CD5C4;
+  --color_white: #ffffff;
+  --color_black: #000000;
+  --color_primary: var(--color_navy);
+  --error__color: #FF6600;
+  --error__color_faded: #FFF7F2;
+
+  // GLOBAL
+  --engrid__body_box-shadow: none;
+
+  // TYPOGRAPHY
+  --default_font-family: "museo-sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --default_color: var(--color_navy);
+  --default_font-size: 18px;
+  --default_font-weight: 400;
+
+  // HEADERS
+  --h1_color: var(--color_navy);
+  --h1_font-weight: 600;
+  --h1_font-size: 32px;
+  --h1_line-height: 32px;
+  --h2_font-size: 28px;
+  --h2_font-weight: 600;
+
+  // P
+  --p_font-size: var(--default_font-size);
+  --p_font-weight: var(--default_font-weight);
+  --p_line-height: 24px;
+
+  // A
+  // --a_font-family: var(--default_font-family);
+  // --a_color: initial;
+  // --a_text-decoration: underline;
+  // --a_color_hover: var(--a_color);
+  // --a_text-decoration_hover: initial;
+
+  // LABEL
+  --label_font-size: 16px;
+  --label_font-weight: 400;
+  --label_color: var(--color_navy);
+  // INPUT
+  --fields_spacing-block: 10px;
+  --input_placeholder-color: var(--color_navy);
+  --input_placeholder-font-weight: 300;
+  --input_placeholder-opacity: 0.5;
+  --input_color: var(--color_black);
+  --input_font-size: 20px;
+  --input_font-weight: 400;
+  --input_background-color: var(--color_light-blue-faded);
+  --input_border-width: 2px;
+  --input_border-color: var(--color_black);
+  --input_border-radius: 10px 10px 0 0;
+  --input_box-shadow: none;
+  --input_padding_bottom: 16px;
+  --input_padding: 16px 24px var(--input_padding_bottom);
+
+  // INPUT:FOCUS
+  // INPUT:HOVER
+  --input_border-color_hover: var(--color_purple);
+
+  // SELECT
+  --select_font-weight: 400;
+
+  // TEXTAREA
+  --textarea_font-weight: 400;
+
+  // RADIO
+  --radio_width: 28px;
+  --radio_height: 28px;
+  --radio_color: var(--color_navy);
+  --radio_background-color: var(--color_white);
+  --radio_border-color: var(--color_navy);
+  --radio_font-weight: 600;
+  // RADIO:HOVER
+  --radio_background-color_hover: var(--color_white);
+  --radio_border-color_hover: var(--color_purple);
+  --radio_box-shadow_hover: inset 0 0 0 6px var(--color_white);
+  // RADIO:SELECTED
+  --radio_background-color_selected: var(--color_navy);
+  --radio_border-color_selected: var(--color_navy);
+  --radio_color_selected: var(--color_navy);
+  --radio_box-shadow_selected: inset 0 0 0 6px var(--color_white);
+
+  // CHECKBOX
+  --checkbox_border-radius: 6px;
+  --checkbox_padding-top: 3px;
+  --checkbox_content_checked: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="14" viewBox="0 0 16 14" fill="none"><path fill-rule="evenodd" clip-rule="evenodd" d="M15.0882 0.191334C15.5349 0.516173 15.6336 1.14159 15.3088 1.58824L6.62048 13.5347L0.292969 7.20718L1.70718 5.79296L6.37967 10.4654L13.6913 0.411899C14.0162 -0.0347537 14.6416 -0.133504 15.0882 0.191334Z" fill="%23041E42"/></svg>');
+  --checkbox_color: var(--color_navy);
+  --checkbox_background-color: var(--color_white);
+  --checkbox_border-color: var(--color_navy);
+  // CHECKBOX:HOVER
+  --checkbox_background-color_hover: var(--color_white);
+  --checkbox_border-color_hover: var(--color_purple);
+  // CHECKBOX:CHECKED
+  --checkbox_background-color_checked: var(--color_white);
+  --checkbox_border-color_checked: var(--color_navy);
+  --checkbox_color_checked: var(--color_navy);
+
+  // BUTTON
+  --button_color: var(--color_navy);
+  --button_font-size: 28px;
+  --button_font-weight: 600;
+  --button_line-height: initial;
+  --button_background-color: var(--color_light-blue);
+  --button_border-radius: 10px;
+  // BUTTON:HOVER
+  --button_color_hover: var(--color_white);
+  --button_background-color_hover: var(--color_purple);
+   --button_border-color_hover: var(--color_purple);
+  // BUTTON:SELECTED
+   --button_color_checked: var(--color_white);
+   --button_background-color_checked: var(--color_navy);
+   --button_border-color_checked: var(--color_navy);
+
+  // RECURRING FREQUENCY:CHECKED
+  --recurring-frequency__button_border-color_checked: var(--color_navy);
+  --recurring-frequency__button_background-color_checked: var(--color_navy);
+
+  // GIVE BY SELECT:HOVER
+  --give-by-select__button_background-color_hover: var(--color_navy);
+  --give-by-select__button_border-color_hover: var(--color_navy);
+  // GIVE BY SELECT:CHECKED
+  --give-by-select__button_background-color_checked: var(--color_navy);
+  --give-by-select__button_border-color_checked: var(--color_navy);
+
+  // DONATE BUTTONS
+  --donation-amount__button_font-size: 40px;
+  --donation-amount__button_line-height: 1;
+  --donation-amount__button_padding: 19px 5px;
+  // DONATE BUTTONS:CHECKED
+  --donation-amount__button_border-color_checked: var(--color_navy);
+  --donation-amount__button_background-color_checked: var(--color_navy);
+
+
+  // SUBMIT BUTTON
+  --submit__button_border-color: var(--color_purple);
+  --submit__button_background-color: var(--color_purple);
+  --submit__button_color: var(--color_white);
+  --submit__button_font-size: 28px;
+  // SUBMIT BUTTON:HOVER
+  --submit__button_border-color_hover: var(--color_navy);
+  --submit__button_background-color_hover: var(--color_navy);
+  --submit__button_color_hover: #ffffff;
+
+  // MEDIA ATTRIBUTION
+  --media-attribution__color: var(--color_navy);
+  --media-attribution__background-color: var(--color_light-blue);
+  --media-attribution__font-size: 18px;
+  --media-attribution__font-weight: 400;
+  --media-attribution__padding: 1px 11px;
+  --media-attribution__margin: 16px 16px 16px 54px;
+
+  // DONATION PAGE
+  --give-monthly-donation-amount-appended-label: "/mo";
+  --give-annual-donation-amount-appended-label: "/yr";
+  --recurring-frequency__button_count: 2;
+  --donation-amount__button_count: 3;
+  --give-by-select__button_count: 1;
+
+  .color-highlight {
+    color: var(--color_turquoise);
+  }
+
+  &[data-engrid-layout="leftleft1col"] {
+    --engrid__body_padding: 0 94px;
+    --engrid__content-header_background-color: var(--color_navy);
+    --engrid__body-title_background-color: var(--color_navy);
+    --engrid__body-top_background-color: var(--color_navy);
+    --engrid__content-footer_background-color: var(--color_navy);
+    --engrid__content-header_padding: 10px;
+    --engrid__content-header_margin: 8px 8px 0;
+    --engrid__content-footer_padding: 40px 140px 60px;
+    --engrid__content-footer_margin: 40px 8px 8px;
+    --engrid__body-title_padding: 36px 94px 16px;
+    --engrid__body-title_margin: 0 8px;
+    --engrid__body-top_margin: 0 8px;
+    --engrid__body-top_padding: 0 94px 9px;
+    --engrid__body-main_padding: 50px 94px 0;
+
+    // CLICK TO EXPAND is reset. See custom styles implementation.
+    --click-to-expand__copy-area_height: 0px;
+    --click-to-expand__cta-image_url: none;
+    --click-to-expand__cta-image_width: 0px;
+    --click-to-expand__cta-image_height: 0px;
+
+    &#en__pagebuilder {
+      --pagebuilder__background-color: var(--color_white);
+
+      // Hiding unused sections in page builder
+      .page-alert,
+      .body-headerOutside,
+      .body-header,
+      .body-bannerOverlay,
+      .body-banner,
+      .body-bottom,
+      .body-footer,
+      .body-footerOutside,
+      .content-footerSpacer,
+      .content-preFooter,
+      .page-backgroundImageOverlay {
+        display: none;
+      }
+    }
+
+    .en__errorList {
+      z-index: 100;
+      position: relative;
+      max-width: $leftleft1col_body-column_max-width;
+      padding: 0 10px;
+    }
+
+    .content-header {
+      grid-column: bc;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+
+    .content-footer {
+      grid-column: bc;
+      border-radius: 10px;
+      color: var(--color_white);
+      text-align: center;
+      background-image: url('data:image/svg+xml,<svg width="1088" height="1088" viewBox="0 0 1088 1088" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M543.987 0C528.701 0 512.393 3.3048 494.129 10.1048C491.274 11.1656 489.411 13.9536 489.505 17.0408L498.876 339.388C498.876 364.452 519.099 384.663 543.946 384.663C568.793 384.663 589.016 364.439 589.016 339.591L598.468 16.8775C598.564 13.8312 596.769 11.084 594.021 10.0368C576.776 3.46801 559.463 0 543.987 0ZM543.987 1088C559.273 1088 575.579 1084.7 593.844 1077.9C596.701 1076.84 598.564 1074.05 598.468 1070.96L589.098 748.612C589.098 723.548 568.875 703.338 544.028 703.338C519.181 703.338 498.958 723.561 498.958 748.409L489.505 1071.12C489.411 1074.17 491.205 1076.92 493.953 1077.96C511.198 1084.53 528.509 1088 543.987 1088ZM878.519 956.054C880.614 958.27 883.824 958.95 886.503 957.753C903.34 950.192 918.028 940.412 928.975 929.465C939.787 918.653 948.981 904.782 957.087 887.06C958.352 884.285 957.698 880.995 955.455 878.886L543.987 490.879L132.396 878.995C130.179 881.09 129.499 884.299 130.696 886.978C138.258 903.815 148.036 918.504 158.984 929.451C169.796 940.264 183.669 949.457 201.389 957.563C204.163 958.827 207.454 958.175 209.563 955.931L543.973 601.528L878.507 956.04L878.519 956.054ZM204.517 130.506C203.578 130.506 202.64 130.696 201.756 131.09C184.919 138.652 170.232 148.43 159.283 159.378C148.471 170.191 139.278 184.062 131.172 201.783C129.907 204.558 130.56 207.849 132.804 209.957L367.364 431.257C385.097 448.977 413.685 448.977 431.257 431.405C448.828 413.834 448.828 385.234 431.257 367.662L209.753 132.777C208.352 131.294 206.448 130.492 204.531 130.492L204.517 130.506ZM883.266 130.533C881.335 130.533 879.431 131.322 878.03 132.804L656.731 367.364C648.067 376.026 643.39 387.342 643.39 399.391C643.39 411.44 648.081 422.743 656.595 431.257C665.109 439.769 676.423 444.462 688.46 444.462C700.495 444.462 711.811 439.769 720.324 431.257L955.21 209.753C957.427 207.659 958.107 204.449 956.91 201.77C949.362 184.933 939.57 170.246 928.621 159.297C917.811 148.485 903.938 139.291 886.217 131.186C885.279 130.75 884.272 130.546 883.28 130.546L883.266 130.533ZM16.66 489.573C13.6952 489.573 11.0568 491.34 10.0368 494.033C3.46801 511.278 0 528.591 0 544.067C0 559.354 3.3048 575.661 10.1048 593.926C11.1656 596.782 13.9536 598.646 17.0408 598.55L339.388 589.179C364.454 589.179 384.663 568.956 384.663 544.108C384.663 519.261 364.44 499.038 339.593 499.038L16.8776 489.587C16.8096 489.587 16.728 489.573 16.66 489.573ZM1071.18 489.436C1071.11 489.436 1071.04 489.436 1070.96 489.436L748.612 498.808C723.548 498.808 703.338 519.031 703.338 543.878C703.338 568.725 723.561 588.948 748.409 588.948L1071.12 598.4C1074.17 598.482 1076.92 596.701 1077.96 593.953C1084.53 576.708 1088 559.395 1088 543.919C1088 528.632 1084.7 512.327 1077.9 494.06C1076.86 491.274 1074.17 489.436 1071.18 489.436Z" fill="%23182F4E"/></svg>');
+      background-position: 50% 56%;
+      background-repeat: no-repeat;
+
+      p {
+        font-size: 16px;
+        line-height: 26px;
+      }
+
+      .certifications {
+        margin-top: 40px;
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 24px;
+        align-items: center;
+        justify-content: center;
+
+        img {
+          margin: 0;
+        }
+      }
+    }
+
+    .body-top {
+      border-bottom-left-radius: 190px 140px;
+      border-bottom-right-radius: 190px 140px;
+      box-shadow: none;
+    }
+
+    .header-logo {
+      width: 100%;
+      max-width: 320px;
+    }
+
+    .body-title {
+      --h1_color: var(--color_white);
+      h1 {
+        margin: 0;
+      }
+    }
+
+    .body-top {
+      p {
+        color: var(--color_white);
+      }
+
+      > .en__component > p:first-child {
+        margin-top: 0;
+      }
+
+      em,
+      i {
+        font-weight: 300;
+      }
+    }
+
+    input,
+    input.en__field__input,
+    select,
+    select.en__field__input--select,
+    select.en__field__input--splitselect,
+    select.en__field__input--tripleselect,
+    .en__contactMessage__plainText,
+    .en__field__input--textarea,
+    .dtd-plugin .dtd-search-input,
+    textarea {
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      box-sizing: border-box;
+      transition: border-width 0.1s linear, padding-bottom 0.1s linear;
+
+      &:focus {
+        outline: none;
+      }
+
+      &:hover {
+        border-width: 4px;
+        padding-bottom: 14px;
+      }
+
+      &:focus:hover {
+        border-width: 2px;
+        padding-bottom: 16px;
+      }
+    }
+
+    // Reset these, handle it in VGS options
+    .en__field__input--vgs {
+      --en-vgs-borderWidth: 0;
+      --en-vgs-borderStyle: none;
+      --en-vgs-borderColor: none;
+      --en-vgs-borderRadius: 10px 10px 0 0;
+      transition: box-shadow .25s,border-color .25s ease-in-out,border-width 0.1s linear, padding-bottom 0.1s linear;
+    }
+
+    .vgs-collect-container__focused {
+      outline: none;
+    }
+
+    [class*=validationFail] label {
+      color: var(--label_color);
+    }
+
+    .en__component .en__field__error {
+      color: var(--label_color);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      letter-spacing: 0.14px;
+      line-height: 16px;
+
+      &:before {
+        content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="8" fill="%23FF6600"/><path d="M7.38466 5.53839L7.38467 4.30762H8.61541L8.61541 5.53839H7.38466ZM7.38471 11.077L7.38464 6.76916H8.61535L8.61541 11.077H7.38471Z" fill="white"/></svg>');
+        height: 16px;
+        width: 16px;
+        display: block;
+        margin-right: 5px;
+      }
+    }
+
+    .radio-to-buttons_donationAmt {
+      .en__field--recurrfreq.en__field--radio {
+        margin-bottom: 4px;
+
+        .en__field__element {
+          .en__field__item {
+            padding: 0;
+
+            &:first-child label {
+              border-radius: var(--recurring-frequency__button_border-radius) 0 0 var(--recurring-frequency__button_border-radius)
+            }
+
+            &:last-child label {
+              border-radius: 0 var(--recurring-frequency__button_border-radius) var(--recurring-frequency__button_border-radius) 0;
+            }
+
+            input:focus + label {
+              outline: none;
+            }
+          }
+        }
+      }
+
+      .en__field--donationAmt.en__field--radio {
+        .en__field__element {
+          align-items: stretch;
+
+          .en__field__item {
+            padding: 3px;
+          }
+
+          .en__field__item label {
+            display: flex;
+            align-items: center;
+            letter-spacing: -1.2px;
+
+            .engrid-currency-symbol {
+              font-size: 0.6em;
+              align-self: flex-start;
+              margin-top: 4px;
+            }
+
+            &:after {
+              align-self: flex-end;
+              font-size: 18px;
+              opacity: 1;
+              margin-left: 0;
+              margin-bottom: 4px;
+              font-weight: normal;
+            }
+          }
+
+          .en__field__item input:focus + label {
+            outline: none;
+          }
+
+          .en__field__item--other {
+            flex: 1;
+            --input_placeholder-opacity: 1;
+            --input_font-size: 24px;
+          }
+
+          .en__field__input--other[type="text"] {
+            border-radius: var(--recurring-frequency__button_border-radius) var(--recurring-frequency__button_border-radius) 0 0;
+            border-width: var(--input_border-width);
+            padding: 21px 24px;
+
+            &:hover {
+              border-width: 4px;
+              padding-bottom: 19px;
+            }
+
+            &:focus:hover {
+              border-width: 2px;
+              padding-bottom: 21px;
+            }
+          }
+        }
+      }
+    }
+
+    // When currency is USD, use special symbol
+    &[data-engrid-currency-code="USD"] .radio-to-buttons_donationAmt {
+      label .engrid-currency-symbol {
+        color: transparent;
+        width: 12px;
+        height: 25px;
+      }
+
+      label .engrid-currency-symbol:before {
+        content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="21" viewBox="0 0 12 21"><path d="M11.1305 14.2235C11.1305 16.1729 9.98564 18.5315 6.41653 18.7481V20.89H5.38395V18.7721C3.11678 18.6518 1.41078 17.6169 0.333313 16.221L1.16386 15.1862C2.03931 16.2932 3.47593 17.3522 5.38395 17.4966V10.7338C3.11678 10.0599 0.804706 9.28979 0.804706 6.44991C0.804706 3.94696 2.82496 2.31041 5.38395 2.19008V0H6.41653V2.21415C8.32454 2.35855 9.76117 3.17682 10.7937 4.42829L9.94075 5.4391C9.04286 4.25983 7.80826 3.63409 6.41653 3.48969V9.53046C8.75104 10.2284 11.1305 11.1189 11.1305 14.2235ZM2.15154 6.37771C2.15154 8.08645 3.63306 8.68812 5.38395 9.21759V3.44156C3.54327 3.53782 2.15154 4.7171 2.15154 6.37771ZM6.41653 11.0467V17.4725C9.04286 17.28 9.78362 15.5953 9.78362 14.3198C9.78362 12.3222 8.21231 11.6002 6.41653 11.0467Z" fill="%23041E42"/></svg>');
+        position: relative;
+        top: 2px;
+      }
+
+      label:hover .engrid-currency-symbol:before,
+      input:checked + label .engrid-currency-symbol:before {
+        content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="12" height="21" viewBox="0 0 12 21"><path d="M11.1305 14.2235C11.1305 16.1729 9.98564 18.5315 6.41653 18.7481V20.89H5.38395V18.7721C3.11678 18.6518 1.41078 17.6169 0.333313 16.221L1.16386 15.1862C2.03931 16.2932 3.47593 17.3522 5.38395 17.4966V10.7338C3.11678 10.0599 0.804706 9.28979 0.804706 6.44991C0.804706 3.94696 2.82496 2.31041 5.38395 2.19008V0H6.41653V2.21415C8.32454 2.35855 9.76117 3.17682 10.7937 4.42829L9.94075 5.4391C9.04286 4.25983 7.80826 3.63409 6.41653 3.48969V9.53046C8.75104 10.2284 11.1305 11.1189 11.1305 14.2235ZM2.15154 6.37771C2.15154 8.08645 3.63306 8.68812 5.38395 9.21759V3.44156C3.54327 3.53782 2.15154 4.7171 2.15154 6.37771ZM6.41653 11.0467V17.4725C9.04286 17.28 9.78362 15.5953 9.78362 14.3198C9.78362 12.3222 8.21231 11.6002 6.41653 11.0467Z" fill="%23FFFFFF"/></svg>');
+      }
+    }
+
+    .insert-upsell-message {
+      > * {
+        order: 3;
+      }
+
+      .en__field--recurrfreq {
+        order: 1;
+      }
+
+      .upsell-message {
+        order: 2;
+      }
+    }
+
+    .upsell-message {
+      border-radius: 10px;
+      border: 2px solid var(--color_black);
+      background-color: var(--color_light-purple);
+      padding: 14px 10px;
+      margin-bottom: 17px;
+      position: relative;
+
+      > p {
+        font-size: 16px;
+        line-height: 22px;
+        margin: 0;
+      }
+
+      &:after {
+        content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="60" height="22" viewBox="0 0 60 22" fill="none"><mask id="mask0_884_2343" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="60" height="22"><rect width="60" height="22" fill="%23D9D9D9"/></mask><g mask="url(%23mask0_884_2343)"><mask id="path-2-inside-1_884_2343" fill="white"><path fill-rule="evenodd" clip-rule="evenodd" d="M38.1087 9.20947C42.9702 14.071 45.401 16.5018 48.399 17.9675C49.1423 18.3309 49.9074 18.6478 50.6899 18.9164C53.8463 19.9999 57.2839 19.9999 64.1591 19.9999H84.1569C93.4591 19.9999 101 27.5408 101 36.843V36.843C101 46.3387 101 51.0865 98.0434 54.0201C95.0868 56.9537 90.3391 56.9166 80.8438 56.8424L-9.07084 56.14C-18.9954 56.0624 -27 47.9951 -27 38.0702V38.0702C-27 28.0902 -18.9096 19.9999 -8.92969 19.9999H-0.0589794C2.76772 19.9999 4.18107 19.9999 5.53339 19.8144C8.93921 19.3474 12.1671 18.0103 14.9057 15.9323C15.993 15.1072 16.9924 14.1078 18.9912 12.1091L25.05 6.05025C27.7837 3.31658 32.2158 3.31658 34.9495 6.05025L38.1087 9.20947Z"/></mask><path fill-rule="evenodd" clip-rule="evenodd" d="M38.1087 9.20947C42.9702 14.071 45.401 16.5018 48.399 17.9675C49.1423 18.3309 49.9074 18.6478 50.6899 18.9164C53.8463 19.9999 57.2839 19.9999 64.1591 19.9999H84.1569C93.4591 19.9999 101 27.5408 101 36.843V36.843C101 46.3387 101 51.0865 98.0434 54.0201C95.0868 56.9537 90.3391 56.9166 80.8438 56.8424L-9.07084 56.14C-18.9954 56.0624 -27 47.9951 -27 38.0702V38.0702C-27 28.0902 -18.9096 19.9999 -8.92969 19.9999H-0.0589794C2.76772 19.9999 4.18107 19.9999 5.53339 19.8144C8.93921 19.3474 12.1671 18.0103 14.9057 15.9323C15.993 15.1072 16.9924 14.1078 18.9912 12.1091L25.05 6.05025C27.7837 3.31658 32.2158 3.31658 34.9495 6.05025L38.1087 9.20947Z" fill="%23CAA1FF"/><path fill-rule="evenodd" clip-rule="evenodd" d="M38.1087 9.20947C42.9702 14.071 45.401 16.5018 48.399 17.9675C49.1423 18.3309 49.9074 18.6478 50.6899 18.9164C53.8463 19.9999 57.2839 19.9999 64.1591 19.9999H84.1569C93.4591 19.9999 101 27.5408 101 36.843V36.843C101 46.3387 101 51.0865 98.0434 54.0201C95.0868 56.9537 90.3391 56.9166 80.8438 56.8424L-9.07084 56.14C-18.9954 56.0624 -27 47.9951 -27 38.0702V38.0702C-27 28.0902 -18.9096 19.9999 -8.92969 19.9999H-0.0589794C2.76772 19.9999 4.18107 19.9999 5.53339 19.8144C8.93921 19.3474 12.1671 18.0103 14.9057 15.9323C15.993 15.1072 16.9924 14.1078 18.9912 12.1091L25.05 6.05025C27.7837 3.31658 32.2158 3.31658 34.9495 6.05025L38.1087 9.20947Z" fill="white" fill-opacity="0.7"/><path d="M98.0434 54.0201L96.6347 52.6004L96.6347 52.6004L98.0434 54.0201ZM80.8438 56.8424L80.8594 54.8425L80.8594 54.8425L80.8438 56.8424ZM25.05 6.05025L26.4642 7.46447L26.4642 7.46447L25.05 6.05025ZM34.9495 6.05025L33.5353 7.46447L33.5353 7.46447L34.9495 6.05025ZM5.53339 19.8144L5.26166 17.833L5.53339 19.8144ZM-9.07084 56.14L-9.08647 58.1399L-9.07084 56.14ZM50.6899 18.9164L50.0405 20.8081L50.6899 18.9164ZM38.1087 9.20947L36.6945 10.6237L38.1087 9.20947ZM48.399 17.9675L49.2775 16.1707L48.399 17.9675ZM64.1591 21.9999H84.1569V17.9999H64.1591V21.9999ZM99 36.843C99 41.6476 98.9957 45.0492 98.6484 47.6251C98.3088 50.1434 97.6751 51.5681 96.6347 52.6004L99.4521 55.4398C101.368 53.5385 102.213 51.1225 102.612 48.1596C103.004 45.2543 103 41.5341 103 36.843H99ZM96.6347 52.6004C95.5944 53.6326 94.1647 54.2552 91.6438 54.5751C89.0653 54.9023 85.6638 54.88 80.8594 54.8425L80.8281 58.8424C85.519 58.879 89.2391 58.9124 92.1474 58.5433C95.1133 58.1669 97.5358 57.3412 99.4521 55.4398L96.6347 52.6004ZM80.8594 54.8425L-9.05522 54.14L-9.08647 58.1399L80.8281 58.8424L80.8594 54.8425ZM-8.92969 21.9999H-0.0589794V17.9999H-8.92969V21.9999ZM20.4054 13.5233L26.4642 7.46447L23.6358 4.63604L17.577 10.6948L20.4054 13.5233ZM26.4642 7.46447C28.4168 5.51184 31.5827 5.51184 33.5353 7.46447L36.3637 4.63604C32.849 1.12132 27.1505 1.12132 23.6358 4.63604L26.4642 7.46447ZM33.5353 7.46447L36.6945 10.6237L39.5229 7.79525L36.3637 4.63604L33.5353 7.46447ZM-0.0589794 21.9999C2.71324 21.9999 4.28611 22.0042 5.80512 21.7959L5.26166 17.833C4.07603 17.9956 2.8222 17.9999 -0.0589794 17.9999V21.9999ZM17.577 10.6948C15.5397 12.7321 14.6501 13.6157 13.6967 14.3391L16.1146 17.5256C17.336 16.5988 18.4452 15.4835 20.4054 13.5233L17.577 10.6948ZM5.80512 21.7959C9.55152 21.2821 13.1022 19.8114 16.1146 17.5256L13.6967 14.3391C11.232 16.2093 8.32689 17.4126 5.26166 17.833L5.80512 21.7959ZM-25 38.0702C-25 29.1948 -17.8051 21.9999 -8.92969 21.9999V17.9999C-20.0142 17.9999 -29 26.9857 -29 38.0702H-25ZM84.1569 21.9999C92.3545 21.9999 99 28.6454 99 36.843H103C103 26.4363 94.5636 17.9999 84.1569 17.9999V21.9999ZM-9.05522 54.14C-17.8813 54.0711 -25 46.8966 -25 38.0702H-29C-29 49.0936 -20.1095 58.0538 -9.08647 58.1399L-9.05522 54.14ZM64.1591 17.9999C57.1482 17.9999 54.1066 17.9747 51.3392 17.0248L50.0405 20.8081C53.586 22.0251 57.4196 21.9999 64.1591 21.9999V17.9999ZM36.6945 10.6237C41.4601 15.3893 44.153 18.1179 47.5206 19.7643L49.2775 16.1707C46.649 14.8857 44.4804 12.7527 39.5229 7.79525L36.6945 10.6237ZM51.3392 17.0248C50.635 16.783 49.9464 16.4978 49.2775 16.1707L47.5206 19.7643C48.3382 20.164 49.1798 20.5126 50.0405 20.8081L51.3392 17.0248Z" fill="%23041E42" mask="url(%23path-2-inside-1_884_2343)"/></g></svg>');
+        position: absolute;
+        left: 68%;
+        top: -22px;
+      }
+
+      .arrow {
+        display: none;
+        background-color: var(--color_light-purple);
+        border: 2px solid #000;
+        border-bottom: none;
+        border-right: none;
+        border-top-left-radius: 6px;
+        height: 25px;
+        left: 73%;
+        position: absolute;
+        top: -14px;
+        transform: rotate(45deg);
+        width: 25px;
+      }
+    }
+
+    &:not(#en__pagebuilder) {
+      .click-to-expand:not(.expanded) {
+        max-height: 26px;
+        top: -18px;
+      }
+
+      .click-to-expand:not(.expanded) .click-to-expand-cta {
+        height: 26px;
+        margin: 0;
+        width: 88px;
+        position: relative;
+
+        &:before {
+          content: 'Show More';
+          color: var(--color_white);
+          font-size: 16px;
+          font-weight: 400;
+          line-height: 16px;
+          text-decoration-line: underline;
+        }
+      }
+    }
+
+    .en__field--give-by-select {
+      .en__field__item {
+        > label {
+          height: 80px;
+          align-items: center;
+          flex-wrap: nowrap;
+        }
+
+        &.paypaltouch {
+          img {
+            height: 24px;
+            width: auto;
+            margin: 0;
+          }
+
+          .venmo-logo {
+            height: 17px;
+          }
+
+          span {
+            margin: 0 15px;
+          }
+        }
+
+        &.stripedigitalwallet {
+          img {
+            height: 24px;
+            width: auto;
+            margin: 0;
+          }
+
+          .gpay-1 {
+            height: 20px;
+            margin-bottom: 5px;
+            margin-right: 5px;
+          }
+
+          .apple-pay-logo {
+            margin-left: 15px;
+          }
+        }
+
+        &:hover label img:not(.gpay-1),
+        input:checked + label img:not(.gpay-1) {
+          filter: brightness(0) invert(1);
+        }
+      }
+    }
+
+    label:not(.en__field__label--item) {
+      --label_color: var(--color_black);
+    }
+
+    .en__submit {
+      .live-variable-frequency {
+        text-transform: capitalize;
+        font-style: italic;
+        font-weight: 300;
+      }
+    }
+
+    &[data-engrid-transaction-recurring-frequency="onetime"] {
+      .en__submit {
+        .live-variable-frequency:after {
+          content: "Once";
+        }
+      }
+    }
+
+    .en__component--socialshareblock {
+      margin-top: 10px;
+
+      &:before {
+        display: none;
+      }
+    }
+
+
+    .en__component--dd360confirmation {
+      margin-top: 30px;
+    }
+
+    .dtd-plugin button,
+    .mg-forms-button,
+    .mg-guidelines-button {
+      font-size: 20px!important;
+    }
+
+    #dd-input,
+    .dtd-search-input {
+      border-top: none!important;
+      border-left: none!important;
+      border-right: none!important;
+    }
+
+    .cell.medium-4:has(.lets-check) {
+      width: 100% !important;
+    }
+
+    .radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio input[type=radio]+label,
+    .radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio input[type=radio]+label:hover,
+    .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio input[type=radio]+label,
+    .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio input[type=radio]+label:hover,
+    .en__field--give-by-select.en__field--radio input[type=radio]+label,
+    .en__field--give-by-select.en__field--radio input[type=radio]+label:hover,
+    button,
+    button:hover {
+      transition: background-color ease-in 0.1s, border-color ease-in 0.1s;
+    }
+
+    [class*=validationFail]:not(.has-focus):not(.has-value) {
+      --input_placeholder-color: var(--color_navy);
+    }
+
+    .loader {
+      margin-right: 12px;
+      margin-top: 7px;
+    }
+
+    input:-webkit-autofill {
+      -webkit-box-shadow: inset 0 0 0 9999px var(--input_background-color);
+    }
+
+    .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio input[type=radio]+label {
+      transition: padding ease-in-out 0.15s;
+      &:hover {
+        transition: padding ease-in-out 0.15s;
+        padding-bottom: 22px;
+        padding-top: 16px;
+      }
+    }
+
+    .en__submit button {
+      transition: padding ease-in-out 0.15s;
+      &:hover {
+        transition: padding ease-in-out 0.15s;
+        padding-bottom: 1.1ch;
+        padding-top: 0.9ch;
+      }
+    }
+
+    .en__field--donationAmt .en__field__item:not([data-engrid-currency-symbol-updated="true"]) label {
+      color: transparent !important;
+    }
+
+    @media screen and (min-width: $leftleft1col_content-column_min-width) {
+      // Background image positioning
+      &:not(#en__pagebuilder) {
+        .page-backgroundImage {
+          grid-column: rpc/pc;
+          z-index: 4;
+          background-color: var(--color_white);
+
+          figure.media-with-attribution,
+          &:before {
+            --bg_image_margin: 8px;
+            left: $leftleft1col_body-column_max-width;
+            right: 0;
+            width: calc(100% - $leftleft1col_body-column_max-width - var(--bg_image_margin));
+            height: calc(100% - calc(var(--bg_image_margin) * 2));
+            background-position: center !important;
+            margin: var(--bg_image_margin) var(--bg_image_margin) var(--bg_image_margin) 0;
+            border-radius: 46px 46px 46px 16px;
+            background-color: var(--color_white);
+          }
+
+          figattribution {
+            border-radius: 24px;
+            right: auto;
+            left: 0;
+            text-align: left;
+
+            &:before {
+              border-radius: 50%;
+              background-color: var(--color_light-blue);
+              color: var(--color_navy);
+              content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none"><path d="M12.9231 9.69242L12.9231 7.53857H15.0769L15.0769 9.69242H12.9231ZM12.9232 19.3849L12.9231 11.8463H15.0768L15.0769 19.3849H12.9232Z" fill="%23041E42"/></svg>');
+              text-align: center;
+              line-height: 1;
+              display: block;
+              height: 28px;
+              width: 28px;
+              position: absolute;
+              left: -36px;
+            }
+          }
+        }
+      }
+    }
+
+    @media screen and (max-width: $leftleft1col_content-column_min-width_minus-1px) {
+      #engrid > .en__component--advrow,
+      form > .en__component--advrow {
+        grid-template-rows:
+                [page-start page-alert-start] min-content
+                [page-alert-end body-banner-start] min-content
+                [body-banner-end body-bannerOverlay-start] min-content
+                [body-bannerOverlay-end content-header-start] min-content
+                [content-header-end body-headerOutside-start] min-content
+                [body-headerOutside-end body-header-start] min-content
+                [body-header-end body-title-start] min-content
+                [body-title-end body-top-start] min-content
+                [body-top-end body-side-start] min-content
+                [body-side-end body-main-start] min-content
+                [body-main-end body-bottom-start] min-content
+                [body-bottom-end body-footer-start] min-content
+                [body-footer-end body-footerOutside-start] min-content
+                [body-footerOutside-end content-footerSpacer-start] minmax(0, 1fr)
+                [content-footerSpacer-end content-preFooter-start] min-content
+                [content-preFooter-end content-footer-start] min-content
+                [content-footer-end page-backgroundImage-start] min-content
+                [page-backgroundImage-end page-backgroundImageOverlay-start] min-content
+                [page-backgroundImageOverlay-end page-end page-customCode-start] min-content
+                [page-customCode-end];
+      }
+
+      &[data-replace-banner-with-background="if-banner-empty"][data-engrid-body-banner="empty"][data-engrid-page-background="image"] {
+        .page-backgroundImage {
+          margin: 8px 8px 0;
+          border-radius: 10px;
+
+          figure.media-with-attribution {
+            position: static!important;
+            height: auto;
+            background-image: none;
+            aspect-ratio: initial;
+          }
+
+          figattribution {
+            text-align: left;
+            left: 0;
+            right: auto;
+            margin: 0 0 5px 5px;
+            font-size: 12px;
+            border-radius: 24px;
+          }
+        }
+      }
+    }
+
+    @media screen
+      and (min-width: $leftleft1col_body-column_max-width)
+      and (max-width: $leftleft1col_content-column_min-width_minus-1px) {
+      //--engrid__page_background-color: var(--color_light-blue);
+    }
+
+    @media screen and (max-width: $leftleft1col_body-column_max-width) {
+      --engrid__body_padding: 0 20px;
+      --engrid__body-main_padding: 40px 20px 0;
+      --engrid__content-header_padding: 25px 10px 0px;
+      --engrid__content-footer_padding: 40px 20px 60px;
+      --engrid__body-title_padding: 36px 20px 16px;
+      --engrid__body-top_padding: 0 20px 9px;
+      --engrid__content-header_margin: 0;
+      --engrid__content-footer_margin: 40px 0 0;
+      --engrid__body-title_margin: 0;
+      --engrid__body-top_margin: 0;
+      --recurring-frequency__button_font-size: 24px;
+      --donation-amount__button_count: 2;
+
+      .en__field--donationAmt .en__field__element {
+        justify-content: flex-start;
+      }
+
+      .body-top,
+      .content-header,
+      .content-footer {
+        border-radius: 0;
+      }
+
+      .header-logo {
+        max-width: 240px;
+      }
+
+      .en__component--formblock:has(.radio-to-buttons_recurrfreq) {
+        margin-left: 0;
+        margin-right: 0;
+      }
+
+      .en__field--give-by-select .en__field__item.paypaltouch span {
+        font-size: 18px;
+      }
+
+      &[data-replace-banner-with-background="if-banner-empty"][data-engrid-body-banner="empty"][data-engrid-page-background="image"] {
+        .page-backgroundImage {
+          margin: 0;
+          border-radius: 0;
+        }
+      }
+    }
+  }
+}
