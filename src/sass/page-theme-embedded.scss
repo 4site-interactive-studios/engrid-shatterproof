@@ -704,3 +704,14 @@
     top: -1px;
   }
 }
+
+/* Is embedded, but not an emebedded multistep layout */
+body[data-engrid-layout="embedded"]:not([data-engrid-subtheme="embedded-multistep"]):not([data-engrid-subtheme="embedded-multistep-v2"]) {
+  .body-title,
+  .body-top,
+  .content-header,
+  .content-footer,
+  .page-backgroundImage {
+    display: none;
+  }
+}
