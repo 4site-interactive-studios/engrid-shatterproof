@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, September 4, 2025 @ 23:30:59 ET
+ *  Date: Thursday, September 4, 2025 @ 23:43:20 ET
  *  By: 4Site
  *  ENGrid styles: v0.22.4
  *  ENGrid scripts: v0.22.7
@@ -8450,8 +8450,16 @@ body[data-engrid-debug]:before{
   position:fixed;
   top:-1px;
 }
-body[data-engrid-layout=embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]) .body-title,body[data-engrid-layout=embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]) .body-top,body[data-engrid-layout=embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]) .content-footer,body[data-engrid-layout=embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]) .content-header,body[data-engrid-layout=embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]) .page-backgroundImage{
+body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .body-title,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .body-top,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .content-footer,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .content-header,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .page-backgroundImage{
   display:none;
+}
+body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) #engrid{
+  margin-left:auto;
+  margin-right:auto;
+  max-width:627px;
+}
+body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .body-main{
+  padding:0;
 }
 
 [data-engrid-subtheme=embedded-multistep-v2]{

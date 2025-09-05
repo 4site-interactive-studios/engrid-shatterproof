@@ -705,13 +705,23 @@
   }
 }
 
-/* Is embedded, but not an emebedded multistep layout */
-body[data-engrid-layout="embedded"]:not([data-engrid-subtheme="embedded-multistep"]):not([data-engrid-subtheme="embedded-multistep-v2"]) {
+/* Is embedded, but not an emebedded multistep layout or donation page */
+body[data-engrid-embedded]:not([data-engrid-subtheme="embedded-multistep"]):not([data-engrid-subtheme="embedded-multistep-v2"]):not([data-engrid-page-type="donation"]) {
   .body-title,
   .body-top,
   .content-header,
   .content-footer,
   .page-backgroundImage {
     display: none;
+  }
+
+  #engrid {
+    max-width: 627px; // Was 452px but 627px is max width of the form after mobile breakpoint
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .body-main {
+    padding: 0;
   }
 }
