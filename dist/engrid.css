@@ -19,7 +19,7 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Thursday, September 4, 2025 @ 23:43:20 ET
+ *  Date: Wednesday, September 24, 2025 @ 10:21:05 ET
  *  By: 4Site
  *  ENGrid styles: v0.22.4
  *  ENGrid scripts: v0.22.7
@@ -8450,8 +8450,26 @@ body[data-engrid-debug]:before{
   position:fixed;
   top:-1px;
 }
-body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .body-title,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .body-top,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .content-footer,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .content-header,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .page-backgroundImage{
+body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .content-footer,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .content-header,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .page-backgroundImage{
   display:none;
+}
+body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .body-title h1,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .body-top p{
+  color:var(--default_color);
+}
+body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .body-title h1{
+  padding-top:0;
+}
+body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .body-title h1 span{
+  color:var(--default_color) !important;
+}
+body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .body-title{
+  padding-top:0;
+}
+body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .body-top{
+  padding-bottom:0;
+}
+body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .body-top,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .body-top p:last-child,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .body-top p:last-child a.button{
+  margin-bottom:0;
 }
 body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) #engrid{
   margin-left:auto;
@@ -9702,6 +9720,9 @@ body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([d
     border-radius:0;
     margin:0;
   }
+}
+[data-engrid-theme=shatterproof-v2]:not([data-engrid-embedded]) .body-top p:last-child a.button{
+  margin-bottom:50px;
 }
 body{
   opacity:1;
