@@ -19,8 +19,8 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, September 24, 2025 @ 10:21:05 ET
- *  By: 4Site
+ *  Date: Wednesday, September 24, 2025 @ 14:27:25 ET
+ *  By: bryancasler
  *  ENGrid styles: v0.22.4
  *  ENGrid scripts: v0.22.7
  *
@@ -8449,6 +8449,12 @@ body[data-engrid-debug]:before{
   left:-1px;
   position:fixed;
   top:-1px;
+}
+body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .en__component--advrow>*{
+  margin-left:0;
+  margin-right:0;
+  padding-left:0;
+  padding-right:0;
 }
 body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .content-footer,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .content-header,body[data-engrid-embedded]:not([data-engrid-subtheme=embedded-multistep]):not([data-engrid-subtheme=embedded-multistep-v2]):not([data-engrid-page-type=donation]) .page-backgroundImage{
   display:none;

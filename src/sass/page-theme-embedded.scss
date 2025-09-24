@@ -707,6 +707,13 @@
 
 /* Is embedded, but not an emebedded multistep layout or donation page */
 body[data-engrid-embedded]:not([data-engrid-subtheme="embedded-multistep"]):not([data-engrid-subtheme="embedded-multistep-v2"]):not([data-engrid-page-type="donation"]) {
+  .en__component--advrow > * {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .content-header,
   .content-footer,
   .page-backgroundImage {
