@@ -707,12 +707,46 @@
 
 /* Is embedded, but not an emebedded multistep layout or donation page */
 body[data-engrid-embedded]:not([data-engrid-subtheme="embedded-multistep"]):not([data-engrid-subtheme="embedded-multistep-v2"]):not([data-engrid-page-type="donation"]) {
-  .body-title,
-  .body-top,
+  .en__component--advrow > * {
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: 0;
+    margin-right: 0;
+  }
+
   .content-header,
   .content-footer,
   .page-backgroundImage {
     display: none;
+  }
+
+  /* On the thank you page we want to use the default color since text content will appear on a white background and otherwise not be visible */
+  .body-title h1,
+  .body-top p {
+    color: var(--default_color);
+  }
+
+  .body-title h1 {
+    padding-top: 0;
+  }
+
+  /* In the event the title has a span with inline color definiteion that we want to use the default color */
+  .body-title h1 span {
+    color: var(--default_color) !important;
+  }
+
+  .body-title {
+    padding-top: 0;
+  }
+
+  .body-top {
+    padding-bottom: 0;
+  }
+
+  .body-top,
+  .body-top p:last-child,
+  .body-top p:last-child a.button {
+    margin-bottom: 0px;
   }
 
   #engrid {

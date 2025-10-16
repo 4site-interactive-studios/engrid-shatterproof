@@ -2,23 +2,24 @@
   -webkit-font-smoothing: antialiased;
 
   // COLORS
-  --color_navy: #041E42;
-  --color_light-blue: #DAE3F6;
-  --color_light-blue-faded: #F2F5FC;
-  --color_purple: #9543FF;
+  --color_navy: #041e42;
+  --color_light-blue: #dae3f6;
+  --color_light-blue-faded: #f2f5fc;
+  --color_purple: #9543ff;
   --color_light-purple: #efe3ff;
-  --color_turquoise: #2CD5C4;
+  --color_turquoise: #2cd5c4;
   --color_white: #ffffff;
   --color_black: #000000;
   --color_primary: var(--color_navy);
-  --error__color: #FF6600;
-  --error__color_faded: #FFF7F2;
+  --error__color: #ff6600;
+  --error__color_faded: #fff7f2;
 
   // GLOBAL
   --engrid__body_box-shadow: none;
 
   // TYPOGRAPHY
-  --default_font-family: "museo-sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --default_font-family: "museo-sans", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
   --default_color: var(--color_navy);
   --default_font-size: 18px;
   --default_font-weight: 400;
@@ -115,11 +116,11 @@
   // BUTTON:HOVER
   --button_color_hover: var(--color_white);
   --button_background-color_hover: var(--color_purple);
-   --button_border-color_hover: var(--color_purple);
+  --button_border-color_hover: var(--color_purple);
   // BUTTON:SELECTED
-   --button_color_checked: var(--color_white);
-   --button_background-color_checked: var(--color_navy);
-   --button_border-color_checked: var(--color_navy);
+  --button_color_checked: var(--color_white);
+  --button_background-color_checked: var(--color_navy);
+  --button_border-color_checked: var(--color_navy);
 
   // RECURRING FREQUENCY:CHECKED
   --recurring-frequency__button_border-color_checked: var(--color_navy);
@@ -139,7 +140,6 @@
   // DONATE BUTTONS:CHECKED
   --donation-amount__button_border-color_checked: var(--color_navy);
   --donation-amount__button_background-color_checked: var(--color_navy);
-
 
   // SUBMIT BUTTON
   --submit__button_border-color: var(--color_purple);
@@ -328,14 +328,15 @@
       --en-vgs-borderStyle: none;
       --en-vgs-borderColor: none;
       --en-vgs-borderRadius: 10px 10px 0 0;
-      transition: box-shadow .25s,border-color .25s ease-in-out,border-width 0.1s linear, padding-bottom 0.1s linear;
+      transition: box-shadow 0.25s, border-color 0.25s ease-in-out,
+        border-width 0.1s linear, padding-bottom 0.1s linear;
     }
 
     .vgs-collect-container__focused {
       outline: none;
     }
 
-    [class*=validationFail] label {
+    [class*="validationFail"] label {
       color: var(--label_color);
     }
 
@@ -365,11 +366,13 @@
             padding: 0;
 
             &:first-child label {
-              border-radius: var(--recurring-frequency__button_border-radius) 0 0 var(--recurring-frequency__button_border-radius)
+              border-radius: var(--recurring-frequency__button_border-radius) 0
+                0 var(--recurring-frequency__button_border-radius);
             }
 
             &:last-child label {
-              border-radius: 0 var(--recurring-frequency__button_border-radius) var(--recurring-frequency__button_border-radius) 0;
+              border-radius: 0 var(--recurring-frequency__button_border-radius)
+                var(--recurring-frequency__button_border-radius) 0;
             }
 
             input:focus + label {
@@ -419,7 +422,8 @@
           }
 
           .en__field__input--other[type="text"] {
-            border-radius: var(--recurring-frequency__button_border-radius) var(--recurring-frequency__button_border-radius) 0 0;
+            border-radius: var(--recurring-frequency__button_border-radius)
+              var(--recurring-frequency__button_border-radius) 0 0;
             border-width: var(--input_border-width);
             padding: 21px 24px;
 
@@ -522,7 +526,7 @@
         position: relative;
 
         &:before {
-          content: 'Show More';
+          content: "Show More";
           color: var(--color_white);
           font-size: 16px;
           font-weight: 400;
@@ -609,7 +613,6 @@
       }
     }
 
-
     .en__component--dd360confirmation {
       margin-top: 30px;
     }
@@ -617,32 +620,46 @@
     .dtd-plugin button,
     .mg-forms-button,
     .mg-guidelines-button {
-      font-size: 20px!important;
+      font-size: 20px !important;
     }
 
     #dd-input,
     .dtd-search-input {
-      border-top: none!important;
-      border-left: none!important;
-      border-right: none!important;
+      border-top: none !important;
+      border-left: none !important;
+      border-right: none !important;
     }
 
     .cell.medium-4:has(.lets-check) {
       width: 100% !important;
     }
 
-    .radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio input[type=radio]+label,
-    .radio-to-buttons_recurrfreq .en__field--recurrfreq.en__field--radio input[type=radio]+label:hover,
-    .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio input[type=radio]+label,
-    .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio input[type=radio]+label:hover,
-    .en__field--give-by-select.en__field--radio input[type=radio]+label,
-    .en__field--give-by-select.en__field--radio input[type=radio]+label:hover,
+    .radio-to-buttons_recurrfreq
+      .en__field--recurrfreq.en__field--radio
+      input[type="radio"]
+      + label,
+    .radio-to-buttons_recurrfreq
+      .en__field--recurrfreq.en__field--radio
+      input[type="radio"]
+      + label:hover,
+    .radio-to-buttons_donationAmt
+      .en__field--donationAmt.en__field--radio
+      input[type="radio"]
+      + label,
+    .radio-to-buttons_donationAmt
+      .en__field--donationAmt.en__field--radio
+      input[type="radio"]
+      + label:hover,
+    .en__field--give-by-select.en__field--radio input[type="radio"] + label,
+    .en__field--give-by-select.en__field--radio
+      input[type="radio"]
+      + label:hover,
     button,
     button:hover {
       transition: background-color ease-in 0.1s, border-color ease-in 0.1s;
     }
 
-    [class*=validationFail]:not(.has-focus):not(.has-value) {
+    [class*="validationFail"]:not(.has-focus):not(.has-value) {
       --input_placeholder-color: var(--color_navy);
     }
 
@@ -655,7 +672,10 @@
       -webkit-box-shadow: inset 0 0 0 9999px var(--input_background-color);
     }
 
-    .radio-to-buttons_donationAmt .en__field--donationAmt.en__field--radio input[type=radio]+label {
+    .radio-to-buttons_donationAmt
+      .en__field--donationAmt.en__field--radio
+      input[type="radio"]
+      + label {
       transition: padding ease-in-out 0.15s;
       &:hover {
         transition: padding ease-in-out 0.15s;
@@ -673,7 +693,9 @@
       }
     }
 
-    .en__field--donationAmt .en__field__item:not([data-engrid-currency-symbol-updated="true"]) label {
+    .en__field--donationAmt
+      .en__field__item:not([data-engrid-currency-symbol-updated="true"])
+      label {
       color: transparent !important;
     }
 
@@ -690,10 +712,14 @@
             --bg_image_margin: 8px;
             left: $leftleft1col_body-column_max-width;
             right: 0;
-            width: calc(100% - $leftleft1col_body-column_max-width - var(--bg_image_margin));
+            width: calc(
+              100% - $leftleft1col_body-column_max-width -
+                var(--bg_image_margin)
+            );
             height: calc(100% - calc(var(--bg_image_margin) * 2));
             background-position: center !important;
-            margin: var(--bg_image_margin) var(--bg_image_margin) var(--bg_image_margin) 0;
+            margin: var(--bg_image_margin) var(--bg_image_margin)
+              var(--bg_image_margin) 0;
             border-radius: 46px 46px 46px 16px;
             background-color: var(--color_white);
           }
@@ -726,26 +752,26 @@
       #engrid > .en__component--advrow,
       form > .en__component--advrow {
         grid-template-rows:
-                [page-start page-alert-start] min-content
-                [page-alert-end body-banner-start] min-content
-                [body-banner-end body-bannerOverlay-start] min-content
-                [body-bannerOverlay-end content-header-start] min-content
-                [content-header-end body-headerOutside-start] min-content
-                [body-headerOutside-end body-header-start] min-content
-                [body-header-end body-title-start] min-content
-                [body-title-end body-top-start] min-content
-                [body-top-end body-side-start] min-content
-                [body-side-end body-main-start] min-content
-                [body-main-end body-bottom-start] min-content
-                [body-bottom-end body-footer-start] min-content
-                [body-footer-end body-footerOutside-start] min-content
-                [body-footerOutside-end content-footerSpacer-start] minmax(0, 1fr)
-                [content-footerSpacer-end content-preFooter-start] min-content
-                [content-preFooter-end content-footer-start] min-content
-                [content-footer-end page-backgroundImage-start] min-content
-                [page-backgroundImage-end page-backgroundImageOverlay-start] min-content
-                [page-backgroundImageOverlay-end page-end page-customCode-start] min-content
-                [page-customCode-end];
+          [page-start page-alert-start] min-content
+          [page-alert-end body-banner-start] min-content
+          [body-banner-end body-bannerOverlay-start] min-content
+          [body-bannerOverlay-end content-header-start] min-content
+          [content-header-end body-headerOutside-start] min-content
+          [body-headerOutside-end body-header-start] min-content
+          [body-header-end body-title-start] min-content
+          [body-title-end body-top-start] min-content
+          [body-top-end body-side-start] min-content
+          [body-side-end body-main-start] min-content
+          [body-main-end body-bottom-start] min-content
+          [body-bottom-end body-footer-start] min-content
+          [body-footer-end body-footerOutside-start] min-content
+          [body-footerOutside-end content-footerSpacer-start] minmax(0, 1fr)
+          [content-footerSpacer-end content-preFooter-start] min-content
+          [content-preFooter-end content-footer-start] min-content
+          [content-footer-end page-backgroundImage-start] min-content
+          [page-backgroundImage-end page-backgroundImageOverlay-start] min-content
+          [page-backgroundImageOverlay-end page-end page-customCode-start] min-content
+          [page-customCode-end];
       }
 
       &[data-replace-banner-with-background="if-banner-empty"][data-engrid-body-banner="empty"][data-engrid-page-background="image"] {
@@ -754,7 +780,7 @@
           border-radius: 10px;
 
           figure.media-with-attribution {
-            position: static!important;
+            position: static !important;
             height: auto;
             background-image: none;
             aspect-ratio: initial;
@@ -772,9 +798,7 @@
       }
     }
 
-    @media screen
-      and (min-width: $leftleft1col_body-column_max-width)
-      and (max-width: $leftleft1col_content-column_min-width_minus-1px) {
+    @media screen and (min-width: $leftleft1col_body-column_max-width) and (max-width: $leftleft1col_content-column_min-width_minus-1px) {
       //--engrid__page_background-color: var(--color_light-blue);
     }
 
@@ -822,5 +846,10 @@
         }
       }
     }
+  }
+
+  /* For the download button on the thank you page we want to give it some extra margin to make it more visible */
+  &:not([data-engrid-embedded]) .body-top p:last-child a.button {
+    margin-bottom: 50px;
   }
 }
