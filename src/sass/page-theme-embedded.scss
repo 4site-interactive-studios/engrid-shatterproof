@@ -705,8 +705,39 @@
   }
 }
 
-/* Is embedded, but not an emebedded multistep layout or donation page */
-body[data-engrid-embedded]:not([data-engrid-subtheme="embedded-multistep"]):not([data-engrid-subtheme="embedded-multistep-v2"]):not([data-engrid-page-type="donation"]) {
+/* Is embedded, but not an emebedded multistep layout */
+body[data-engrid-embedded]:not([data-engrid-subtheme="embedded-multistep"]):not([data-engrid-subtheme="embedded-multistep-v2"]) {
+  &:not(#en__pagebuilder) {
+    .click-to-expand {
+      margin: 12.8px 0;
+    }
+
+    .click-to-expand-text-wrapper {
+      color: var(--default_color);
+    }
+
+    .click-to-expand:not(.expanded) {
+      max-height: 26px;
+      top: 0px;
+    }
+
+    .click-to-expand:not(.expanded) .click-to-expand-cta {
+      height: 26px;
+      margin: 0;
+      width: 88px;
+      position: relative;
+
+      &:before {
+        content: "Show More";
+        color: var(--default_color);
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 16px;
+        text-decoration-line: underline;
+      }
+    } 
+  }
+
   .en__component--advrow > * {
     padding-left: 0;
     padding-right: 0;
@@ -722,7 +753,8 @@ body[data-engrid-embedded]:not([data-engrid-subtheme="embedded-multistep"]):not(
 
   /* On the thank you page we want to use the default color since text content will appear on a white background and otherwise not be visible */
   .body-title h1,
-  .body-top p {
+  .body-top p,
+  .body-top h1 {
     color: var(--default_color);
   }
 
