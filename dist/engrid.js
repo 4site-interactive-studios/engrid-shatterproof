@@ -17,10 +17,10 @@
  *
  *  ENGRID PAGE TEMPLATE ASSETS
  *
- *  Date: Wednesday, November 19, 2025 @ 14:32:08 ET
+ *  Date: Monday, January 12, 2026 @ 10:37:10 ET
  *  By: fernando
- *  ENGrid styles: v0.23.0
- *  ENGrid scripts: v0.23.2
+ *  ENGrid styles: v0.23.4
+ *  ENGrid scripts: v0.23.7
  *
  *  Created by 4Site Studios
  *  Come work with us or join our team, we would love to hear from you
@@ -30,8 +30,8 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	var __webpack_modules__ = ({
 
-/***/ 71:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 71
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -100,10 +100,10 @@ class EventDispatcher extends ste_core_1.DispatcherBase {
 exports.EventDispatcher = EventDispatcher;
 
 
-/***/ }),
+/***/ },
 
-/***/ 131:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 131
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -132,10 +132,10 @@ class PromiseSignalList extends ste_core_1.EventListBase {
 exports.PromiseSignalList = PromiseSignalList;
 
 
-/***/ }),
+/***/ },
 
-/***/ 278:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 278
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -227,10 +227,10 @@ class HandlingBase {
 exports.HandlingBase = HandlingBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 338:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 338
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -259,10 +259,10 @@ class EventList extends ste_core_1.EventListBase {
 exports.EventList = EventList;
 
 
-/***/ }),
+/***/ },
 
-/***/ 455:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 455
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -313,10 +313,10 @@ class Subscription {
 exports.Subscription = Subscription;
 
 
-/***/ }),
+/***/ },
 
-/***/ 606:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 606
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -340,10 +340,10 @@ const NonUniformPromiseEventList_1 = __webpack_require__(1246);
 Object.defineProperty(exports, "NonUniformPromiseEventList", ({ enumerable: true, get: function () { return NonUniformPromiseEventList_1.NonUniformPromiseEventList; } }));
 
 
-/***/ }),
+/***/ },
 
-/***/ 956:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 956
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -372,10 +372,10 @@ class SubscriptionChangeEventDispatcher extends __1.DispatcherBase {
 exports.SubscriptionChangeEventDispatcher = SubscriptionChangeEventDispatcher;
 
 
-/***/ }),
+/***/ },
 
-/***/ 1050:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 1050
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -500,10 +500,10 @@ class DispatcherWrapper {
 exports.DispatcherWrapper = DispatcherWrapper;
 
 
-/***/ }),
+/***/ },
 
-/***/ 1064:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 1064
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -543,10 +543,10 @@ class SignalList extends ste_core_1.EventListBase {
 exports.SignalList = SignalList;
 
 
-/***/ }),
+/***/ },
 
-/***/ 1196:
-/***/ ((module) => {
+/***/ 1196
+(module) {
 
 /* smoothscroll v0.4.4 - 2019 - Dustan Kasten, Jeremias Menichelli - MIT License */
 (function () {
@@ -981,17 +981,17 @@ exports.SignalList = SignalList;
 }());
 
 
-/***/ }),
+/***/ },
 
-/***/ 1234:
-/***/ (() => {
+/***/ 1234
+() {
 
 /* (ignored) */
 
-/***/ }),
+/***/ },
 
-/***/ 1246:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 1246
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -1035,50 +1035,10 @@ class NonUniformPromiseEventList {
 exports.NonUniformPromiseEventList = NonUniformPromiseEventList;
 
 
-/***/ }),
+/***/ },
 
-/***/ 1289:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.EventManagement = void 0;
-/**
- * Allows the user to interact with the event.
- *
- * @export
- * @class EventManagement
- * @implements {IEventManagement}
- */
-class EventManagement {
-    /**
-     * Creates an instance of EventManagement.
-     * @param {() => void} unsub An unsubscribe handler.
-     *
-     * @memberOf EventManagement
-     */
-    constructor(unsub) {
-        this.unsub = unsub;
-        this.propagationStopped = false;
-    }
-    /**
-     * Stops the propagation of the event.
-     * Cannot be used when async dispatch is done.
-     *
-     * @memberOf EventManagement
-     */
-    stopPropagation() {
-        this.propagationStopped = true;
-    }
-}
-exports.EventManagement = EventManagement;
-
-
-/***/ }),
-
-/***/ 1385:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 1289
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -1115,10 +1075,50 @@ class EventManagement {
 exports.EventManagement = EventManagement;
 
 
-/***/ }),
+/***/ },
 
-/***/ 1789:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 1385
+(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.EventManagement = void 0;
+/**
+ * Allows the user to interact with the event.
+ *
+ * @export
+ * @class EventManagement
+ * @implements {IEventManagement}
+ */
+class EventManagement {
+    /**
+     * Creates an instance of EventManagement.
+     * @param {() => void} unsub An unsubscribe handler.
+     *
+     * @memberOf EventManagement
+     */
+    constructor(unsub) {
+        this.unsub = unsub;
+        this.propagationStopped = false;
+    }
+    /**
+     * Stops the propagation of the event.
+     * Cannot be used when async dispatch is done.
+     *
+     * @memberOf EventManagement
+     */
+    stopPropagation() {
+        this.propagationStopped = true;
+    }
+}
+exports.EventManagement = EventManagement;
+
+
+/***/ },
+
+/***/ 1789
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -1147,10 +1147,10 @@ class SubscriptionChangeEventDispatcher extends __1.DispatcherBase {
 exports.SubscriptionChangeEventDispatcher = SubscriptionChangeEventDispatcher;
 
 
-/***/ }),
+/***/ },
 
-/***/ 2162:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 2162
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -1169,10 +1169,10 @@ class EventHandlingBase extends ste_core_1.HandlingBase {
 exports.EventHandlingBase = EventHandlingBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 2175:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 2175
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -1201,10 +1201,10 @@ class SimpleEventList extends ste_core_1.EventListBase {
 exports.SimpleEventList = SimpleEventList;
 
 
-/***/ }),
+/***/ },
 
-/***/ 2210:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 2210
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -1231,10 +1231,10 @@ class DispatchError extends Error {
 exports.DispatchError = DispatchError;
 
 
-/***/ }),
+/***/ },
 
-/***/ 2287:
-/***/ (function(module) {
+/***/ 2287
+(module) {
 
 ;(function() {
 	var self = {};
@@ -1311,10 +1311,10 @@ exports.DispatchError = DispatchError;
 }.call(this));
 
 
-/***/ }),
+/***/ },
 
-/***/ 2293:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 2293
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -1358,10 +1358,10 @@ class NonUniformEventList {
 exports.NonUniformEventList = NonUniformEventList;
 
 
-/***/ }),
+/***/ },
 
-/***/ 2330:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 2330
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -1424,10 +1424,10 @@ class PromiseEventDispatcher extends ste_core_1.PromiseDispatcherBase {
 exports.PromiseEventDispatcher = PromiseEventDispatcher;
 
 
-/***/ }),
+/***/ },
 
-/***/ 2725:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 2725
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -1481,10 +1481,10 @@ class SignalDispatcher extends ste_core_1.DispatcherBase {
 exports.SignalDispatcher = SignalDispatcher;
 
 
-/***/ }),
+/***/ },
 
-/***/ 3031:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 3031
+(module, exports, __webpack_require__) {
 
 /* module decorator */ module = __webpack_require__.nmd(module);
 var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of the "xorwow" prng algorithm by
@@ -1576,10 +1576,10 @@ if (module && module.exports) {
 
 
 
-/***/ }),
+/***/ },
 
-/***/ 3181:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 3181
+(module, exports, __webpack_require__) {
 
 /* module decorator */ module = __webpack_require__.nmd(module);
 var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of the "xor128" prng algorithm by
@@ -1666,10 +1666,10 @@ if (module && module.exports) {
 
 
 
-/***/ }),
+/***/ },
 
-/***/ 3184:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ 3184
+(module, __unused_webpack_exports, __webpack_require__) {
 
 var seedrandom = __webpack_require__(7391);
 var self = __webpack_require__(2287);
@@ -1678,10 +1678,10 @@ module.exports = self;
 
 
 
-/***/ }),
+/***/ },
 
-/***/ 3199:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 3199
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 var __webpack_unused_export__;
@@ -1736,10 +1736,10 @@ __webpack_unused_export__ = ({ enumerable: true, get: function () { return ste_p
 __webpack_unused_export__ = ({ enumerable: true, get: function () { return ste_promise_simple_events_1.NonUniformPromiseSimpleEventList; } });
 
 
-/***/ }),
+/***/ },
 
-/***/ 3309:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 3309
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -1766,10 +1766,10 @@ class DispatchError extends Error {
 exports.DispatchError = DispatchError;
 
 
-/***/ }),
+/***/ },
 
-/***/ 3324:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 3324
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -1798,10 +1798,10 @@ class SubscriptionChangeEventDispatcher extends __1.DispatcherBase {
 exports.SubscriptionChangeEventDispatcher = SubscriptionChangeEventDispatcher;
 
 
-/***/ }),
+/***/ },
 
-/***/ 3351:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 3351
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -1820,10 +1820,10 @@ class PromiseEventHandlingBase extends ste_core_1.HandlingBase {
 exports.PromiseEventHandlingBase = PromiseEventHandlingBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 3504:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 3504
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -1860,10 +1860,10 @@ class EventManagement {
 exports.EventManagement = EventManagement;
 
 
-/***/ }),
+/***/ },
 
-/***/ 3512:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 3512
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -1892,10 +1892,10 @@ class SubscriptionChangeEventDispatcher extends __1.DispatcherBase {
 exports.SubscriptionChangeEventDispatcher = SubscriptionChangeEventDispatcher;
 
 
-/***/ }),
+/***/ },
 
-/***/ 3677:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 3677
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -1951,10 +1951,10 @@ class PromiseSimpleEventDispatcher extends ste_core_1.PromiseDispatcherBase {
 exports.PromiseSimpleEventDispatcher = PromiseSimpleEventDispatcher;
 
 
-/***/ }),
+/***/ },
 
-/***/ 3707:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 3707
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -2005,10 +2005,10 @@ class Subscription {
 exports.Subscription = Subscription;
 
 
-/***/ }),
+/***/ },
 
-/***/ 3717:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 3717
+(module, exports, __webpack_require__) {
 
 /* module decorator */ module = __webpack_require__.nmd(module);
 var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of the "Tyche-i" prng algorithm by
@@ -2117,10 +2117,10 @@ if (module && module.exports) {
 
 
 
-/***/ }),
+/***/ },
 
-/***/ 3729:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 3729
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -2147,10 +2147,10 @@ class DispatchError extends Error {
 exports.DispatchError = DispatchError;
 
 
-/***/ }),
+/***/ },
 
-/***/ 3787:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 3787
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -2230,62 +2230,10 @@ class PromiseDispatcherBase extends __1.DispatcherBase {
 exports.PromiseDispatcherBase = PromiseDispatcherBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 4004:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.EventListBase = void 0;
-/**
- * Base class for event lists classes. Implements the get and remove.
- *
- * @export
- * @abstract
- * @class EventListBaset
- * @template TEventDispatcher The type of event dispatcher.
- */
-class EventListBase {
-    constructor() {
-        this._events = {};
-    }
-    /**
-     * Gets the dispatcher associated with the name.
-     *
-     * @param {string} name The name of the event.
-     * @returns {TEventDispatcher} The disptacher.
-     *
-     * @memberOf EventListBase
-     */
-    get(name) {
-        let event = this._events[name];
-        if (event) {
-            return event;
-        }
-        event = this.createDispatcher();
-        this._events[name] = event;
-        return event;
-    }
-    /**
-     * Removes the dispatcher associated with the name.
-     *
-     * @param {string} name
-     *
-     * @memberOf EventListBase
-     */
-    remove(name) {
-        delete this._events[name];
-    }
-}
-exports.EventListBase = EventListBase;
-
-
-/***/ }),
-
-/***/ 4211:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 4004
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -2334,10 +2282,62 @@ class EventListBase {
 exports.EventListBase = EventListBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 4214:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 4211
+(__unused_webpack_module, exports) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+exports.EventListBase = void 0;
+/**
+ * Base class for event lists classes. Implements the get and remove.
+ *
+ * @export
+ * @abstract
+ * @class EventListBaset
+ * @template TEventDispatcher The type of event dispatcher.
+ */
+class EventListBase {
+    constructor() {
+        this._events = {};
+    }
+    /**
+     * Gets the dispatcher associated with the name.
+     *
+     * @param {string} name The name of the event.
+     * @returns {TEventDispatcher} The disptacher.
+     *
+     * @memberOf EventListBase
+     */
+    get(name) {
+        let event = this._events[name];
+        if (event) {
+            return event;
+        }
+        event = this.createDispatcher();
+        this._events[name] = event;
+        return event;
+    }
+    /**
+     * Removes the dispatcher associated with the name.
+     *
+     * @param {string} name
+     *
+     * @memberOf EventListBase
+     */
+    remove(name) {
+        delete this._events[name];
+    }
+}
+exports.EventListBase = EventListBase;
+
+
+/***/ },
+
+/***/ 4214
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -2361,10 +2361,10 @@ const NonUniformEventList_1 = __webpack_require__(2293);
 Object.defineProperty(exports, "NonUniformEventList", ({ enumerable: true, get: function () { return NonUniformEventList_1.NonUniformEventList; } }));
 
 
-/***/ }),
+/***/ },
 
-/***/ 4225:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 4225
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -2388,10 +2388,10 @@ const PromiseSimpleEventList_1 = __webpack_require__(5536);
 Object.defineProperty(exports, "PromiseSimpleEventList", ({ enumerable: true, get: function () { return PromiseSimpleEventList_1.PromiseSimpleEventList; } }));
 
 
-/***/ }),
+/***/ },
 
-/***/ 4283:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 4283
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -2420,10 +2420,10 @@ class PromiseEventList extends ste_core_1.EventListBase {
 exports.PromiseEventList = PromiseEventList;
 
 
-/***/ }),
+/***/ },
 
-/***/ 4450:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 4450
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -2472,10 +2472,10 @@ class PromiseSignalDispatcher extends ste_core_1.PromiseDispatcherBase {
 exports.PromiseSignalDispatcher = PromiseSignalDispatcher;
 
 
-/***/ }),
+/***/ },
 
-/***/ 4604:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 4604
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -2511,10 +2511,10 @@ const SubscriptionChangeEventHandler_1 = __webpack_require__(956);
 Object.defineProperty(exports, "SubscriptionChangeEventDispatcher", ({ enumerable: true, get: function () { return SubscriptionChangeEventHandler_1.SubscriptionChangeEventDispatcher; } }));
 
 
-/***/ }),
+/***/ },
 
-/***/ 4645:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 4645
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -2761,10 +2761,10 @@ class DispatcherBase {
 exports.DispatcherBase = DispatcherBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 4763:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 4763
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -2783,10 +2783,10 @@ class SimpleEventHandlingBase extends ste_core_1.HandlingBase {
 exports.SimpleEventHandlingBase = SimpleEventHandlingBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 4801:
-/***/ ((module, exports, __webpack_require__) => {
+/***/ 4801
+(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_RESULT__;/*
 Copyright 2014 David Bau.
@@ -3041,10 +3041,10 @@ if ( true && module.exports) {
 );
 
 
-/***/ }),
+/***/ },
 
-/***/ 4995:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 4995
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -3124,10 +3124,10 @@ class PromiseDispatcherBase extends __1.DispatcherBase {
 exports.PromiseDispatcherBase = PromiseDispatcherBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 5010:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 5010
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -3149,10 +3149,10 @@ const SignalList_1 = __webpack_require__(1064);
 Object.defineProperty(exports, "SignalList", ({ enumerable: true, get: function () { return SignalList_1.SignalList; } }));
 
 
-/***/ }),
+/***/ },
 
-/***/ 5072:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 5072
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -3399,10 +3399,10 @@ class DispatcherBase {
 exports.DispatcherBase = DispatcherBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 5485:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 5485
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -3462,10 +3462,10 @@ class PromiseSubscription {
 exports.PromiseSubscription = PromiseSubscription;
 
 
-/***/ }),
+/***/ },
 
-/***/ 5536:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 5536
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -3494,10 +3494,10 @@ class PromiseSimpleEventList extends ste_core_1.EventListBase {
 exports.PromiseSimpleEventList = PromiseSimpleEventList;
 
 
-/***/ }),
+/***/ },
 
-/***/ 5537:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 5537
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -3589,10 +3589,10 @@ class HandlingBase {
 exports.HandlingBase = HandlingBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 5575:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 5575
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -3628,10 +3628,10 @@ const SubscriptionChangeEventHandler_1 = __webpack_require__(1789);
 Object.defineProperty(exports, "SubscriptionChangeEventDispatcher", ({ enumerable: true, get: function () { return SubscriptionChangeEventHandler_1.SubscriptionChangeEventDispatcher; } }));
 
 
-/***/ }),
+/***/ },
 
-/***/ 5636:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 5636
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -3680,10 +3680,10 @@ class EventListBase {
 exports.EventListBase = EventListBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 5722:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 5722
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -3775,10 +3775,10 @@ class HandlingBase {
 exports.HandlingBase = HandlingBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 5829:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 5829
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -3822,10 +3822,10 @@ class NonUniformPromiseSimpleEventList {
 exports.NonUniformPromiseSimpleEventList = NonUniformPromiseSimpleEventList;
 
 
-/***/ }),
+/***/ },
 
-/***/ 5871:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 5871
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -3844,10 +3844,10 @@ class PromiseSignalHandlingBase extends ste_core_1.HandlingBase {
 exports.PromiseSignalHandlingBase = PromiseSignalHandlingBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 6042:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 6042
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -3869,10 +3869,10 @@ const PromiseSignalList_1 = __webpack_require__(131);
 Object.defineProperty(exports, "PromiseSignalList", ({ enumerable: true, get: function () { return PromiseSignalList_1.PromiseSignalList; } }));
 
 
-/***/ }),
+/***/ },
 
-/***/ 6372:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 6372
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -3952,10 +3952,10 @@ class PromiseDispatcherBase extends __1.DispatcherBase {
 exports.PromiseDispatcherBase = PromiseDispatcherBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 6413:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 6413
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -3992,10 +3992,10 @@ class EventManagement {
 exports.EventManagement = EventManagement;
 
 
-/***/ }),
+/***/ },
 
-/***/ 6436:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 6436
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -4055,10 +4055,10 @@ class PromiseSubscription {
 exports.PromiseSubscription = PromiseSubscription;
 
 
-/***/ }),
+/***/ },
 
-/***/ 6442:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 6442
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -4150,10 +4150,10 @@ class HandlingBase {
 exports.HandlingBase = HandlingBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 6484:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 6484
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -4213,10 +4213,10 @@ class PromiseSubscription {
 exports.PromiseSubscription = PromiseSubscription;
 
 
-/***/ }),
+/***/ },
 
-/***/ 6569:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 6569
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -4232,10 +4232,10 @@ const SimpleEventList_1 = __webpack_require__(2175);
 Object.defineProperty(exports, "SimpleEventList", ({ enumerable: true, get: function () { return SimpleEventList_1.SimpleEventList; } }));
 
 
-/***/ }),
+/***/ },
 
-/***/ 6580:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 6580
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -4315,10 +4315,10 @@ class PromiseDispatcherBase extends __1.DispatcherBase {
 exports.PromiseDispatcherBase = PromiseDispatcherBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 6833:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 6833
+(module, exports, __webpack_require__) {
 
 /* module decorator */ module = __webpack_require__.nmd(module);
 var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of Richard Brent's Xorgens xor4096 algorithm.
@@ -4470,10 +4470,10 @@ if (module && module.exports) {
 );
 
 
-/***/ }),
+/***/ },
 
-/***/ 7180:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 7180
+(module, exports, __webpack_require__) {
 
 /* module decorator */ module = __webpack_require__.nmd(module);
 var __WEBPACK_AMD_DEFINE_RESULT__;// A port of an algorithm by Johannes Baagøe <baagoe@baagoe.com>, 2010
@@ -4593,10 +4593,10 @@ if (module && module.exports) {
 
 
 
-/***/ }),
+/***/ },
 
-/***/ 7376:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 7376
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -4640,10 +4640,10 @@ class NonUniformSimpleEventList {
 exports.NonUniformSimpleEventList = NonUniformSimpleEventList;
 
 
-/***/ }),
+/***/ },
 
-/***/ 7391:
-/***/ ((module, __unused_webpack_exports, __webpack_require__) => {
+/***/ 7391
+(module, __unused_webpack_exports, __webpack_require__) {
 
 // A library of seedable RNGs implemented in Javascript.
 //
@@ -4707,10 +4707,10 @@ sr.tychei = tychei;
 module.exports = sr;
 
 
-/***/ }),
+/***/ },
 
-/***/ 7569:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 7569
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -4835,10 +4835,10 @@ class DispatcherWrapper {
 exports.DispatcherWrapper = DispatcherWrapper;
 
 
-/***/ }),
+/***/ },
 
-/***/ 7672:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 7672
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -4887,10 +4887,10 @@ class EventListBase {
 exports.EventListBase = EventListBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 7744:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 7744
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -4950,10 +4950,10 @@ class PromiseSubscription {
 exports.PromiseSubscription = PromiseSubscription;
 
 
-/***/ }),
+/***/ },
 
-/***/ 7852:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 7852
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -4989,10 +4989,10 @@ const SubscriptionChangeEventHandler_1 = __webpack_require__(3324);
 Object.defineProperty(exports, "SubscriptionChangeEventDispatcher", ({ enumerable: true, get: function () { return SubscriptionChangeEventHandler_1.SubscriptionChangeEventDispatcher; } }));
 
 
-/***/ }),
+/***/ },
 
-/***/ 7936:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 7936
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -5022,10 +5022,10 @@ class SignalHandlingBase extends ste_core_1.HandlingBase {
 exports.SignalHandlingBase = SignalHandlingBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 8080:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 8080
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -5076,10 +5076,10 @@ class Subscription {
 exports.Subscription = Subscription;
 
 
-/***/ }),
+/***/ },
 
-/***/ 8441:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 8441
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -5326,10 +5326,10 @@ class DispatcherBase {
 exports.DispatcherBase = DispatcherBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 8589:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 8589
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -5356,10 +5356,10 @@ class DispatchError extends Error {
 exports.DispatchError = DispatchError;
 
 
-/***/ }),
+/***/ },
 
-/***/ 8648:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 8648
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -5378,10 +5378,10 @@ class PromiseSimpleEventHandlingBase extends ste_core_1.HandlingBase {
 exports.PromiseSimpleEventHandlingBase = PromiseSimpleEventHandlingBase;
 
 
-/***/ }),
+/***/ },
 
-/***/ 8661:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 8661
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -5506,10 +5506,10 @@ class DispatcherWrapper {
 exports.DispatcherWrapper = DispatcherWrapper;
 
 
-/***/ }),
+/***/ },
 
-/***/ 8859:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 8859
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -5560,10 +5560,10 @@ class Subscription {
 exports.Subscription = Subscription;
 
 
-/***/ }),
+/***/ },
 
-/***/ 8901:
-/***/ ((__unused_webpack_module, exports) => {
+/***/ 8901
+(__unused_webpack_module, exports) {
 
 "use strict";
 
@@ -5688,10 +5688,10 @@ class DispatcherWrapper {
 exports.DispatcherWrapper = DispatcherWrapper;
 
 
-/***/ }),
+/***/ },
 
-/***/ 9067:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ 9067
+(module, exports, __webpack_require__) {
 
 /* module decorator */ module = __webpack_require__.nmd(module);
 var __WEBPACK_AMD_DEFINE_RESULT__;// A Javascript implementaion of the "xorshift7" algorithm by
@@ -5794,10 +5794,10 @@ if (module && module.exports) {
 
 
 
-/***/ }),
+/***/ },
 
-/***/ 9184:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 9184
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -5833,10 +5833,10 @@ const SubscriptionChangeEventHandler_1 = __webpack_require__(3512);
 Object.defineProperty(exports, "SubscriptionChangeEventDispatcher", ({ enumerable: true, get: function () { return SubscriptionChangeEventHandler_1.SubscriptionChangeEventDispatcher; } }));
 
 
-/***/ }),
+/***/ },
 
-/***/ 9244:
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ 9244
+(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 
@@ -10287,10 +10287,10 @@ tippy.setDefaultProps({
 //# sourceMappingURL=tippy.esm.js.map
 
 
-/***/ }),
+/***/ },
 
-/***/ 9606:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 9606
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -10356,10 +10356,10 @@ class SimpleEventDispatcher extends ste_core_1.DispatcherBase {
 exports.SimpleEventDispatcher = SimpleEventDispatcher;
 
 
-/***/ }),
+/***/ },
 
-/***/ 9737:
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
+/***/ 9737
+(__unused_webpack_module, exports, __webpack_require__) {
 
 "use strict";
 
@@ -10606,7 +10606,7 @@ class DispatcherBase {
 exports.DispatcherBase = DispatcherBase;
 
 
-/***/ })
+/***/ }
 
 /******/ 	});
 /************************************************************************/
@@ -12218,6 +12218,7 @@ class App extends engrid_ENGrid {
         new ShowHideRadioCheckboxes("transaction.giveBySelect", "giveBySelect-");
         new ShowHideRadioCheckboxes("transaction.inmem", "inmem-");
         new ShowHideRadioCheckboxes("transaction.recurrpay", "recurrpay-");
+        new ShowHideRadioCheckboxes("transaction.shipenabled", "shipenabled-");
         // Automatically show/hide all radios
         let radioFields = [];
         const allRadios = document.querySelectorAll("input[type=radio]");
@@ -16634,6 +16635,7 @@ class RememberMe {
         }
     }
     setFieldValue(field, value, overwrite = false) {
+        value = decodeURIComponent(value || "");
         if (field && value !== undefined) {
             if ((field.value && overwrite) || !field.value) {
                 field.value = value;
@@ -17192,12 +17194,22 @@ class Ticker {
 // are replayed after a successful gift process load.
 // Sensitive payment/bank fields are excluded; selected PII fields are Base64 “hashed” (btoa — not cryptographic).
 // Replace with a real hash (e.g., SHA‑256) if required.
+var data_layer_awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
 
 class DataLayer {
     constructor() {
         this.logger = new logger_EngridLogger("DataLayer", "#f1e5bc", "#009cdc", "📊");
         this.dataLayer = window.dataLayer || [];
         this._form = en_form_EnForm.getInstance();
+        this.encoder = new TextEncoder();
         this.endOfGiftProcessStorageKey = "ENGRID_END_OF_GIFT_PROCESS_EVENTS";
         this.excludedFields = [
             // Credit Card
@@ -17229,6 +17241,16 @@ class DataLayer {
             "supporter.billingAddress1",
             "supporter.billingAddress2",
             "supporter.billingAddress3",
+        ];
+        this.retainedEmailField = "supporter.emailAddress";
+        this.retainedAddressFields = [
+            "supporter.address1",
+            "supporter.address2",
+            "supporter.address3",
+        ];
+        this.retainedPhoneFields = [
+            "supporter.phoneNumber2",
+            "supporter.phoneNumber",
         ];
         if (engrid_ENGrid.getOption("RememberMe")) {
             RememberMeEvents.getInstance().onLoad.subscribe((hasData) => {
@@ -17287,6 +17309,7 @@ class DataLayer {
             dataLayerData[`EN_URLPARAM_${key.toUpperCase()}`] =
                 this.transformJSON(value);
         });
+        this.addRetainedHashesToDataLayer(dataLayerData);
         if (engrid_ENGrid.getPageType() === "DONATION") {
             const recurrFreqEls = document.querySelectorAll('[name="transaction.recurrfreq"]');
             const recurrValues = [...recurrFreqEls].map((el) => el.value);
@@ -17298,6 +17321,18 @@ class DataLayer {
             this.dataLayer.push(dataLayerData);
         }
         this.attachEventListeners();
+    }
+    addRetainedHashesToDataLayer(dataLayerData) {
+        if (typeof window === "undefined" || !window.localStorage) {
+            return;
+        }
+        ["EMAIL", "ADDRESS", "PHONE"].forEach((suffix) => {
+            const storageKey = `EN_HASH_${suffix}`;
+            const storedValue = window.localStorage.getItem(storageKey);
+            if (storedValue) {
+                dataLayerData[storageKey] = storedValue;
+            }
+        });
     }
     onSubmit() {
         const optIn = document.querySelector(".en__field__item:not(.en__field--question) input[name^='supporter.questions'][type='checkbox']:checked");
@@ -17336,44 +17371,117 @@ class DataLayer {
     }
     handleFieldValueChange(el) {
         var _a, _b, _c;
-        if (el.value === "" || this.excludedFields.includes(el.name))
-            return;
-        const value = this.hashedFields.includes(el.name)
-            ? this.hash(el.value)
-            : el.value;
-        if (["checkbox", "radio"].includes(el.type)) {
-            if (el.checked) {
-                if (el.name === "en__pg") {
-                    //Premium gift handling
-                    this.dataLayer.push({
-                        event: "EN_FORM_VALUE_UPDATED",
-                        enFieldName: el.name,
-                        enFieldLabel: "Premium Gift",
-                        enFieldValue: (_b = (_a = el
-                            .closest(".en__pg__body")) === null || _a === void 0 ? void 0 : _a.querySelector(".en__pg__name")) === null || _b === void 0 ? void 0 : _b.textContent,
-                        enProductId: (_c = document.querySelector('[name="transaction.selprodvariantid"]')) === null || _c === void 0 ? void 0 : _c.value,
-                    });
+        return data_layer_awaiter(this, void 0, void 0, function* () {
+            if (el.value === "" || this.excludedFields.includes(el.name))
+                return;
+            const value = this.hashedFields.includes(el.name)
+                ? this.hash(el.value)
+                : el.value;
+            if (["checkbox", "radio"].includes(el.type)) {
+                if (el.checked) {
+                    if (el.name === "en__pg") {
+                        //Premium gift handling
+                        this.dataLayer.push({
+                            event: "EN_FORM_VALUE_UPDATED",
+                            enFieldName: el.name,
+                            enFieldLabel: "Premium Gift",
+                            enFieldValue: (_b = (_a = el
+                                .closest(".en__pg__body")) === null || _a === void 0 ? void 0 : _a.querySelector(".en__pg__name")) === null || _b === void 0 ? void 0 : _b.textContent,
+                            enProductId: (_c = document.querySelector('[name="transaction.selprodvariantid"]')) === null || _c === void 0 ? void 0 : _c.value,
+                        });
+                    }
+                    else {
+                        this.dataLayer.push({
+                            event: "EN_FORM_VALUE_UPDATED",
+                            enFieldName: el.name,
+                            enFieldLabel: this.getFieldLabel(el),
+                            enFieldValue: value,
+                        });
+                    }
                 }
-                else {
-                    this.dataLayer.push({
-                        event: "EN_FORM_VALUE_UPDATED",
-                        enFieldName: el.name,
-                        enFieldLabel: this.getFieldLabel(el),
-                        enFieldValue: value,
-                    });
-                }
+                return;
             }
-            return;
-        }
-        this.dataLayer.push({
-            event: "EN_FORM_VALUE_UPDATED",
-            enFieldName: el.name,
-            enFieldLabel: this.getFieldLabel(el),
-            enFieldValue: value,
+            if (el.name === this.retainedEmailField) {
+                const retainedEmailValue = this.geRetainedFieldsValue("email");
+                const sha256value = yield this.shaHash(retainedEmailValue);
+                localStorage.setItem(`EN_HASH_EMAIL`, sha256value);
+                this.dataLayer.push({
+                    event: "EN_HASH_VALUE_UPDATED",
+                    enFieldName: "email",
+                    enFieldLabel: this.getFieldLabel(el),
+                    enFieldValue: sha256value,
+                });
+                return;
+            }
+            else if (this.retainedAddressFields.includes(el.name)) {
+                const retainedAddressValue = this.geRetainedFieldsValue("address");
+                const sha256value = yield this.shaHash(retainedAddressValue);
+                localStorage.setItem(`EN_HASH_ADDRESS`, sha256value);
+                this.dataLayer.push({
+                    event: "EN_HASH_VALUE_UPDATED",
+                    enFieldName: "address",
+                    enFieldLabel: "Supporter Address",
+                    enFieldValue: sha256value,
+                });
+            }
+            else if (this.retainedPhoneFields.includes(el.name)) {
+                const retainedPhoneValue = this.geRetainedFieldsValue("phone");
+                const sha256value = yield this.shaHash(retainedPhoneValue);
+                localStorage.setItem(`EN_HASH_PHONE`, sha256value);
+                this.dataLayer.push({
+                    event: "EN_HASH_VALUE_UPDATED",
+                    enFieldName: "phone",
+                    enFieldLabel: "Supporter Phone",
+                    enFieldValue: sha256value,
+                });
+            }
+            this.dataLayer.push({
+                event: "EN_FORM_VALUE_UPDATED",
+                enFieldName: el.name,
+                enFieldLabel: this.getFieldLabel(el),
+                enFieldValue: value,
+            });
         });
+    }
+    geRetainedFieldsValue(kind) {
+        switch (kind) {
+            case "email":
+                return engrid_ENGrid.getFieldValue(this.retainedEmailField);
+            case "address":
+                return this.retainedAddressFields
+                    .map((field) => engrid_ENGrid.getFieldValue(field))
+                    .filter((value) => value !== "")
+                    .join("")
+                    .toLocaleLowerCase()
+                    .replace(/\s+/g, "");
+            case "phone":
+                // Only return the first phone number found - prioritize phoneNumber2 over phoneNumber and remove non-numeric characters
+                for (const field of this.retainedPhoneFields) {
+                    const value = engrid_ENGrid.getFieldValue(field);
+                    if (value !== "") {
+                        return value.replace(/\D/g, "");
+                    }
+                }
+                return "";
+            default:
+                return "";
+        }
     }
     hash(value) {
         return btoa(value);
+    }
+    // TODO: Replace the hash function with this secure SHA-256 implementation later
+    shaHash(value) {
+        return data_layer_awaiter(this, void 0, void 0, function* () {
+            const data = this.encoder.encode(value);
+            const hashBuffer = yield crypto.subtle.digest("SHA-256", data);
+            return Array.from(new Uint8Array(hashBuffer))
+                .map((byte) => {
+                const hex = byte.toString(16);
+                return hex.length === 1 ? "0" + hex : hex;
+            })
+                .join("");
+        });
     }
     getFieldLabel(el) {
         var _a, _b;
@@ -22453,6 +22561,7 @@ const EmbeddedEcardOptionsDefaults = {
     checkboxText: "Yes, I would like to send an ecard to announce my gift.",
     anchor: ".en__field--donationAmt",
     placement: "afterend",
+    requireInMemCheckbox: false,
 };
 
 ;// ./node_modules/@4site/engrid-scripts/dist/embedded-ecard.js
@@ -22552,8 +22661,20 @@ class EmbeddedEcard {
         return iframe;
     }
     addEventListeners() {
+        var _a;
         const sendEcardCheckbox = document.getElementById("en__field_embedded-ecard");
-        this.toggleEcardForm(sendEcardCheckbox.checked);
+        if (this.options.requireInMemCheckbox) {
+            const inMemoriamCheckbox = document.getElementById("en__field_transaction_inmem");
+            inMemoriamCheckbox === null || inMemoriamCheckbox === void 0 ? void 0 : inMemoriamCheckbox.addEventListener("change", (e) => {
+                const checkbox = e.target;
+                const _sendEcardCheckbox = document.getElementById("en__field_embedded-ecard");
+                this.toggleEcardForm(checkbox.checked && _sendEcardCheckbox.checked);
+            });
+            this.toggleEcardForm(((_a = inMemoriamCheckbox === null || inMemoriamCheckbox === void 0 ? void 0 : inMemoriamCheckbox.checked) !== null && _a !== void 0 ? _a : true) && sendEcardCheckbox.checked);
+        }
+        else {
+            this.toggleEcardForm(sendEcardCheckbox.checked);
+        }
         sendEcardCheckbox === null || sendEcardCheckbox === void 0 ? void 0 : sendEcardCheckbox.addEventListener("change", (e) => {
             const checkbox = e.target;
             this.toggleEcardForm(checkbox.checked);
@@ -23747,7 +23868,7 @@ class PreferredPaymentMethod {
 }
 
 ;// ./node_modules/@4site/engrid-scripts/dist/version.js
-const AppVersion = "0.23.2";
+const AppVersion = "0.23.7";
 
 ;// ./node_modules/@4site/engrid-scripts/dist/index.js
  // Runs first so it can change the DOM markup before any markup dependent code fires
